@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { HomePage, loadHomeMeta } from '@/_pages/home';
 import { Masthead } from '@/widgets/masthead-and-nav';
 import { SiteFooter } from '@/widgets/site-footer';
-import { ClassifiedsCard } from '@/widgets/classifieds-card';
-import { Reveal } from '@/shared/ui';
+
+const meta = await loadHomeMeta();
 ---
-<BaseLayout title="Wisdom Emmanuel Praise" description="Senior Frontend Engineer, Frontend Platform and Architecture." canonicalPath="/">
+<BaseLayout title={meta.title} description={meta.description} canonicalPath="/">
   <Masthead slot="header" current="front" variant="front" />
-  <div class="page"><Reveal as="section"><ClassifiedsCard /></Reveal></div>
+  <HomePage />
   <SiteFooter slot="footer" />
 </BaseLayout>

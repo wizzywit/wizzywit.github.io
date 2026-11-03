@@ -1,0 +1,217 @@
+---
+import { Reveal } from '@/shared/ui';
+import { ClassifiedsCard } from '@/widgets/classifieds-card';
+import { loadHomeViewModel } from '../use-cases/homeViewModel';
+
+const vm = await loadHomeViewModel();
+const layers = [
+  { name: 'View', tone: 'ink' },
+  { name: 'Use case', tone: 'soft' },
+  { name: 'Repository', tone: 'muted' },
+  { name: 'Service', tone: 'faint' },
+  { name: 'Adapter', tone: 'accent' },
+];
+const rel = (external: boolean) => (external ? 'noopener' : undefined);
+---
+<div class="page home">
+  <section aria-labelledby="lead-h" class="lead">
+    <Reveal as="article" class="lead-main">
+      <span class="kicker">{vm.lead.kicker}</span>
+      <h2 id="lead-h" class="lead-headline">{vm.lead.headline}</h2>
+      <p class="deck">{vm.lead.deck}</p>
+      <div class="cols">
+        <p><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
+        <p>{vm.lead.paragraphs[1]}</p>
+        <p>{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
+      </div>
+      <figure class="layers">
+        <div class="bars" role="img" aria-label="Diagram: the five layers, view, use case, repository, service and adapter, each one calling only the layer beneath it">
+          {layers.map((layer, index) => (
+            <div class="bar-row"><span>{layer.name}</span><span class={`bar bar--${layer.tone}`} style={`--i: ${index}`}></span></div>
+          ))}
+        </div>
+        <figcaption>Fig. 1 — Each layer only talks to the one beneath it. The adapter is the only layer that knows the outside world exists.</figcaption>
+      </figure>
+    </Reveal>
+
+    <aside aria-label="In brief and contact" class="lead-side">
+      <Reveal order={1}>
+        <h2 class="side-h">In brief</h2>
+        <dl class="brief">
+          {vm.inBrief.map((item) => (
+            <div><dt>{item.figure}</dt><dd>{item.text}</dd></div>
+          ))}
+        </dl>
+      </Reveal>
+      <Reveal order={2}><ClassifiedsCard /></Reveal>
+    </aside>
+  </section>
+
+  <Reveal as="section" class="block">
+    <div class="block-head">
+      <h2 id="work-h">Selected work</h2>
+      <a href="/work/">All work →</a>
+    </div>
+    <div class="feat" aria-labelledby="work-h" role="group">
+      {vm.featured.map((item, index) => (
+        <article class={index === 0 ? 'feat-main' : 'feat-side'}>
+          {item.slug === 'odudu' ? (
+            <div class="art art--tall" role="img" aria-label="Illustration: two tenant-branded sign-in pages, one light and one dark">
+              <div class="signin signin--light"><span>Sign in</span><i></i><i></i><b></b></div>
+              <div class="signin signin--dark"><span>Sign in</span><i></i><i></i><b></b></div>
+            </div>
+          ) : null}
+          <span class="kicker">{item.kicker}</span>
+          <h3 class={index === 0 ? 'feat-title feat-title--lead' : 'feat-title'}>
+            {item.href ? <a href={item.href} rel={rel(item.external)}>{item.headline}</a> : item.headline}
+          </h3>
+          <p>{item.blurb}</p>
+          {item.slug === 'wired' ? (
+            <div class="art art--short" role="img" aria-label="Illustration: one shape and two named cursors">
+              <span class="shape"></span><span class="cursor cursor--you">you</span><span class="cursor cursor--wisdom">Wisdom</span>
+            </div>
+          ) : null}
+        </article>
+      ))}
+    </div>
+    <div class="more">
+      {vm.more.map((card) => (
+        <div class="more-card">
+          <span class="kicker">{card.kicker}</span>
+          <strong>{card.href ? <a href={card.href} rel={rel(card.external)}>{card.title}</a> : card.title}</strong>
+          <span>{card.blurb}</span>
+        </div>
+      ))}
+    </div>
+  </Reveal>
+
+  {vm.decisions.length > 0 ? (
+    <Reveal as="section" class="block" aria-labelledby="dec-h">
+      <div class="block-head">
+        <h2 id="dec-h">From the decision log</h2>
+        <a href="/decisions/">All decisions →</a>
+      </div>
+      <div class="three">
+        {vm.decisions.map((decision) => (
+          <article>
+            <span class="meta">ADR · Accepted</span>
+            <h3><a href={decision.href}>{decision.title}</a></h3>
+            <p>{decision.why}</p>
+          </article>
+        ))}
+      </div>
+    </Reveal>
+  ) : null}
+
+  <Reveal as="section" class="profile" aria-labelledby="prof-h">
+    <div>
+      <h2 id="prof-h">Profile</h2>
+      <p>{vm.profile.paragraph}</p>
+      <a class="strong" href="/profile/">Full profile and CV →</a>
+    </div>
+    <div class="principles">
+      <h3>How I work</h3>
+      <ul>{vm.profile.principles.map((line) => <li>{line}</li>)}</ul>
+    </div>
+  </Reveal>
+</div>
+
+<style>
+  .home { padding-bottom: 8px; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .strong { font-weight: 700; }
+
+  .lead { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); padding: 32px 0 40px; border-bottom: 3px double var(--rule); }
+  .lead-main { padding: 0 32px 24px 0; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 16px; }
+  .lead-headline { margin: 0; font: 400 clamp(36px, 4.6vw, 64px) / 1.02 var(--font-display); }
+  .deck { margin: 0; font-size: 21px; line-height: 1.45; font-style: italic; color: var(--soft); }
+  .cols { column-count: 2; column-gap: 28px; font-size: 17px; line-height: 1.65; }
+  .cols p { margin: 0 0 12px; break-inside: avoid-column; }
+  .dropcap { float: left; font: 400 68px / 0.82 var(--font-display); padding: 6px 8px 0 0; }
+  .lead-side { padding-left: 32px; display: flex; flex-direction: column; gap: 24px; }
+  .side-h { margin: 0 0 8px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brief { margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid var(--rule); }
+  .brief div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
+  .brief dt { font: 400 30px / 1 var(--font-display); }
+  .brief dd { margin: 0; font-size: 15px; line-height: 1.4; }
+
+  .layers { margin: 8px 0 0; border-top: 1px solid var(--rule); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .bars { display: flex; flex-direction: column; gap: 6px; font: 600 14px var(--font-ui); }
+  .bar-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: center; gap: 12px; }
+  .bar { height: 18px; transform-origin: left; }
+  .bar--ink { background: var(--ink); }
+  .bar--soft { background: var(--soft); }
+  .bar--muted { background: var(--muted); }
+  .bar--faint { background: color-mix(in srgb, var(--muted) 65%, var(--paper)); }
+  .bar--accent { background: var(--accent); }
+  .layers figcaption { font: 400 13px var(--font-ui); color: var(--muted); }
+  @keyframes bar-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .bar { animation: bar-grow ease-out both; animation-timeline: view(); animation-range: entry calc(var(--i) * 6%) entry calc(45% + var(--i) * 6%); }
+    }
+  }
+
+  .block { padding: 28px 0 40px; border-bottom: 3px double var(--rule); }
+  .block-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule); padding-bottom: 8px; margin-bottom: 20px; }
+  .block-head h2 { margin: 0; font: 800 15px var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; }
+  .block-head a { font: 600 15px var(--font-ui); padding: 10px 0; }
+
+  .feat { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+  .feat article { display: flex; flex-direction: column; gap: 12px; }
+  .feat-side { border-left: 1px solid var(--rule); padding-left: 28px; }
+  .feat-title { margin: 0; font: 400 30px / 1.08 var(--font-display); }
+  .feat-title--lead { font-size: 38px; line-height: 1.05; }
+  .feat-title a { text-decoration: none; }
+  .feat p { margin: 0; font-size: 16px; line-height: 1.55; }
+  .art { background-color: var(--panel); background-image: radial-gradient(color-mix(in srgb, var(--muted) 60%, transparent) 1px, transparent 1.3px); background-size: 6px 6px; position: relative; }
+  .art--tall { height: 300px; display: flex; align-items: center; justify-content: center; gap: 18px; }
+  .art--short { height: 150px; }
+  .signin { width: 170px; padding: 16px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--rule); font: 700 12px var(--font-ui); }
+  .signin i { height: 20px; border: 1px solid var(--muted); }
+  .signin b { height: 22px; }
+  .signin--light { background: #F3F0E8; color: #151412; }
+  .signin--light b { background: #151412; }
+  .signin--dark { background: #151412; color: #F3F0E8; }
+  .signin--dark b { background: #F0857C; }
+  .shape { position: absolute; left: 30%; top: 30%; width: 90px; height: 56px; background: var(--paper); border: 2px solid var(--ink); }
+  .cursor { position: absolute; padding: 2px 6px; font: 700 11px var(--font-ui); color: #FFFFFF; }
+  .cursor--you { left: 62%; top: 66%; background: #A3171C; }
+  .cursor--wisdom { left: 20%; top: 18%; background: #151412; }
+
+  .more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--rule); }
+  .more-card { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-left: 1px solid var(--rule); }
+  .more-card:first-child { padding-left: 0; border-left: 0; }
+  .more-card .kicker { font-size: 12px; }
+  .more-card strong { font: 400 22px / 1.15 var(--font-display); }
+  .more-card strong a { text-decoration: none; }
+  .more-card span:last-child { font-size: 15px; line-height: 1.45; }
+
+  .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .three article { display: flex; flex-direction: column; gap: 10px; }
+  .three article + article { border-left: 1px solid var(--rule); padding-left: 28px; }
+  .meta { font: 600 13px var(--font-ui); color: var(--muted); }
+  .three h3 { margin: 0; font: 400 26px / 1.12 var(--font-display); }
+  .three h3 a { text-decoration: none; }
+  .three p { margin: 0; font-size: 16px; line-height: 1.55; }
+
+  .profile { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; padding: 32px 0 48px; align-items: start; }
+  .profile h2 { margin: 0 0 12px; font: 400 40px / 1.05 var(--font-display); }
+  .profile p { margin: 0 0 12px; font-size: 18px; line-height: 1.6; }
+  .profile a { display: inline-block; padding: 10px 0; font: 700 15px var(--font-ui); }
+  .principles { border-left: 1px solid var(--rule); padding-left: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .principles h3 { margin: 0; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .principles ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.5; }
+
+  @media (max-width: 900px) {
+    .lead, .feat, .three, .profile { grid-template-columns: minmax(0, 1fr); }
+    .lead-main { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .lead-side { padding-left: 0; padding-top: 24px; }
+    .cols { column-count: 1; }
+    .feat-side, .principles, .three article + article { border-left: 0; padding-left: 0; }
+    .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .more-card:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .art--tall { height: 220px; gap: 10px; }
+    .signin { width: 42%; padding: 10px; }
+  }
+</style>
