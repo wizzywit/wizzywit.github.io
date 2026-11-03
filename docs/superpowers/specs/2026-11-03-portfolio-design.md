@@ -127,3 +127,11 @@ React + TypeScript strict; Vitest for services and adapter mapping; React Testin
 ## Left to the builder
 
 Exact Steiger/boundaries configuration for `_pages`, font subsetting, share-image generation, mobile-menu pattern, JSON-LD field details, and the Wired/other case-study decisions beyond Odudu.
+
+## Changes made during the build (supersede the text above where they differ)
+
+- The finished page designs, not the earlier concept board, are the visual reference: there is no news ticker, blackletter masthead or AVAILABLE stamp, and no pause control is needed because every animation plays once.
+- JavaScript budget: 85 KB gzipped per page (React islands cost about 66 KB on their own). LCP gate: 2.5 s. See `docs/adr/0001-deliberate-departures.md`.
+- The mobile menu is a native `<details>` disclosure instead of a React dialog, because hydrating the dialog shifted the layout.
+- No contact form and no portrait; the PDF button waits for `public/cv.pdf`.
+- Case studies and decisions are structured content (`content/case-studies/*.yaml`, `content/decisions/*.yaml`) with per-entry or per-section `draft` flags.
