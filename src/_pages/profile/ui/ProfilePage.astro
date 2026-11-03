@@ -1,11 +1,17 @@
 ---
-import { Reveal } from '@/shared/ui';
+import { AssetImage, Reveal } from '@/shared/ui';
 import { loadProfileViewModel } from '../use-cases/profileViewModel';
 
 const vm = await loadProfileViewModel();
 ---
 <div class="page profile">
-  <Reveal as="section" class="top" variant="now">
+  <Reveal as="section" class={vm.portrait ? 'top top--portrait' : 'top'} variant="now">
+    {vm.portrait ? (
+      <figure class="portrait">
+        <AssetImage name={vm.portrait.name} alt={vm.portrait.alt} widths={[320, 640]} sizes="(max-width: 900px) 240px, 280px" loading="eager" />
+      </figure>
+    ) : null}
+    <div class="top-text">
     <span class="kicker">Profile</span>
     <h1>{vm.heading}</h1>
     {vm.intro.map((paragraph) => <p class="lede">{paragraph}</p>)}
@@ -16,6 +22,7 @@ const vm = await loadProfileViewModel();
     <div class="actions">
       {vm.cvHref ? <a class="secondary" href={vm.cvHref}>Download CV (PDF)</a> : null}
       <a class="primary" href="/contact/">Write to me</a>
+    </div>
     </div>
   </Reveal>
 
@@ -55,6 +62,10 @@ const vm = await loadProfileViewModel();
 <style>
   .profile { padding-block: 36px 56px; }
   .top { padding-bottom: 32px; border-bottom: 3px double var(--rule); max-width: 900px; }
+  .top--portrait { max-width: none; display: grid; grid-template-columns: 280px minmax(0, 900px); gap: 48px; align-items: start; }
+  .portrait { margin: 0; }
+  .portrait :global(img) { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border: 1px solid var(--rule); filter: grayscale(1) contrast(1.05); transition: filter 0.6s ease; }
+  .portrait:hover :global(img) { filter: none; }
   .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
   h1 { margin: 8px 0 16px; font: 400 clamp(36px, 5vw, 64px) / 1.05 var(--font-display); }
   .lede { margin: 0 0 12px; font-size: 20px; line-height: 1.55; }
@@ -83,6 +94,8 @@ const vm = await loadProfileViewModel();
   .skills h3 { margin: 0 0 4px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
   .skills p { margin: 0; font-size: 16px; line-height: 1.55; }
   @media (max-width: 900px) {
+    .top--portrait { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .portrait { max-width: 240px; }
     .job, .skills { grid-template-columns: minmax(0, 1fr); gap: 8px; }
     .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   }

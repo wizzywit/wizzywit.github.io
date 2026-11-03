@@ -1,5 +1,5 @@
 import { formatDecisionStatus, getDecisions, type Decision } from '@/entities/decision';
-import { buildPersonJsonLd, buildWebSiteJsonLd, getProfile } from '@/entities/profile';
+import { buildPersonJsonLd, buildWebSiteJsonLd, getPortrait, getProfile, type Portrait } from '@/entities/profile';
 import { describeProjectLink, getProjects, type Project } from '@/entities/project';
 import { SITE_NAME, SITE_URL } from '@/shared/config';
 
@@ -12,7 +12,7 @@ export type HomeViewModel = {
   featured: HomeFeatured[];
   more: HomeCard[];
   decisions: { title: string; why: string; status: string; href: string }[];
-  profile: { paragraph: string; principles: string[] };
+  profile: { paragraph: string; principles: string[]; portrait: Portrait | null };
 };
 
 // Editorial headlines for the three featured entries; everything else comes from project data.
@@ -37,7 +37,7 @@ const FEATURED_ORDER = ['odudu', 'wired', 'websuckit'];
 const MORE_ORDER = ['phishing-extension', 'vreg', 'idec', 'outsource-global-website'];
 const FEATURED_DECISIONS = ['one-runtime', 'accessibility-in-dod', 'agent-permissions'];
 
-export function buildHomeViewModel(projects: Project[], decisions: Decision[]): HomeViewModel {
+export function buildHomeViewModel(projects: Project[], decisions: Decision[], portrait: Portrait | null = null): HomeViewModel {
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
   const decisionBySlug = new Map(decisions.map((d) => [d.slug, d]));
   const fiveLayers = decisionBySlug.get('five-layers');
@@ -85,12 +85,13 @@ export function buildHomeViewModel(projects: Project[], decisions: Decision[]): 
         'Accessibility is part of the Definition of Done, not a later phase.',
         'Each layer of a feature can be tested on its own.',
       ],
+      portrait,
     },
   };
 }
 
 export async function loadHomeViewModel(): Promise<HomeViewModel> {
-  return buildHomeViewModel(await getProjects(), await getDecisions());
+  return buildHomeViewModel(await getProjects(), await getDecisions(), await getPortrait());
 }
 
 export async function loadHomeMeta(): Promise<{ title: string; description: string; jsonLd: object[] }> {

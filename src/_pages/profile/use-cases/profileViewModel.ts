@@ -1,4 +1,4 @@
-import { buildPersonJsonLd, buildProfilePageJsonLd, getProfile, hasCvPdf, type Profile, type ProfileExperience } from '@/entities/profile';
+import { buildPersonJsonLd, buildProfilePageJsonLd, getPortrait, getProfile, hasCvPdf, type Portrait, type Profile, type ProfileExperience } from '@/entities/profile';
 import { SITE_URL } from '@/shared/config';
 
 export type ProfileViewModel = {
@@ -10,9 +10,10 @@ export type ProfileViewModel = {
   skills: Profile['skills'];
   education: Profile['education'];
   workAuthorization: string;
+  portrait: Portrait | null;
 };
 
-export function buildProfileViewModel(profile: Profile, cvAvailable: boolean): ProfileViewModel {
+export function buildProfileViewModel(profile: Profile, cvAvailable: boolean, portrait: Portrait | null = null): ProfileViewModel {
   return {
     heading: profile.role,
     intro: [
@@ -29,11 +30,12 @@ export function buildProfileViewModel(profile: Profile, cvAvailable: boolean): P
     skills: profile.skills,
     education: profile.education,
     workAuthorization: profile.workAuthorization,
+    portrait,
   };
 }
 
 export async function loadProfileViewModel(): Promise<ProfileViewModel> {
-  return buildProfileViewModel(await getProfile(), await hasCvPdf());
+  return buildProfileViewModel(await getProfile(), await hasCvPdf(), await getPortrait());
 }
 
 export async function profileMeta(): Promise<{ title: string; description: string; jsonLd: object[] }> {

@@ -32,6 +32,18 @@ test.describe('profile', () => {
     }
   });
 
+  test('shows the portrait only once a photo has been added', async ({ page }) => {
+    const hasPhoto = ['jpg', 'jpeg', 'png', 'webp'].some((ext) => existsSync(`src/assets/portrait.${ext}`));
+    const portrait = page.locator('figure.portrait img');
+    if (hasPhoto) {
+      await expect(portrait).toBeVisible();
+      await expect(portrait).toHaveAttribute('alt', /Portrait of Wisdom Emmanuel Praise/);
+      await expect.poll(() => portrait.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+    } else {
+      await expect(portrait).toHaveCount(0);
+    }
+  });
+
   test('never shows placeholders or dead links', async ({ page }) => {
     expect(await page.locator('body').innerText()).not.toMatch(/\[[^\]]+\]/);
     await expect(page.locator('a[href="#"]')).toHaveCount(0);

@@ -21,8 +21,8 @@ These two are marked `[Owner: …]`.
 
 ## Other things only the owner can provide
 
-- `public/cv.pdf`: a CV without a phone number. Until it exists, every "Download CV" button is hidden; the full CV is already on `/profile/` as text.
-- A portrait (optional). The design had a placeholder; none is shown.
+- `public/cv.pdf` is in place. It is the résumé as supplied, **including the phone number**, published at the owner's explicit instruction. The "Download CV" buttons appear automatically; the full CV is also on `/profile/` as text (without the phone number).
+- **Your photo:** drop a picture at `src/assets/portrait.jpg` (or `.jpeg`, `.png`, `.webp`) and rebuild. It then appears beside the heading on `/profile/` and in the profile section of the front page, shown 4:5 and in black and white (colour on hover). A head-and-shoulders crop, at least 640 px wide, works best. Without the file, no photo and no placeholder is shown. To keep it in colour, remove the `filter: grayscale(1) contrast(1.05)` lines for `.portrait` in `ProfilePage.astro` and `HomePage.astro`.
 - Decision dates (`decidedOn`) if you want them shown.
 - The résumé reads "Teach Lead" for the FYEO role; the site uses "Tech Lead". Correct the résumé too.
 - **FYEO link is dead.** The "FYEO Domain Intelligence" link on LinkedIn (`fyeo-di.gofyeo.com`) does not resolve, so the site does not link it. Update LinkedIn, or tell me the right URL.

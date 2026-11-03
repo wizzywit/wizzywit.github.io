@@ -1,3 +1,6 @@
+/** A picture of the owner: `name` is an asset path under src/assets. */
+export type Portrait = { name: string; alt: string };
+
 export type ProfileExperience = {
   title: string;
   org: string;

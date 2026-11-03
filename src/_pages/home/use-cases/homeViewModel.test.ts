@@ -71,6 +71,12 @@ describe('buildHomeViewModel', () => {
     expect(buildHomeViewModel(projects, mixed).decisions.map((d) => d.status)).toEqual(['Accepted', 'Proposed', 'Superseded']);
   });
 
+  it('passes the portrait through, and has none by default', () => {
+    expect(vm.profile.portrait).toBeNull();
+    const portrait = { name: 'portrait.jpg', alt: 'Portrait of W' };
+    expect(buildHomeViewModel(projects, decisions, portrait).profile.portrait).toEqual(portrait);
+  });
+
   it('has no decisions section content when none are published', () => {
     expect(buildHomeViewModel(projects, []).decisions).toEqual([]);
   });

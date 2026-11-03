@@ -38,6 +38,12 @@ describe('buildProfileViewModel', () => {
     expect(buildProfileViewModel({ ...profile, yearsExperience: 9 }, false).intro.join(' ')).toContain('9+ years');
   });
 
+  it('carries the portrait when there is one and none otherwise', () => {
+    expect(buildProfileViewModel(profile, false).portrait).toBeNull();
+    const portrait = { name: 'portrait.jpg', alt: 'Portrait of W' };
+    expect(buildProfileViewModel(profile, false, portrait).portrait).toEqual(portrait);
+  });
+
   it('carries no placeholder markers', () => {
     expect(JSON.stringify(buildProfileViewModel(profile, false))).not.toMatch(/\[[A-Z][^\]]*\]/);
   });

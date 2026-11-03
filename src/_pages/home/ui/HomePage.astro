@@ -104,7 +104,12 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
     </section>
   ) : null}
 
-  <section class="profile" aria-labelledby="prof-h">
+  <section class={vm.profile.portrait ? 'profile profile--portrait' : 'profile'} aria-labelledby="prof-h">
+    {vm.profile.portrait ? (
+      <figure class="portrait" data-reveal>
+        <AssetImage name={vm.profile.portrait.name} alt={vm.profile.portrait.alt} widths={[240, 480]} sizes="220px" />
+      </figure>
+    ) : null}
     <div data-reveal>
       <h2 id="prof-h">Profile</h2>
       <p>{vm.profile.paragraph}</p>
@@ -185,6 +190,10 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
   .three p { margin: 0; font-size: 16px; line-height: 1.55; }
 
   .profile { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; padding: 32px 0 48px; align-items: start; }
+  .profile--portrait { grid-template-columns: 220px minmax(0, 1.4fr) minmax(0, 1fr); }
+  .portrait { margin: 0; }
+  .portrait :global(img) { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border: 1px solid var(--rule); filter: grayscale(1) contrast(1.05); transition: filter 0.6s ease; }
+  .portrait:hover :global(img) { filter: none; }
   .profile h2 { margin: 0 0 12px; font: 400 40px / 1.05 var(--font-display); }
   .profile p { margin: 0 0 12px; font-size: 18px; line-height: 1.6; }
   .profile a { display: inline-block; padding: 10px 0; font: 700 15px var(--font-ui); }
@@ -193,7 +202,8 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
   .principles ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.5; }
 
   @media (max-width: 900px) {
-    .lead, .feat, .three, .profile { grid-template-columns: minmax(0, 1fr); }
+    .lead, .feat, .three, .profile, .profile--portrait { grid-template-columns: minmax(0, 1fr); }
+    .portrait { max-width: 220px; }
     .lead-main { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--rule); }
     .lead-side { padding-left: 0; padding-top: 24px; }
     .cols { column-count: 1; }
