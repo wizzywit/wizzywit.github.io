@@ -1,0 +1,59 @@
+---
+import { Reveal } from '@/shared/ui';
+import { loadDecisionsViewModel } from '../use-cases/decisionsViewModel';
+
+const vm = await loadDecisionsViewModel();
+---
+<div class="page log">
+  <Reveal class="intro">
+    <div>
+      <span class="kicker">Opinion · Architecture decision records</span>
+      <h1>The decision log</h1>
+      <p class="deck">Every significant choice, written down: the context, the options, what was chosen, and what it cost.</p>
+    </div>
+    <p class="note">Work decisions are shared in a form that respects confidentiality; open-source ones link to the original record.</p>
+  </Reveal>
+
+  {vm.emptyText ? <p class="empty">{vm.emptyText}</p> : (
+    <>
+      <div class="row head" aria-hidden="true"><span>No.</span><span>Decision</span><span>Area</span><span>Status</span></div>
+      <ol>
+        {vm.rows.map((row) => (
+          <li class="row">
+            <span class="no">{row.number}</span>
+            <div class="what"><a href={row.href}>{row.title}</a><span class="why">{row.why}</span></div>
+            <span class="area sub">{row.area}</span>
+            <span class="status sub">{row.status}</span>
+          </li>
+        ))}
+      </ol>
+    </>
+  )}
+</div>
+
+<style>
+  .log { padding-block: 36px 56px; }
+  .intro { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; padding-bottom: 28px; border-bottom: 3px double var(--rule); align-items: end; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 8px 0 12px; font: 400 clamp(44px, 6vw, 84px) / 1 var(--font-display); }
+  .deck { margin: 0; font-size: 20px; line-height: 1.5; font-style: italic; color: var(--soft); }
+  .note { margin: 0; border-left: 1px solid var(--rule); padding-left: 24px; font-size: 17px; line-height: 1.55; }
+  .empty { margin: 32px 0; font-size: 19px; font-style: italic; }
+  ol { list-style: none; margin: 0; padding: 0; }
+  .row { display: grid; grid-template-columns: 90px minmax(0, 1fr) 180px 120px; gap: 20px; align-items: baseline; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .head { padding: 12px 0; font: 700 12px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .no { font: 700 15px var(--font-ui); }
+  .what { display: flex; flex-direction: column; gap: 4px; }
+  .what a { font: 400 26px / 1.15 var(--font-display); text-decoration: none; }
+  .what a:hover { text-decoration: underline; }
+  .why { font-size: 16px; line-height: 1.5; color: var(--soft); }
+  .area { font: 600 14px var(--font-ui); }
+  .status { font: 700 13px var(--font-ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  @media (max-width: 860px) {
+    .intro { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .note { border-left: 0; padding-left: 0; }
+    .row { grid-template-columns: 70px minmax(0, 1fr); gap: 4px 12px; }
+    .row > .sub { grid-column: 2; }
+    .head { display: none; }
+  }
+</style>

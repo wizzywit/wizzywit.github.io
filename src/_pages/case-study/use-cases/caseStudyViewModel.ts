@@ -1,4 +1,4 @@
-import { getDecisions, type Decision } from '@/entities/decision';
+import { formatDecisionStatus, getDecisions, type Decision } from '@/entities/decision';
 import { getCaseStudy, type CaseStudy } from '@/entities/project';
 
 export type CaseStudyViewModel = {
@@ -6,15 +6,13 @@ export type CaseStudyViewModel = {
   decisions: { title: string; href: string; status: string }[];
 };
 
-const statusLabel = (status: Decision['status']): string => status.charAt(0).toUpperCase() + status.slice(1);
-
 export function buildCaseStudyViewModel(study: CaseStudy, decisions: Decision[]): CaseStudyViewModel {
   const bySlug = new Map(decisions.map((decision) => [decision.slug, decision]));
   return {
     study,
     decisions: study.decisions.flatMap((slug) => {
       const decision = bySlug.get(slug);
-      return decision ? [{ title: decision.title, href: `/decisions/${decision.slug}/`, status: statusLabel(decision.status) }] : [];
+      return decision ? [{ title: decision.title, href: `/decisions/${decision.slug}/`, status: formatDecisionStatus(decision.status) }] : [];
     }),
   };
 }
