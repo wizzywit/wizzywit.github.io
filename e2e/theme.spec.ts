@@ -1,7 +1,9 @@
 import { expect, test } from '@playwright/test';
 
 test.describe('theme switch', () => {
-  test.beforeEach((_fixtures, testInfo) => {
+  // Playwright requires an object pattern as the first argument.
+  // eslint-disable-next-line no-empty-pattern
+  test.beforeEach(({}, testInfo) => {
     test.skip(testInfo.project.name !== 'default', 'needs JavaScript and motion defaults');
   });
 
