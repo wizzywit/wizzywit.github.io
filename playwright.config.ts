@@ -4,7 +4,8 @@ export default defineConfig({
   testDir: 'e2e',
   fullyParallel: true,
   reporter: [['list']],
-  use: { baseURL: 'http://localhost:4321' },
+  // GitHub's Linux runners block Chromium's sandbox; locally the sandbox stays on.
+  use: { baseURL: 'http://localhost:4321', launchOptions: { args: process.env['CI'] ? ['--no-sandbox'] : [] } },
   webServer: {
     command: 'INCLUDE_DRAFTS=1 pnpm build && node tools/serve-dist.mjs 4321',
     url: 'http://localhost:4321/',
