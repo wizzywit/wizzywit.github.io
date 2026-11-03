@@ -1,4 +1,10 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
+
+async function toggle(page: Page) {
+  const button = page.locator('.theme-toggle[data-ready="true"]').first();
+  await expect(button).toBeVisible();
+  return button;
+}
 
 test.describe('theme switch', () => {
   // Playwright requires an object pattern as the first argument.
@@ -9,7 +15,7 @@ test.describe('theme switch', () => {
 
   test('a dark choice persists across reloads', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('button', { name: 'Night edition' }).click();
+    await (await toggle(page)).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
@@ -31,7 +37,7 @@ test.describe('theme switch', () => {
       Storage.prototype.setItem = () => { throw new DOMException('blocked', 'SecurityError'); };
     });
     await page.goto('/');
-    await page.getByRole('button', { name: 'Night edition' }).click();
+    await (await toggle(page)).click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     expect(errors).toEqual([]);
   });

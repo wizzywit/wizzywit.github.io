@@ -24,6 +24,11 @@ describe('ThemeToggle', () => {
     expect(button.getAttribute('aria-pressed')).toBe('false');
   });
 
+  it('flags itself ready once it is interactive', async () => {
+    render(<ThemeToggle />);
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Night edition' }).getAttribute('data-ready')).toBe('true'));
+  });
+
   it('switches to dark, updates the document and persists the choice', async () => {
     render(<ThemeToggle />);
     await userEvent.click(screen.getByRole('button', { name: 'Night edition' }));

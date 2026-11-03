@@ -33,7 +33,12 @@ const useThemeStore = create<ThemeState>()(
   ),
 );
 
-export function useThemeRepository(): { preference: ThemePreference; theme: Theme; setPreference: (p: ThemePreference) => void } {
+export function useThemeRepository(): {
+  preference: ThemePreference;
+  theme: Theme;
+  ready: boolean;
+  setPreference: (p: ThemePreference) => void;
+} {
   const preference = useThemeStore((state) => state.preference);
   const setPreference = useThemeStore((state) => state.setPreference);
   const [hydrated, setHydrated] = useState(false);
@@ -56,5 +61,5 @@ export function useThemeRepository(): { preference: ThemePreference; theme: Them
     if (hydrated) themeEnvironmentAdapter.apply(theme);
   }, [hydrated, theme]);
 
-  return { preference, theme, setPreference };
+  return { preference, theme, ready: hydrated, setPreference };
 }
