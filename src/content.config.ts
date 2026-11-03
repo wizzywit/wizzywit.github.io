@@ -36,6 +36,22 @@ const decisions = defineCollection({
   }),
 });
 
+const caseStudies = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './content/case-studies' }),
+  schema: z.object({
+    title: z.string(),
+    kicker: z.string(),
+    deck: z.string(),
+    meta: z.object({
+      role: z.string(), type: z.string(), stack: z.string(),
+      links: z.array(z.object({ label: z.string(), href: z.string() })),
+    }),
+    glance: z.object({ problem: z.string(), approach: z.string(), result: z.string() }),
+    decisions: z.array(z.string()),
+    sections: z.array(z.object({ id: z.string(), heading: z.string(), paragraphs: z.array(z.string()), draft: z.boolean().optional() })),
+  }),
+});
+
 const profile = defineCollection({
   loader: glob({ pattern: 'profile.json', base: './content' }),
   schema: z.object({
@@ -60,4 +76,4 @@ const profile = defineCollection({
   }),
 });
 
-export const collections = { projects, decisions, profile };
+export const collections = { projects, decisions, caseStudies, profile };

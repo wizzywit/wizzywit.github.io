@@ -1,0 +1,15 @@
+{
+  "id": "odudu",
+  "data": {
+    "title": "Odudu: an identity provider that proves its own conformance",
+    "kicker": "Identity · Open source · Case study",
+    "deck": "A multi-tenant OAuth and OpenID Connect provider.",
+    "meta": { "role": "Creator, maintainer", "type": "Open source", "stack": "TypeScript, PostgreSQL", "links": [{ "label": "Source", "href": "https://github.com/wizzywit/odudu" }] },
+    "glance": { "problem": "P", "approach": "A", "result": "R" },
+    "decisions": ["conformance-ci-gate", "agent-permissions"],
+    "sections": [
+      { "id": "problem", "heading": "The problem", "paragraphs": ["[Owner: why.]"], "draft": true },
+      { "id": "conformance", "heading": "Conformance as a test", "paragraphs": ["The suite runs in CI."] }
+    ]
+  }
+}

@@ -1,0 +1,65 @@
+import { expect, test } from '@playwright/test';
+import { expectNoAxeViolations, setTheme } from './helpers/axe';
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('/work/odudu/');
+});
+
+test('has a title, one h1 and the project facts', async ({ page }) => {
+  await expect(page).toHaveTitle(/Odudu/);
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.locator('dl.meta')).toContainText('Creator, maintainer');
+  await expect(page.getByRole('link', { name: 'Source' })).toHaveAttribute('href', 'https://github.com/wizzywit/odudu');
+});
+
+test('describes the MCP server and agent access as part of Odudu', async ({ page }) => {
+  await expect(page.getByText(/MCP server/).first()).toBeVisible();
+  await expect(page.getByText(/planned|coming soon|not yet/i)).toHaveCount(0);
+});
+
+test('the architecture diagram has a text alternative', async ({ page }) => {
+  await expect(page.getByRole('img', { name: /Tenant apps and LLM agents connect to Odudu/i })).toBeVisible();
+});
+
+test('lists the decisions in this project with real links', async ({ page }) => {
+  const links = page.getByRole('complementary', { name: 'Decisions and contact' }).locator('ol a');
+  await expect(links).toHaveCount(2);
+  for (const href of await links.evaluateAll((els) => els.map((el) => el.getAttribute('href')))) {
+    expect(href).toMatch(/^\/decisions\/[a-z-]+\/$/);
+  }
+  await expect(page.locator('a[href="#"]')).toHaveCount(0);
+});
+
+test('draft sections show in preview, with their placeholders flagged for the owner', async ({ page }) => {
+  await expect(page.getByRole('heading', { name: 'The problem' })).toBeVisible();
+});
+
+test('the video can be paused', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'default', 'default project plays video');
+  await page.locator('.looping-video').scrollIntoViewIfNeeded();
+  const pause = page.getByRole('button', { name: 'Pause animation' });
+  await expect(pause).toBeVisible();
+  await pause.click();
+  await expect(page.getByRole('button', { name: 'Play animation' })).toBeVisible();
+});
+
+test('the video does not autoplay with reduced motion', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'reduced-motion', 'reduced-motion project');
+  await page.locator('.looping-video').scrollIntoViewIfNeeded();
+  await expect(page.getByRole('button', { name: 'Play animation' })).toBeVisible();
+  expect(await page.locator('video').evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
+});
+
+test('has no axe violations in light and dark', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'no-js', 'axe needs JavaScript');
+  for (const theme of ['light', 'dark'] as const) {
+    await setTheme(page, theme);
+    await page.reload();
+    await expectNoAxeViolations(page);
+  }
+});
+
+test('does not scroll sideways', async ({ page }) => {
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
