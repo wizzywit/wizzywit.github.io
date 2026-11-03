@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const SLICED_LAYERS = ['entities', 'features', 'widgets', '_pages'];
 const SEGMENTS = ['ui', 'use-cases', 'repository', 'services', 'adapter', 'types'];
+const SLICE_ROOT_ALLOWED = new Set([...SEGMENTS, '@x']);
 const FORBIDDEN_FOLDERS = ['components', 'hooks', 'utils', 'helpers', 'model'];
 
 function walk(dir: string): string[] {
@@ -26,6 +27,12 @@ export function checkStructure(srcDir: string): string[] {
     }
     for (const slice of slices) {
       const sliceDir = path.join(layerDir, slice);
+      for (const name of readdirSync(sliceDir)) {
+        const isDir = statSync(path.join(sliceDir, name)).isDirectory();
+        if (isDir && !SLICE_ROOT_ALLOWED.has(name) && !FORBIDDEN_FOLDERS.includes(name)) {
+          problems.push(`${layer}/${slice}/${name}: not an allowed segment (${SEGMENTS.join(', ')})`);
+        }
+      }
       for (const entry of walk(sliceDir)) {
         const rel = path.relative(srcDir, entry).split(path.sep).join('/');
         const parts = path.relative(sliceDir, entry).split(path.sep);

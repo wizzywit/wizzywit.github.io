@@ -38,6 +38,21 @@ describe('checkStructure', () => {
     expect(checkStructure(root)).toEqual([expect.stringContaining('adapter')]);
   });
 
+  it('flags a folder that is not one of the allowed segments', () => {
+    const root = tree({ 'features/a/bootstrap/x.ts': 'export {};' });
+    expect(checkStructure(root)).toEqual([expect.stringContaining('bootstrap')]);
+  });
+
+  it('allows index, README and the @x folder at the slice root', () => {
+    const root = tree({
+      'entities/order/index.ts': 'export {};',
+      'entities/order/README.md': '# order',
+      'entities/order/@x/delivery.ts': 'export {};',
+      'entities/order/types/order.ts': 'export {};',
+    });
+    expect(checkStructure(root)).toEqual([]);
+  });
+
   it('allows components/ inside shared', () => {
     const root = tree({ 'shared/ui/components/x.ts': 'export {};' });
     expect(checkStructure(root)).toEqual([]);
