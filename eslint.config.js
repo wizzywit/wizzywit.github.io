@@ -12,7 +12,13 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   { files: ['tools/**', '*.config.*'], languageOptions: { globals: globals.node } },
-  { files: ['**/*.{ts,tsx,astro}'], rules: { 'no-undef': 'off' } },
+  {
+    files: ['**/*.{ts,tsx,astro}'],
+    rules: {
+      'no-undef': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_', ignoreRestSiblings: true }],
+    },
+  },
   {
     files: ['src/**/*.{ts,tsx,astro}'],
     plugins: { arch },

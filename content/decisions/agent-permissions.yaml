@@ -1,0 +1,25 @@
+number: 4
+title: Agents get the same permissions as people
+why: Each of the 35 MCP tools is scoped to what the calling user may already do.
+area: Agents, security
+status: accepted
+related: [conformance-ci-gate]
+context:
+  - LLM agents need tools for asset management, metadata editing and publishing.
+  - "[Owner: the risk you were designing against.]"
+options:
+  - name: "[Owner: an option that lost, for example a service account with broad rights]"
+    pros: "[Owner]"
+    cons: "[Owner]"
+    chosen: false
+  - name: Permission-scoped per user
+    pros: An agent can never do more than its user
+    cons: "[Owner]"
+    chosen: true
+decision: The MCP server exposes 35 tools, and each one is scoped to the permissions of the user it acts for.
+consequences:
+  better:
+    - It is live at 4 customers.
+  harder:
+    - "[Owner: what became harder.]"
+draft: true

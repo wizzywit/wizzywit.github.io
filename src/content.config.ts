@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { DECISION_STATUSES } from '@/entities/decision/types/decision';
 import { PROJECT_SECTIONS } from '@/entities/project/types/project';
 
 const projects = defineCollection({
@@ -13,6 +14,24 @@ const projects = defineCollection({
     role: z.string(),
     href: z.string().optional(),
     order: z.number(),
+    draft: z.boolean().optional(),
+  }),
+});
+
+const decisions = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './content/decisions' }),
+  schema: z.object({
+    number: z.number(),
+    title: z.string(),
+    why: z.string(),
+    area: z.string(),
+    status: z.enum(DECISION_STATUSES as [string, ...string[]]),
+    decidedOn: z.string().optional(),
+    related: z.array(z.string()).optional(),
+    context: z.array(z.string()),
+    options: z.array(z.object({ name: z.string(), pros: z.string(), cons: z.string(), chosen: z.boolean() })),
+    decision: z.string(),
+    consequences: z.object({ better: z.array(z.string()), harder: z.array(z.string()) }),
     draft: z.boolean().optional(),
   }),
 });
@@ -40,4 +59,4 @@ const profile = defineCollection({
   }),
 });
 
-export const collections = { projects, profile };
+export const collections = { projects, decisions, profile };

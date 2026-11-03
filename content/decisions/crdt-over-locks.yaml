@@ -1,0 +1,25 @@
+number: 6
+title: CRDTs over locks for a shared canvas
+why: Wired merges concurrent edits with Yjs, so nobody waits for anybody.
+area: Real-time
+status: accepted
+related: []
+context:
+  - Several people edit one canvas at once, with live cursors and presence.
+  - "[Owner: what you considered first.]"
+options:
+  - name: Locks per object
+    pros: Easy to reason about
+    cons: People wait for each other
+    chosen: false
+  - name: Yjs CRDTs
+    pros: Conflict-free merging of concurrent edits
+    cons: "[Owner: the cost.]"
+    chosen: true
+decision: Wired uses Yjs (a CRDT) to merge concurrent edits, with Socket.IO and Redis carrying updates between clients.
+consequences:
+  better:
+    - Concurrent edits merge without conflicts.
+  harder:
+    - "[Owner: what became harder.]"
+draft: true

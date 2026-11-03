@@ -1,0 +1,25 @@
+number: 5
+title: Conformance suite as a CI gate
+why: Odudu fails the build if it stops speaking OpenID Connect correctly.
+area: Identity
+status: accepted
+related: [agent-permissions]
+context:
+  - An identity provider is trusted only if it follows the protocol exactly, on every release.
+  - "[Owner: why a badge was not enough.]"
+options:
+  - name: Run the suite manually before releases
+    pros: "[Owner]"
+    cons: Easy to skip; regressions reach users
+    chosen: false
+  - name: Run the OpenID Foundation suite in CI
+    pros: A protocol regression fails the build like a broken unit test
+    cons: "[Owner: the cost, for example CI time.]"
+    chosen: true
+decision: The OpenID Foundation conformance suite (Config OP) runs in CI for Odudu.
+consequences:
+  better:
+    - Odudu passes the suite on every change that reaches the main branch.
+  harder:
+    - "[Owner: what became harder.]"
+draft: true

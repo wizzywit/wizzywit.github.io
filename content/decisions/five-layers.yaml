@@ -1,0 +1,26 @@
+number: 1
+title: One feature, five layers
+why: "A single shape for features: view, use case, repository, service, adapter."
+area: Feature architecture
+status: accepted
+related: [one-runtime, accessibility-in-dod]
+context:
+  - Product modules at Censhare are built by several people, and features need one consistent shape.
+  - "[Owner: describe what was going wrong before, in your words.]"
+options:
+  - name: "[Owner: an option that lost]"
+    pros: "[Owner]"
+    cons: "[Owner]"
+    chosen: false
+  - name: Five layers (view, use case, repository, service, adapter)
+    pros: Each layer can be tested on its own.
+    cons: "[Owner: the cost, for example more files per feature.]"
+    chosen: true
+decision: Features are built in five layers, view, use case, repository, service and adapter, each with one job and calls that only go downwards.
+consequences:
+  better:
+    - It is now the standard in 13 product modules.
+    - Because each layer can be tested on its own, the cause of a production bug is usually found within a day instead of several days.
+  harder:
+    - "[Owner: what became harder.]"
+draft: true

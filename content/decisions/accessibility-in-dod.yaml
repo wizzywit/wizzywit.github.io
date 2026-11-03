@@ -1,0 +1,26 @@
+number: 3
+title: Accessibility belongs in the Definition of Done
+why: WCAG 2.2 AA and BFSG as acceptance criteria, checked per story.
+area: Quality
+status: accepted
+related: [five-layers]
+context:
+  - Accessibility work tends to slip to a later phase unless it is part of how a story is accepted.
+  - "[Owner: what happened before this decision.]"
+options:
+  - name: Accessibility "in phase two"
+    pros: "[Owner]"
+    cons: Fixes arrive late and cost more
+    chosen: false
+  - name: Part of code review and the Definition of Done
+    pros: Caught while the change is small
+    cons: "[Owner: the cost to the team.]"
+    chosen: true
+decision: WCAG 2.2 AA and BFSG compliance are part of code review and the Definition of Done for the team, with Playwright accessibility checks in CI.
+consequences:
+  better:
+    - It applies to the whole 11-person team.
+    - Violations fail the build instead of waiting for an audit.
+  harder:
+    - "[Owner: what became harder.]"
+draft: true

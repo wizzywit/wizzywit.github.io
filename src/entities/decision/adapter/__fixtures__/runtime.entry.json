@@ -1,0 +1,20 @@
+{
+  "id": "one-runtime",
+  "data": {
+    "number": 2,
+    "title": "One runtime for thirty micro-frontends, via Import Maps",
+    "why": "Share framework and platform code at runtime instead of bundling it thirty times.",
+    "area": "Platform runtime",
+    "status": "accepted",
+    "decidedOn": "2025",
+    "related": ["five-layers", "accessibility-in-dod"],
+    "context": ["More than thirty micro-frontends render inside one product."],
+    "options": [
+      { "name": "Bundle shared code per app", "pros": "Simple, fully independent", "cons": "Duplicate downloads; version drift", "chosen": false },
+      { "name": "Import Maps, one runtime", "pros": "Web standard; shared once", "cons": "Needs a contract for shared versions", "chosen": true }
+    ],
+    "decision": "All micro-frontends load shared dependencies from one platform runtime, resolved through Import Maps.",
+    "consequences": { "better": ["Shared code is downloaded once."], "harder": ["Shared upgrades need coordination."] },
+    "draft": true
+  }
+}
