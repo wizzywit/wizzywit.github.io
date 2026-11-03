@@ -1,0 +1,44 @@
+---
+import '@fontsource/libre-franklin/latin-400.css';
+import '@fontsource/libre-franklin/latin-600.css';
+import '@fontsource/libre-franklin/latin-700.css';
+import '@fontsource/libre-caslon-text/latin-400.css';
+import '@fontsource/libre-caslon-text/latin-400-italic.css';
+import '@fontsource/libre-caslon-text/latin-700.css';
+import '@fontsource/libre-caslon-display/latin-400.css';
+import '@fontsource/unifrakturmaguntia/latin-400.css';
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import bodyFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url';
+import uiFont from '@fontsource/libre-franklin/files/libre-franklin-latin-600-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  jsonLd?: object[];
+}
+
+const { title, description, canonicalPath, jsonLd = [] } = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={uiFont} as="font" type="font/woff2" crossorigin />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot name="header" />
+    <main id="main" tabindex="-1"><slot /></main>
+    <slot name="footer" />
+  </body>
+</html>

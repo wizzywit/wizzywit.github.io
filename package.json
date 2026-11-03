@@ -11,19 +11,26 @@
     "typecheck": "astro check",
     "test": "vitest run",
     "lint": "eslint . && node tools/check-structure.ts && node tools/run-steiger.mjs && jscpd",
-    "e2e": "echo 'e2e arrives in task 3'",
+    "e2e": "playwright test",
     "lint:fast": "eslint ."
   },
   "dependencies": {
     "@astrojs/react": "^7.1.2",
+    "@fontsource/libre-caslon-display": "^5.3.0",
+    "@fontsource/libre-caslon-text": "^5.3.0",
+    "@fontsource/libre-franklin": "^5.3.0",
+    "@fontsource/unifrakturmaguntia": "^5.3.0",
     "astro": "^7.4.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@feature-sliced/steiger-plugin": "^0.8.2",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "eslint": "^10.14.0",

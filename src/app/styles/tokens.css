@@ -1,0 +1,49 @@
+:root {
+  --paper: #F3F0E8;
+  --ink: #151412;
+  --soft: #3A3732;
+  --muted: #57534B;
+  --accent: #A3171C;
+  --panel: #EAE5D9;
+  --rule: #151412;
+  --inverse: #151412;
+  --on-inverse: #E9E4D8;
+
+  --font-masthead: 'UnifrakturMaguntia', 'Old English Text MT', serif;
+  --font-display: 'Libre Caslon Display', 'Libre Caslon Display Fallback', Georgia, serif;
+  --font-body: 'Libre Caslon Text', 'Libre Caslon Text Fallback', Georgia, serif;
+  --font-ui: 'Libre Franklin', 'Libre Franklin Fallback', Arial, sans-serif;
+
+  --page-max: 1280px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --focus: 3px solid var(--accent);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --paper: #151412;
+  --ink: #ECE7DB;
+  --soft: #CFC9BC;
+  --muted: #B5AFA3;
+  --accent: #F0857C;
+  --panel: #1F1D1A;
+  --rule: #6E695F;
+  --inverse: #0F0E0C;
+  --on-inverse: #E9E4D8;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #151412;
+    --ink: #ECE7DB;
+    --soft: #CFC9BC;
+    --muted: #B5AFA3;
+    --accent: #F0857C;
+    --panel: #1F1D1A;
+    --rule: #6E695F;
+    --inverse: #0F0E0C;
+    --on-inverse: #E9E4D8;
+    color-scheme: dark;
+  }
+}
