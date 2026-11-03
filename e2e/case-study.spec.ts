@@ -58,6 +58,17 @@ test('the hero screenshot keeps its text alternative in both themes', async ({ p
   }
 });
 
+test('does not download the screenshot for the theme that is not showing', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'default', 'default project');
+  const fetched: string[] = [];
+  page.on('request', (request) => fetched.push(request.url()));
+  await setTheme(page, 'light');
+  await page.goto('/work/odudu/');
+  await page.waitForLoadState('networkidle');
+  expect(fetched.filter((url) => /overview-light/.test(url)).length).toBeGreaterThan(0);
+  expect(fetched.filter((url) => /overview-dark/.test(url))).toEqual([]);
+});
+
 test('has no axe violations in light and dark', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'no-js', 'axe needs JavaScript');
   for (const theme of ['light', 'dark'] as const) {
