@@ -10,6 +10,7 @@ import '@fontsource/unifrakturmaguntia/latin-400.css';
 import '../styles/fonts.css';
 import '../styles/tokens.css';
 import '../styles/global.css';
+import { themeBootstrapScript } from '@/features/theme-switch';
 import bodyFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url';
 import uiFont from '@fontsource/libre-franklin/files/libre-franklin-latin-600-normal.woff2?url';
 
@@ -30,6 +31,7 @@ const canonical = new URL(canonicalPath, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <script is:inline set:html={themeBootstrapScript} />
     <link rel="canonical" href={canonical} />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={uiFont} as="font" type="font/woff2" crossorigin />

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '@/app/layouts/BaseLayout.astro';
 import { Reveal } from '@/shared/ui';
+import { ThemeToggle } from '@/features/theme-switch';
 ---
 <BaseLayout title="Wisdom Emmanuel Praise" description="Senior Frontend Engineer, Frontend Platform and Architecture." canonicalPath="/">
   <Reveal as="section" data-testid="reveal-sample"><h1>Wisdom Emmanuel Praise</h1></Reveal>
+  <ThemeToggle client:idle />
 </BaseLayout>
