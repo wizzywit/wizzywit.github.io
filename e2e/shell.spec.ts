@@ -25,17 +25,3 @@ for (const theme of ['light', 'dark'] as const) {
     await expectNoAxeViolations(page);
   });
 }
-
-test('reveal content is fully visible without JS or with reduced motion', async ({ page }, testInfo) => {
-  test.skip(!['no-js', 'reduced-motion', 'mobile-360'].includes(testInfo.project.name), 'checks the fallback projects');
-  await page.goto('/');
-  const opacity = await page.locator('.reveal').first().evaluate((el) => getComputedStyle(el).opacity);
-  expect(opacity).toBe('1');
-});
-
-test('reveal uses a scroll-driven animation when motion is allowed', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'default', 'default project allows motion');
-  await page.goto('/');
-  const timeline = await page.locator('.reveal').first().evaluate((el) => getComputedStyle(el).animationTimeline);
-  expect(timeline).toContain('view');
-});

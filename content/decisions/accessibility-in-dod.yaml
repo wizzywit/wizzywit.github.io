@@ -5,16 +5,20 @@ area: Quality
 status: accepted
 related: [five-layers]
 context:
-  - Accessibility work tends to slip to a later phase unless it is part of how a story is accepted.
-  - "[Owner: what happened before this decision.]"
+  - Accessibility is cheapest to get right while a change is being made, and most expensive when it is found in an audit afterwards.
+  - The product's customers have to meet WCAG 2.2 AA and, in Germany, the BFSG.
 options:
-  - name: Accessibility "in phase two"
-    pros: "[Owner]"
-    cons: Fixes arrive late and cost more
+  - name: An audit before each release
+    pros: Specialist eyes, and a clear report.
+    cons: Findings arrive late, when fixing them is costly.
     chosen: false
-  - name: Part of code review and the Definition of Done
-    pros: Caught while the change is small
-    cons: "[Owner: the cost to the team.]"
+  - name: Accessibility as a later phase
+    pros: Faster delivery in the short term.
+    cons: The debt grows with every feature that ships.
+    chosen: false
+  - name: Part of code review and the Definition of Done, with automated checks in CI
+    pros: Problems are caught while the change is small, and regressions fail the build.
+    cons: Reviewers need to know what to look for, and automated checks only find part of the problems.
     chosen: true
 decision: WCAG 2.2 AA and BFSG compliance are part of code review and the Definition of Done for the team, with Playwright accessibility checks in CI.
 consequences:
@@ -22,5 +26,5 @@ consequences:
     - It applies to the whole 11-person team.
     - Violations fail the build instead of waiting for an audit.
   harder:
-    - "[Owner: what became harder.]"
-draft: true
+    - Reviewers need accessibility knowledge, which takes time to build.
+    - Automated checks are not enough on their own, so manual testing is still needed.

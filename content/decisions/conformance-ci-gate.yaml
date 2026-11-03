@@ -6,20 +6,24 @@ status: accepted
 related: [agent-permissions]
 context:
   - An identity provider is trusted only if it follows the protocol exactly, on every release.
-  - "[Owner: why a badge was not enough.]"
+  - A conformance badge earned once says nothing about the next change.
 options:
-  - name: Run the suite manually before releases
-    pros: "[Owner]"
-    cons: Easy to skip; regressions reach users
+  - name: Run the suite by hand before releases
+    pros: No pipeline cost.
+    cons: Easy to skip, and a regression reaches users first.
+    chosen: false
+  - name: Rely on unit tests for the protocol
+    pros: Fast.
+    cons: The tests encode one reading of the specification, not the certification suite's.
     chosen: false
   - name: Run the OpenID Foundation suite in CI
-    pros: A protocol regression fails the build like a broken unit test
-    cons: "[Owner: the cost, for example CI time.]"
+    pros: A protocol regression fails the build, like a broken unit test.
+    cons: A slower pipeline, and the suite needs a running server to talk to.
     chosen: true
 decision: The OpenID Foundation conformance suite (Config OP) runs in CI for Odudu.
 consequences:
   better:
     - Odudu passes the suite on every change that reaches the main branch.
+    - A change that breaks the protocol is found before anyone signs in with it.
   harder:
-    - "[Owner: what became harder.]"
-draft: true
+    - CI takes longer and needs a server for the suite to run against.

@@ -48,8 +48,8 @@ const glance = [
         <dl class="glance">
           {glance.map((item) => <div><dt>{item.label}</dt><dd>{item.value}</dd></div>)}
         </dl>
-        {study.sections.map((section, index) => (
-          <Reveal as="section" order={index % 3} aria-labelledby={`${section.id}-h`}>
+        {study.sections.map((section) => (
+          <Reveal as="section" aria-labelledby={`${section.id}-h`}>
             <h2 id={`${section.id}-h`}>{section.heading}</h2>
             {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
             {section.id === 'architecture' ? <ArchitectureDiagram /> : null}

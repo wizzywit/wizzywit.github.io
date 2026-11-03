@@ -42,7 +42,7 @@ const vm = await loadDecisionViewModel(Astro.props.slug);
         {vm.options.length > 0 ? (
           <Reveal as="section" aria-labelledby="options">
             <h2 id="options">Options considered</h2>
-            <div class="table-wrap" role="region" aria-label="Options considered, scrollable" tabindex="0">
+            <div class="table-wrap" data-reveal-group role="region" aria-label="Options considered, scrollable" tabindex="0">
               <table>
                 <thead>
                   <tr><th scope="col">Option</th><th scope="col">For</th><th scope="col">Against</th></tr>
@@ -50,7 +50,7 @@ const vm = await loadDecisionViewModel(Astro.props.slug);
                 <tbody>
                   {vm.options.map((option, index) => (
                     <tr class:list={{ rejected: option.outcome === 'Rejected' }} style={`--i: ${index}`}>
-                      <th scope="row"><span class="name">{option.name}</span> <span class="visually-hidden">({option.outcome.toLowerCase()})</span></th>
+                      <th scope="row"><span class="name" data-step="strike" style={`--i: ${index + 3}`}>{option.name}</span> <span class="visually-hidden">({option.outcome.toLowerCase()})</span></th>
                       <td>{option.pros}</td>
                       <td>{option.cons}</td>
                     </tr>
@@ -109,11 +109,5 @@ const vm = await loadDecisionViewModel(Astro.props.slug);
   .cons h3 { margin: 0 0 8px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
   .cons ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
 
-  @keyframes strike { from { background-size: 0% 2px; } to { background-size: 100% 2px; } }
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .rejected .name { animation: strike ease-out both; animation-timeline: view(); animation-range: entry calc(30% + var(--i) * 8%) entry calc(75% + var(--i) * 8%); }
-    }
-  }
   @media (max-width: 900px) { .grid, .cons { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
 </style>

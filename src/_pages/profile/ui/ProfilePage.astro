@@ -22,7 +22,7 @@ const vm = await loadProfileViewModel();
   <Reveal as="section" class="block" aria-labelledby="exp-h">
     <h2 id="exp-h">Experience</h2>
     {vm.jobs.map((job) => (
-      <article class="job">
+      <article class="job" data-reveal>
         <div class="when"><strong class="org">{job.org}</strong><span>{job.period}</span><span>{job.location}</span></div>
         <div class="what">
           <h3>{job.title}</h3>

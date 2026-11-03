@@ -1,21 +1,21 @@
 ---
 ---
-<figure class="diagram">
+<figure class="diagram" data-reveal-group>
   <div class="dia" role="img" aria-label="Diagram: tenant apps and LLM agents connect to Odudu; Odudu serves the authorize, token and userinfo endpoints, an admin console and an MCP server">
     <div class="col">
-      <span class="box" style="--i: 0">Tenant apps</span>
-      <span class="box box--dashed" style="--i: 1">LLM agents</span>
+      <span class="box" data-step style="--i: 0">Tenant apps</span>
+      <span class="box box--dashed" data-step style="--i: 1">LLM agents</span>
     </div>
-    <span class="arrow" style="--i: 2" aria-hidden="true"></span>
-    <div class="core box" style="--i: 3">
+    <span class="arrow" data-step="grow" style="--i: 2" aria-hidden="true"></span>
+    <div class="core box" data-step style="--i: 3">
       <strong>Odudu</strong>
       <span>/authorize · /token · /userinfo</span>
       <span>Tenants kept apart by the database</span>
     </div>
-    <span class="arrow arrow--accent" style="--i: 4" aria-hidden="true"></span>
+    <span class="arrow arrow--accent" data-step="grow" style="--i: 4" aria-hidden="true"></span>
     <div class="col">
-      <span class="box" style="--i: 5">Admin console</span>
-      <span class="box box--accent" style="--i: 6">MCP server</span>
+      <span class="box" data-step style="--i: 5">Admin console</span>
+      <span class="box box--accent" data-step style="--i: 6">MCP server</span>
     </div>
   </div>
   <figcaption>Fig. 1 — Agents reach Odudu through the MCP server with the same capabilities a person would have.</figcaption>
@@ -35,14 +35,6 @@
   .arrow--accent { background: var(--accent); }
   figcaption { margin-top: 12px; font: 400 14px var(--font-ui); color: var(--muted); }
 
-  @keyframes dia-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  @keyframes dia-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .box { animation: dia-in ease-out both; animation-timeline: view(); animation-range: entry calc(var(--i) * 5%) entry calc(40% + var(--i) * 5%); }
-      .arrow { animation: dia-draw ease-out both; animation-timeline: view(); animation-range: entry calc(var(--i) * 5%) entry calc(40% + var(--i) * 5%); }
-    }
-  }
   @media (max-width: 900px) {
     .dia { grid-template-columns: minmax(0, 1fr); }
     .arrow { height: 28px; width: 2px; justify-self: center; transform-origin: top; }

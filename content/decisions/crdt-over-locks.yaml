@@ -5,21 +5,25 @@ area: Real-time
 status: accepted
 related: []
 context:
-  - Several people edit one canvas at once, with live cursors and presence.
-  - "[Owner: what you considered first.]"
+  - Several people edit one canvas at the same time, and each should see the others' cursors and changes as they happen.
 options:
   - name: Locks per object
-    pros: Easy to reason about
-    cons: People wait for each other
+    pros: Easy to reason about.
+    cons: People wait for each other, and a dropped connection can leave an object locked.
+    chosen: false
+  - name: Last write wins
+    pros: The simplest to build.
+    cons: Concurrent edits silently overwrite one another.
     chosen: false
   - name: Yjs CRDTs
-    pros: Conflict-free merging of concurrent edits
-    cons: "[Owner: the cost.]"
+    pros: Concurrent edits merge without conflicts and without a central arbiter.
+    cons: The document model has to be shaped for Yjs, and its history grows over time.
     chosen: true
 decision: Wired uses Yjs (a CRDT) to merge concurrent edits, with Socket.IO and Redis carrying updates between clients.
 consequences:
   better:
     - Concurrent edits merge without conflicts.
+    - Nobody has to wait for anybody else to finish.
   harder:
-    - "[Owner: what became harder.]"
-draft: true
+    - The canvas data has to be modelled to fit Yjs.
+    - The document's history grows and needs looking after.

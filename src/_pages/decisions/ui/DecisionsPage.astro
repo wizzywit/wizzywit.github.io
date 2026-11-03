@@ -19,7 +19,7 @@ const vm = await loadDecisionsViewModel();
       <div class="row head" aria-hidden="true"><span>No.</span><span>Decision</span><span>Area</span><span>Status</span></div>
       <ol>
         {vm.rows.map((row) => (
-          <li class="row">
+          <li class="row" data-reveal>
             <span class="no">{row.number}</span>
             <div class="what"><a href={row.href}>{row.title}</a><span class="why">{row.why}</span></div>
             <span class="area sub">{row.area}</span>

@@ -1,5 +1,4 @@
 ---
-import { Reveal } from '@/shared/ui';
 import { ClassifiedsCard } from '@/widgets/classifieds-card';
 import { loadHomeViewModel } from '../use-cases/homeViewModel';
 
@@ -15,46 +14,46 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
 ---
 <div class="page home">
   <section aria-labelledby="lead-h" class="lead">
-    <Reveal as="article" class="lead-main">
-      <span class="kicker">{vm.lead.kicker}</span>
-      <h2 id="lead-h" class="lead-headline">{vm.lead.headline}</h2>
-      <p class="deck">{vm.lead.deck}</p>
+    <article class="lead-main">
+      <span class="kicker" data-reveal="fade">{vm.lead.kicker}</span>
+      <h2 id="lead-h" class="lead-headline" data-reveal>{vm.lead.headline}</h2>
+      <p class="deck" data-reveal>{vm.lead.deck}</p>
       <div class="cols">
-        <p><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
-        <p>{vm.lead.paragraphs[1]}</p>
-        <p>{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
+        <p data-reveal><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
+        <p data-reveal>{vm.lead.paragraphs[1]}</p>
+        <p data-reveal>{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
       </div>
-      <figure class="layers">
+      <figure class="layers" data-reveal-group>
         <div class="bars" role="img" aria-label="Diagram: the five layers, view, use case, repository, service and adapter, each one calling only the layer beneath it">
           {layers.map((layer, index) => (
-            <div class="bar-row"><span>{layer.name}</span><span class={`bar bar--${layer.tone}`} style={`--i: ${index}`}></span></div>
+            <div class="bar-row" style={`--i: ${index}`}><span data-step style={`--i: ${index}`}>{layer.name}</span><span class={`bar bar--${layer.tone}`} data-step="grow" data-pulse style={`--i: ${index}`}></span></div>
           ))}
         </div>
         <figcaption>Fig. 1 — Each layer only talks to the one beneath it. The adapter is the only layer that knows the outside world exists.</figcaption>
       </figure>
-    </Reveal>
+    </article>
 
     <aside aria-label="In brief and contact" class="lead-side">
-      <Reveal order={1}>
+      <div data-reveal>
         <h2 class="side-h">In brief</h2>
         <dl class="brief">
           {vm.inBrief.map((item) => (
-            <div><dt>{item.figure}</dt><dd>{item.text}</dd></div>
+            <div><dt><span aria-hidden="true" data-count>{item.figure}</span><span class="visually-hidden">{item.figure}</span></dt><dd>{item.text}</dd></div>
           ))}
         </dl>
-      </Reveal>
-      <Reveal order={2}><ClassifiedsCard /></Reveal>
+      </div>
+      <div data-reveal><ClassifiedsCard /></div>
     </aside>
   </section>
 
-  <Reveal as="section" class="block">
-    <div class="block-head">
+  <section class="block" aria-labelledby="work-h">
+    <div class="block-head" data-rule data-reveal="fade">
       <h2 id="work-h">Selected work</h2>
       <a href="/work/">All work →</a>
     </div>
     <div class="feat" aria-labelledby="work-h" role="group">
       {vm.featured.map((item, index) => (
-        <article class={index === 0 ? 'feat-main' : 'feat-side'}>
+        <article class={index === 0 ? 'feat-main' : 'feat-side'} data-reveal>
           {item.slug === 'odudu' ? (
             <div class="art art--tall" role="img" aria-label="Illustration: two tenant-branded sign-in pages, one light and one dark">
               <div class="signin signin--light"><span>Sign in</span><i></i><i></i><b></b></div>
@@ -76,44 +75,44 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
     </div>
     <div class="more">
       {vm.more.map((card) => (
-        <div class="more-card">
+        <div class="more-card" data-reveal>
           <span class="kicker">{card.kicker}</span>
           <strong>{card.href ? <a href={card.href} rel={rel(card.external)}>{card.title}</a> : card.title}</strong>
           <span>{card.blurb}</span>
         </div>
       ))}
     </div>
-  </Reveal>
+  </section>
 
   {vm.decisions.length > 0 ? (
-    <Reveal as="section" class="block" aria-labelledby="dec-h">
-      <div class="block-head">
+    <section class="block" aria-labelledby="dec-h">
+      <div class="block-head" data-rule data-reveal="fade">
         <h2 id="dec-h">From the decision log</h2>
         <a href="/decisions/">All decisions →</a>
       </div>
       <div class="three">
         {vm.decisions.map((decision) => (
-          <article>
+          <article data-reveal>
             <span class="meta">ADR · {decision.status}</span>
             <h3><a href={decision.href}>{decision.title}</a></h3>
             <p>{decision.why}</p>
           </article>
         ))}
       </div>
-    </Reveal>
+    </section>
   ) : null}
 
-  <Reveal as="section" class="profile" aria-labelledby="prof-h">
-    <div>
+  <section class="profile" aria-labelledby="prof-h">
+    <div data-reveal>
       <h2 id="prof-h">Profile</h2>
       <p>{vm.profile.paragraph}</p>
       <a class="strong" href="/profile/">Full profile and CV →</a>
     </div>
-    <div class="principles">
+    <div class="principles" data-reveal>
       <h3>How I work</h3>
       <ul>{vm.profile.principles.map((line) => <li>{line}</li>)}</ul>
     </div>
-  </Reveal>
+  </section>
 </div>
 
 <style>
@@ -145,15 +144,9 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
   .bar--faint { background: color-mix(in srgb, var(--muted) 65%, var(--paper)); }
   .bar--accent { background: var(--accent); }
   .layers figcaption { font: 400 13px var(--font-ui); color: var(--muted); }
-  @keyframes bar-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .bar { animation: bar-grow ease-out both; animation-timeline: view(); animation-range: entry calc(var(--i) * 6%) entry calc(45% + var(--i) * 6%); }
-    }
-  }
 
   .block { padding: 28px 0 40px; border-bottom: 3px double var(--rule); }
-  .block-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule); padding-bottom: 8px; margin-bottom: 20px; }
+  .block-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; margin-bottom: 20px; }
   .block-head h2 { margin: 0; font: 800 15px var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; }
   .block-head a { font: 600 15px var(--font-ui); padding: 10px 0; }
 
