@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const SITE = 'https://wizzywit.github.io';
-const ROUTES = ['/', '/work/', '/work/odudu/', '/decisions/', '/decisions/one-runtime/', '/profile/', '/contact/'];
+const ROUTES = ['/', '/work/', '/work/odudu/', '/work/wired/', '/decisions/', '/decisions/one-runtime/', '/profile/', '/contact/'];
 
 // Playwright requires an object pattern as the first argument.
 // eslint-disable-next-line no-empty-pattern

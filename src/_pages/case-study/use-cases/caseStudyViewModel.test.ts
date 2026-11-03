@@ -4,7 +4,7 @@ import type { Decision } from '@/entities/decision';
 import { buildCaseStudyViewModel } from './caseStudyViewModel';
 
 const study = {
-  slug: 'odudu', title: 'T', kicker: 'K', deck: 'D',
+  slug: 'odudu', name: 'Odudu', title: 'T', kicker: 'K', deck: 'D', hero: { light: 'a.png', dark: null, alt: 'a' },
   meta: { role: 'r', type: 't', stack: 's', links: [] }, glance: { problem: 'p', approach: 'a', result: 'r' },
   decisions: ['agent-permissions', 'conformance-ci-gate', 'ghost'], sections: [],
 } satisfies CaseStudy;

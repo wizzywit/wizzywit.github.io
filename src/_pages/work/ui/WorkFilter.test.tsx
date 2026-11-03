@@ -8,7 +8,7 @@ import { WorkFilter } from './WorkFilter';
 
 const make = (slug: string, section: Project['section'], href: string | null = null): Project => ({
   slug, title: `Title ${slug}`, section, kicker: `${section} · test`, summary: `Summary ${slug}`, role: `Role ${slug}`,
-  href, external: href?.startsWith('http') ?? false, hasCaseStudy: false, order: 1, draft: false,
+  href, external: href?.startsWith('http') ?? false, hasCaseStudy: false, order: 1, draft: false, image: null, links: [],
 });
 const projects = [
   make('a', 'Platform', '/decisions/five-layers/'),
@@ -45,6 +45,55 @@ describe('WorkFilter', () => {
     expect(screen.getByRole('link', { name: 'Title a' }).getAttribute('href')).toBe('/decisions/five-layers/');
     expect(screen.queryByRole('link', { name: 'Title b' })).toBeNull();
     expect(screen.getByRole('link', { name: 'Title d' }).getAttribute('rel')).toBe('noopener');
+  });
+});
+
+describe('WorkFilter link affordance', () => {
+  it('tells the visitor where each linked entry goes, in words', () => {
+    render(<WorkFilter projects={projects} />);
+    expect(screen.getByText('Read the decision →')).toBeTruthy();
+    expect(screen.getByText('Visit the site ↗')).toBeTruthy();
+    expect(screen.getAllByText(/[→↗]$/)).toHaveLength(2);
+  });
+
+  it('shows no call to action for an entry without a destination', () => {
+    render(<WorkFilter projects={[make('b', 'Security')]} />);
+    expect(screen.queryByText(/Read|Visit|View/)).toBeNull();
+  });
+
+  it('keeps the title link as the single link to the destination', () => {
+    render(<WorkFilter projects={projects} />);
+    expect(screen.getAllByRole('link', { name: /Title a/ })).toHaveLength(1);
+  });
+
+  it('lists further links, such as the source, as links of their own', () => {
+    const odudu = { ...make('c', 'Identity', '/work/odudu/'), hasCaseStudy: true, links: [{ label: 'Source', href: 'https://github.com/wizzywit/odudu' }] };
+    render(<WorkFilter projects={[odudu]} />);
+    expect(screen.getByRole('link', { name: /Source/ }).getAttribute('href')).toBe('https://github.com/wizzywit/odudu');
+    expect(screen.getByText('Read the case study →')).toBeTruthy();
+  });
+});
+
+describe('WorkFilter thumbnails', () => {
+  const withPicture = [{ ...make('a', 'Platform'), image: { name: 'a.png', alt: 'A picture of a' } }, make('b', 'Platform')];
+  const thumbs = { a: { src: '/_astro/a.webp', width: 360, height: 225 } };
+
+  it('shows a described thumbnail for entries that have one', () => {
+    render(<WorkFilter projects={withPicture} thumbs={thumbs} />);
+    const img = screen.getByRole('img', { name: 'A picture of a' });
+    expect(img.getAttribute('src')).toBe('/_astro/a.webp');
+    expect(img.getAttribute('loading')).toBe('lazy');
+    expect(img.getAttribute('width')).toBe('360');
+  });
+
+  it('shows no image for entries without one', () => {
+    render(<WorkFilter projects={withPicture} thumbs={thumbs} />);
+    expect(screen.getAllByRole('img')).toHaveLength(1);
+  });
+
+  it('works without any thumbnails', () => {
+    render(<WorkFilter projects={withPicture} />);
+    expect(screen.queryAllByRole('img')).toHaveLength(0);
   });
 });
 

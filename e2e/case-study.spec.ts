@@ -82,3 +82,46 @@ test('does not scroll sideways', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test.describe('the Wired case study', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/work/wired/');
+  });
+
+  test('has its own title, one h1, the project facts and a source link', async ({ page }) => {
+    await expect(page).toHaveTitle(/Wired/);
+    await expect(page.locator('h1')).toHaveCount(1);
+    await expect(page.locator('dl.meta')).toContainText('Creator');
+    await expect(page.getByRole('link', { name: 'Source' })).toHaveAttribute('href', 'https://github.com/wizzywit/wired');
+  });
+
+  test('shows real screenshots of the product, with descriptions, that load', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'no-js', 'images are verified with JavaScript on');
+    await expect(page.getByRole('img', { name: /Wired's landing page/ })).toBeVisible();
+    for (const name of [/studio dashboard/, /six coloured sticky notes/]) {
+      const img = page.getByRole('img', { name });
+      await img.scrollIntoViewIfNeeded();
+      await expect(img).toBeVisible();
+      await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth > 0)).toBe(true);
+    }
+  });
+
+  test('links the decisions behind it', async ({ page }) => {
+    const links = page.getByRole('complementary', { name: 'Decisions and contact' }).locator('ol a');
+    expect(await links.evaluateAll((els) => els.map((el) => el.getAttribute('href')))).toEqual(['/decisions/crdt-over-locks/', '/decisions/five-layers/']);
+  });
+
+  test('never shows placeholders or dead links', async ({ page }) => {
+    expect(await page.locator('body').innerText()).not.toMatch(/\[[^\]]+\]/);
+    await expect(page.locator('a[href="#"]')).toHaveCount(0);
+  });
+
+  test('has no axe violations in light and dark', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'no-js', 'axe needs JavaScript');
+    for (const theme of ['light', 'dark'] as const) {
+      await setTheme(page, theme);
+      await page.reload();
+      await expectNoAxeViolations(page);
+    }
+  });
+});

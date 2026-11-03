@@ -11,6 +11,8 @@ export type ProjectEntry = {
     href?: string | undefined;
     order: number;
     draft?: boolean | undefined;
+    image?: { src: string; alt: string } | undefined;
+    links?: { label: string; href: string }[] | undefined;
   };
 };
 
@@ -35,5 +37,7 @@ export function mapProjectEntry(entry: ProjectEntry): Project {
     hasCaseStudy: href !== null && href.startsWith('/work/'),
     order: data.order,
     draft: data.draft ?? false,
+    image: data.image ? { name: data.image.src, alt: data.image.alt } : null,
+    links: data.links ?? [],
   };
 }

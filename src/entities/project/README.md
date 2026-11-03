@@ -8,3 +8,4 @@ Work entries shown on the front page and the work index. Content lives in `conte
 - Display order (`sortProjects`, ascending `order`).
 - A link is external when it is `http(s)`, and a case study when it starts with `/work/`.
 - Which case-study sections are published: a section marked `draft` is left out of a production build (`publishableSections`).
+- What an entry's link is called (`describeProjectLink`: case study, decision, GitHub, outside site) and which further links it shows (`extraProjectLinks`).

@@ -1,4 +1,4 @@
-export const PROJECT_SECTIONS = ['Platform', 'Identity', 'Real-time', 'Security', 'Industrial', 'Public sector', 'Rust'] as const;
+export const PROJECT_SECTIONS = ['Platform', 'Identity', 'Real-time', 'Security', 'Industrial', 'Public sector', 'Web', 'Rust'] as const;
 export type ProjectSection = (typeof PROJECT_SECTIONS)[number];
 
 export type Project = {
@@ -14,4 +14,8 @@ export type Project = {
   hasCaseStudy: boolean;
   order: number;
   draft: boolean;
+  /** A picture for the work index and front page; `name` is an asset path under src/assets. */
+  image: { name: string; alt: string } | null;
+  /** Further links beyond `href`, such as the source repository. */
+  links: { label: string; href: string }[];
 };

@@ -3,7 +3,7 @@ import type { Project } from '../types/project';
 import { describeProjectCount, filterProjects } from './projectFiltering';
 
 const make = (slug: string, section: Project['section']): Project => ({
-  slug, title: slug, section, kicker: section, summary: '', role: '', href: null, external: false, hasCaseStudy: false, order: 1, draft: false,
+  slug, title: slug, section, kicker: section, summary: '', role: '', href: null, external: false, hasCaseStudy: false, order: 1, draft: false, image: null, links: [],
 });
 const projects = [make('a', 'Platform'), make('b', 'Security'), make('c', 'Platform'), make('d', 'Security')];
 

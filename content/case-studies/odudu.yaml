@@ -1,6 +1,11 @@
+name: Odudu
 title: "Odudu: an identity provider that proves its own conformance"
 kicker: Identity · Open source · Case study
 deck: A multi-tenant OAuth and OpenID Connect provider, with an admin console, brandable sign-in pages and an MCP server so agents can operate it under the same capabilities as everyone else.
+hero:
+  light: odudu/overview-light.webp
+  dark: odudu/overview-dark.webp
+  alt: "Odudu admin console: the overview page of a tenant"
 meta:
   role: Creator, maintainer
   type: Open source (AGPL-3.0)
@@ -26,6 +31,7 @@ sections:
     draft: true
   - id: architecture
     heading: How it fits together
+    diagram: odudu-architecture
     paragraphs:
       - Apps and agents connect to Odudu. It serves the standard OpenID Connect and OAuth 2.0 endpoints, an admin API with more than a hundred operations, an admin console, and an MCP server.
       - Agents reach the admin API through the MCP server and are held to the same capabilities as everyone else.
@@ -35,6 +41,15 @@ sections:
       - Many tenants run in one container with PostgreSQL, kept apart by the database itself. Every page the server shows, and its mail, can use a tenant's theme and a client's branding, in light and dark.
   - id: console
     heading: The admin console
+    video:
+      src: /media/odudu-console.mp4
+      poster: odudu/console-poster.png
+      label: "A short recording of the Odudu admin console: signing in, opening Clients and creating a client"
+      caption: A short recording of the console in use.
+    media:
+      - image: odudu/flow-light.webp
+        alt: "The sign-in flow of a tenant in the console, with its steps in order"
+        caption: A tenant's sign-in flow, with its steps in order.
     paragraphs:
       - The console has a page for every area of the admin API. It is tested in CI with Playwright and axe against WCAG 2.2 AA, in light and dark themes.
   - id: conformance

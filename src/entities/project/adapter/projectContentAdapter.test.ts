@@ -16,7 +16,16 @@ describe('mapProjectEntry', () => {
       hasCaseStudy: true,
       order: 5,
       draft: false,
+      image: { name: 'odudu/overview-light.webp', alt: 'The Odudu admin console overview' },
+      links: [{ label: 'Source', href: 'https://github.com/wizzywit/odudu' }],
     });
+  });
+
+  it('has no image and no extra links when none are given', () => {
+    const { image: _i, links: _l, ...bare } = fixture.data;
+    const project = mapProjectEntry({ id: 'x', data: bare });
+    expect(project.image).toBeNull();
+    expect(project.links).toEqual([]);
   });
 
   it('treats a missing href as unlinked', () => {

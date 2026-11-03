@@ -5,7 +5,7 @@ import { loadContactViewModel } from '../use-cases/contactViewModel';
 const vm = await loadContactViewModel();
 ---
 <div class="page contact">
-  <Reveal>
+  <Reveal variant="now">
     <span class="kicker">Contact</span>
     <h1>Write to me</h1>
     <p class="intro">{vm.intro}</p>

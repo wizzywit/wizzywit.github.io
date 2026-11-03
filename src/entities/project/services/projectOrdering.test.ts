@@ -3,7 +3,7 @@ import type { Project } from '../types/project';
 import { sortProjects } from './projectOrdering';
 
 const make = (slug: string, order: number): Project => ({
-  slug, title: slug, section: 'Platform', kicker: '', summary: '', role: '', href: null, external: false, hasCaseStudy: false, order, draft: false,
+  slug, title: slug, section: 'Platform', kicker: '', summary: '', role: '', href: null, external: false, hasCaseStudy: false, order, draft: false, image: null, links: [],
 });
 
 describe('sortProjects', () => {

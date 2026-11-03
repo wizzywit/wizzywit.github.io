@@ -15,6 +15,8 @@ const projects = defineCollection({
     href: z.string().optional(),
     order: z.number(),
     draft: z.boolean().optional(),
+    image: z.object({ src: z.string(), alt: z.string() }).optional(),
+    links: z.array(z.object({ label: z.string(), href: z.string() })).optional(),
   }),
 });
 
@@ -39,16 +41,28 @@ const decisions = defineCollection({
 const caseStudies = defineCollection({
   loader: glob({ pattern: '*.yaml', base: './content/case-studies' }),
   schema: z.object({
+    name: z.string(),
     title: z.string(),
     kicker: z.string(),
     deck: z.string(),
+    hero: z.object({ light: z.string(), dark: z.string().optional(), alt: z.string() }),
     meta: z.object({
       role: z.string(), type: z.string(), stack: z.string(),
       links: z.array(z.object({ label: z.string(), href: z.string() })),
     }),
     glance: z.object({ problem: z.string(), approach: z.string(), result: z.string() }),
     decisions: z.array(z.string()),
-    sections: z.array(z.object({ id: z.string(), heading: z.string(), paragraphs: z.array(z.string()), draft: z.boolean().optional() })),
+    sections: z.array(
+      z.object({
+        id: z.string(),
+        heading: z.string(),
+        paragraphs: z.array(z.string()),
+        draft: z.boolean().optional(),
+        media: z.array(z.object({ image: z.string(), alt: z.string(), caption: z.string() })).optional(),
+        video: z.object({ src: z.string(), poster: z.string(), label: z.string(), caption: z.string() }).optional(),
+        diagram: z.string().optional(),
+      }),
+    ),
   }),
 });
 

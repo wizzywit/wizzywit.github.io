@@ -27,8 +27,14 @@ test('links to the right places and never to #', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Write to me' }).first()).toHaveAttribute('href', '/contact/');
   await expect(page.getByRole('link', { name: /Read the decision/ })).toHaveAttribute('href', '/decisions/five-layers/');
   await expect(page.getByRole('link', { name: /Odudu: a multi-tenant identity provider/ })).toHaveAttribute('href', '/work/odudu/');
-  await expect(page.getByRole('link', { name: /Wired: an infinite canvas/ })).toHaveAttribute('href', 'https://github.com/wizzywit/wired');
+  await expect(page.getByRole('link', { name: /Wired: an infinite canvas/ })).toHaveAttribute('href', '/work/wired/');
   await expect(page.locator('a[href="#"]')).toHaveCount(0);
+});
+
+test('cards say what they open', async ({ page }) => {
+  expect(await page.getByText('Read the case study →').count()).toBeGreaterThanOrEqual(2);
+  await expect(page.getByText('View on GitHub ↗').first()).toBeVisible();
+  await expect(page.getByText('Visit the site ↗').first()).toBeVisible();
 });
 
 test('carries no placeholder text', async ({ page }) => {

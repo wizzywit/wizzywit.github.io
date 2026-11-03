@@ -4,7 +4,7 @@ import { dropUnpublishedDecisionLinks } from './dropUnpublishedLinks';
 
 const make = (slug: string, href: string | null): Project => ({
   slug, title: slug, section: 'Platform', kicker: '', summary: '', role: '', href,
-  external: href?.startsWith('http') ?? false, hasCaseStudy: false, order: 1, draft: false,
+  external: href?.startsWith('http') ?? false, hasCaseStudy: false, order: 1, draft: false, image: null, links: [],
 });
 
 describe('dropUnpublishedDecisionLinks', () => {

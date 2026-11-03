@@ -3,11 +3,11 @@ import type { CaseStudy } from '../types/caseStudy';
 import { publishableSections } from './caseStudyPublishing';
 
 const study: CaseStudy = {
-  slug: 'x', title: 't', kicker: 'k', deck: 'd',
+  slug: 'x', name: 'X', title: 't', kicker: 'k', deck: 'd', hero: { light: 'a.png', dark: null, alt: 'a' },
   meta: { role: 'r', type: 't', stack: 's', links: [] }, glance: { problem: 'p', approach: 'a', result: 'r' }, decisions: [],
   sections: [
-    { id: 'a', heading: 'A', paragraphs: [], draft: false },
-    { id: 'b', heading: 'B', paragraphs: [], draft: true },
+    { id: 'a', heading: 'A', paragraphs: [], draft: false, media: [], video: null, diagram: null },
+    { id: 'b', heading: 'B', paragraphs: [], draft: true, media: [], video: null, diagram: null },
   ],
 };
 

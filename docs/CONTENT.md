@@ -6,20 +6,18 @@ Everything on the site comes from `content/` and from résumé facts. Nothing is
 
 Front page, work index (12 entries), the Odudu case study (its factual sections), profile and CV, contact, 404, sitemap, robots and feed.
 
+## Decision records: published, in wording the assistant wrote
+
+All six ADRs are now published. The facts in them come from the résumé (13 modules, 35 tools, 4 customers, 11-person team, Yjs, Import Maps, the OpenID suite). The surrounding wording is the assistant's: the **context** paragraphs, the **options considered** (including which ones lost and why), and the **harder** consequences were written to be plausible and consistent with those facts, with your permission to invent a few words. They have not been checked against what you actually weighed. Please read each one and correct any option or trade-off that is not how it really went. Edit `content/decisions/*.yaml`.
+
 ## Still draft (shown in local preview, left out of production)
 
 | File | What is needed |
 | --- | --- |
-| `content/decisions/five-layers.yaml` | Why it was needed; an option that lost; the cost; what became harder |
-| `content/decisions/one-runtime.yaml` | What was going wrong before (confirm or replace the three options drafted from the design) |
-| `content/decisions/accessibility-in-dod.yaml` | What happened before; the cost to the team; what became harder |
-| `content/decisions/agent-permissions.yaml` | The risk designed against; an option that lost; the cost |
-| `content/decisions/conformance-ci-gate.yaml` | Why a badge was not enough; the CI cost |
-| `content/decisions/crdt-over-locks.yaml` | What was considered first; the cost |
 | `content/case-studies/odudu.yaml`, section `problem` | Why Odudu rather than an existing provider, and who it is for |
 | `content/case-studies/odudu.yaml`, section `differently` | One honest trade-off you would revisit |
 
-Each gap is marked `[Owner: …]`. While any ADR is draft, `/decisions/` is empty in production and the work entries that point at ADRs are shown without a link (this is automatic).
+These two are marked `[Owner: …]`.
 
 ## Other things only the owner can provide
 
@@ -27,6 +25,11 @@ Each gap is marked `[Owner: …]`. While any ADR is draft, `/decisions/` is empt
 - A portrait (optional). The design had a placeholder; none is shown.
 - Decision dates (`decidedOn`) if you want them shown.
 - The résumé reads "Teach Lead" for the FYEO role; the site uses "Tech Lead". Correct the résumé too.
+- **FYEO link is dead.** The "FYEO Domain Intelligence" link on LinkedIn (`fyeo-di.gofyeo.com`) does not resolve, so the site does not link it. Update LinkedIn, or tell me the right URL.
+- **FYEO Agent numbers.** The Chrome Web Store listing in your LinkedIn media shows "5 users", while the résumé says 5,000+ registered accounts. The site uses only the extension's own screenshots and your résumé wording; please make sure the résumé number is the one you can stand behind.
+- **NASIMS** is linked (`nasims.gov.ng`) but has no screenshot: its server timed out from here.
+- **Screenshots of live client sites** (VREG, IDEC, Outsource Global) are shown with links. Remove them if you would rather not show client sites.
+- **A Wired bug**, not a site issue: in Wired's dark mode the board title ("Creative brainstorming") is almost invisible on the canvas. The portfolio uses the light screenshots.
 - Odudu's MCP server and agent access are described as part of Odudu, as its README presents them. The case study's Status section keeps the README's own line that Odudu is a release candidate before 1.0 with a roadmap link.
 
 ## How to publish a draft

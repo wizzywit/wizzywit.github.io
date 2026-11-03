@@ -14,14 +14,14 @@ const vm = await loadMastheadViewModel();
 <header class={`masthead masthead--${variant}`}>
   {variant === 'front' ? (
     <div class="page">
-      <div class="strip" data-reveal="fade">
+      <div class="strip" data-reveal="now">
         <span class="edition">{vm.edition}</span>
         <span class="open"><span class="dot" aria-hidden="true"></span>{vm.openTo}</span>
         <span class="strip-actions"><ThemeToggle client:idle /></span>
       </div>
       <h1 class="name">{vm.name}</h1>
-      <p class="role" data-reveal="fade">{vm.roleLine}</p>
-      <nav class="sections sections--centered" aria-label="Sections" data-reveal="fade">
+      <p class="role" data-reveal="now" style="--enter-delay: 80ms">{vm.roleLine}</p>
+      <nav class="sections sections--centered" aria-label="Sections" data-reveal="now" style="--enter-delay: 140ms">
         {vm.nav.map((item) => (
           <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
         ))}

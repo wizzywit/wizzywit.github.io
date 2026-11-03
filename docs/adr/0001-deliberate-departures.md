@@ -31,3 +31,7 @@ The spec's 40 KB JavaScript budget cannot hold with React islands (react-dom is 
 ## 6. A native disclosure, not a modal, for the mobile menu
 
 A React menu dialog caused a 0.34 layout shift on every page when it hydrated. The menu is a `<details>` disclosure: no JavaScript, no shift, one island fewer.
+
+## 7. Motion is observer-driven, with the first screen in pure CSS
+
+The first version used scroll-driven CSS animation (`animation-timeline`), which most browsers did not run, so sections simply never animated. Reveals are now an `IntersectionObserver` runtime (`shared/ui/motion`) that works in every browser. Content is visible by default; an inline bootstrap adds `html.motion` only for visitors who allow motion, and removes it after 4 s if the runtime never starts, so nothing can stay hidden. The first screenful (`data-reveal="now"`) animates with plain CSS keyframes from first paint instead, because on a throttled phone the script started over a second late and delayed the largest text (LCP from 1.8 s to 2.8 s on the front page). All of it is off under `prefers-reduced-motion`.

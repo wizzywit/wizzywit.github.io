@@ -1,5 +1,5 @@
 import { formatDecisionStatus, getDecisions, type Decision } from '@/entities/decision';
-import { getCaseStudy, type CaseStudy } from '@/entities/project';
+import { getCaseStudy, getCaseStudySlugs, type CaseStudy } from '@/entities/project';
 
 export type CaseStudyViewModel = {
   study: CaseStudy;
@@ -21,6 +21,10 @@ export async function loadCaseStudyViewModel(slug: string): Promise<CaseStudyVie
   const study = await getCaseStudy(slug);
   if (!study) throw new Error(`No case study named "${slug}"`);
   return buildCaseStudyViewModel(study, await getDecisions());
+}
+
+export async function loadCaseStudySlugs(): Promise<string[]> {
+  return getCaseStudySlugs();
 }
 
 export async function loadCaseStudyMeta(slug: string): Promise<{ title: string; description: string }> {

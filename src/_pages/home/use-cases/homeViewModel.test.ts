@@ -6,16 +6,19 @@ import { buildHomeViewModel } from './homeViewModel';
 
 const project = (slug: string, order: number, href: string | null = null): Project => ({
   slug, title: slug.toUpperCase(), section: 'Platform', kicker: `Kicker ${slug}`, summary: `Summary ${slug}`, role: 'Role',
-  href, external: href?.startsWith('http') ?? false, hasCaseStudy: href?.startsWith('/work/') ?? false, order, draft: false,
+  href, external: href?.startsWith('http') ?? false, hasCaseStudy: href?.startsWith('/work/') ?? false, order, draft: false, image: null, links: [],
 });
 const decision = (slug: string, number: number): Decision => ({
   slug, number, title: `Title ${slug}`, why: `Why ${slug}`, area: 'Area', status: 'accepted', decidedOn: null, related: [],
   context: [], options: [], decision: '', consequences: { better: [], harder: [] }, draft: false,
 });
 
+const withImage = (p: Project): Project => ({ ...p, image: { name: `${p.slug}.png`, alt: `Alt ${p.slug}` } });
 const projects = [
-  project('odudu', 5, '/work/odudu/'), project('wired', 6, 'https://github.com/wizzywit/wired'), project('websuckit', 7),
-  project('fyeo-domain-intelligence', 8), project('dione', 10), project('nasims', 11), project('rust-side-projects', 12),
+  withImage({ ...project('odudu', 5, '/work/odudu/'), hasCaseStudy: true }), withImage({ ...project('wired', 6, '/work/wired/'), hasCaseStudy: true }), withImage(project('websuckit', 7, 'https://github.com/WebSuckIt')),
+  project('fyeo-domain-intelligence', 8), withImage(project('phishing-extension', 9)), project('dione', 10), project('nasims', 11),
+  withImage(project('vreg', 12, 'https://vreg.gov.ng')), withImage(project('idec', 13)), withImage(project('outsource-global-website', 14, 'https://www.outsourceglobal.com/')),
+  project('rust-side-projects', 15),
 ];
 const decisions = [decision('five-layers', 1), decision('one-runtime', 2), decision('accessibility-in-dod', 3), decision('agent-permissions', 4)];
 
@@ -33,7 +36,18 @@ describe('buildHomeViewModel', () => {
 
   it('features Odudu, Wired and WebSuckIt in that order, keeping real links only', () => {
     expect(vm.featured.map((f) => f.slug)).toEqual(['odudu', 'wired', 'websuckit']);
-    expect(vm.featured.map((f) => f.href)).toEqual(['/work/odudu/', 'https://github.com/wizzywit/wired', null]);
+    expect(vm.featured.map((f) => f.href)).toEqual(['/work/odudu/', '/work/wired/', 'https://github.com/WebSuckIt']);
+  });
+
+  it('gives each featured entry its picture, with alt text, for the page to show', () => {
+    expect(vm.featured.map((f) => f.image)).toEqual([
+      { name: 'odudu.png', alt: 'Alt odudu' }, { name: 'wired.png', alt: 'Alt wired' }, { name: 'websuckit.png', alt: 'Alt websuckit' },
+    ]);
+  });
+
+  it('words each link as a call to action so a card clearly opens something', () => {
+    expect(vm.featured.map((f) => f.cta)).toEqual(['Read the case study', 'Read the case study', 'View on GitHub']);
+    expect(vm.more.map((m) => m.cta)).toEqual([null, 'Visit the site', null, 'Visit the site']);
   });
 
   it('skips a featured project that is not published', () => {
@@ -41,9 +55,10 @@ describe('buildHomeViewModel', () => {
     expect(fewer.featured.map((f) => f.slug)).toEqual(['odudu', 'websuckit']);
   });
 
-  it('lists the four smaller entries from project data', () => {
-    expect(vm.more.map((m) => m.title)).toEqual(['FYEO-DOMAIN-INTELLIGENCE', 'DIONE', 'NASIMS', 'RUST-SIDE-PROJECTS']);
-    expect(vm.more[0]).toMatchObject({ kicker: 'Kicker fyeo-domain-intelligence', blurb: 'Summary fyeo-domain-intelligence' });
+  it('lists four smaller entries that have pictures, from project data', () => {
+    expect(vm.more.map((m) => m.title)).toEqual(['PHISHING-EXTENSION', 'VREG', 'IDEC', 'OUTSOURCE-GLOBAL-WEBSITE']);
+    expect(vm.more[0]).toMatchObject({ kicker: 'Kicker phishing-extension', blurb: 'Summary phishing-extension', image: { name: 'phishing-extension.png', alt: 'Alt phishing-extension' } });
+    expect(vm.more.map((m) => m.href)).toEqual([null, 'https://vreg.gov.ng', null, 'https://www.outsourceglobal.com/']);
   });
 
   it('shows the three chosen decisions that exist, in the chosen order', () => {

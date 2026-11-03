@@ -1,9 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import { Reveal } from '@/shared/ui';
-import consolePoster from '@/assets/odudu/console-poster.png';
-import overviewDark from '@/assets/odudu/overview-dark.webp';
-import overviewLight from '@/assets/odudu/overview-light.webp';
+import { AssetImage, Reveal, findAsset } from '@/shared/ui';
 import { loadCaseStudyViewModel } from '../use-cases/caseStudyViewModel';
 import ArchitectureDiagram from './ArchitectureDiagram.astro';
 import { LoopingVideo } from './LoopingVideo';
@@ -26,7 +22,7 @@ const glance = [
 ];
 ---
 <div class="page case">
-  <nav aria-label="Breadcrumb" class="crumbs"><a href="/work/">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">Odudu</span></nav>
+  <nav aria-label="Breadcrumb" class="crumbs"><a href="/work/">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">{study.name}</span></nav>
   <article>
     <span class="kicker">{study.kicker}</span>
     <h1>{study.title}</h1>
@@ -38,9 +34,9 @@ const glance = [
     </dl>
 
     <figure class="hero">
-      <Image class="shot shot--light" src={overviewLight} alt="Odudu admin console: the overview page of a tenant" widths={[640, 1100]} sizes="(max-width: 900px) 100vw, 1100px" loading="eager" />
-      <Image class="shot shot--dark" src={overviewDark} alt="Odudu admin console: the overview page of a tenant" widths={[640, 1100]} sizes="(max-width: 900px) 100vw, 1100px" loading="lazy" />
-      <figcaption>The admin console, shown in your chosen theme.</figcaption>
+      <AssetImage class="shot shot--light" name={study.hero.light} alt={study.hero.alt} widths={[640, 1100]} sizes="(max-width: 900px) 100vw, 1100px" loading="eager" />
+      {study.hero.dark ? <AssetImage class="shot shot--dark" name={study.hero.dark} alt={study.hero.alt} widths={[640, 1100]} sizes="(max-width: 900px) 100vw, 1100px" loading="lazy" /> : null}
+      {study.hero.dark ? <figcaption>Shown in your chosen theme.</figcaption> : null}
     </figure>
 
     <div class="grid">
@@ -52,11 +48,17 @@ const glance = [
           <Reveal as="section" aria-labelledby={`${section.id}-h`}>
             <h2 id={`${section.id}-h`}>{section.heading}</h2>
             {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
-            {section.id === 'architecture' ? <ArchitectureDiagram /> : null}
-            {section.id === 'console' ? (
+            {section.diagram === 'odudu-architecture' ? <ArchitectureDiagram /> : null}
+            {section.media.map((item) => (
+              <figure class="media">
+                <AssetImage name={item.image} alt={item.alt} widths={[640, 960]} sizes="(max-width: 900px) 100vw, 720px" />
+                <figcaption>{item.caption}</figcaption>
+              </figure>
+            ))}
+            {section.video ? (
               <figure class="video">
-                <LoopingVideo client:visible src="/media/odudu-console.mp4" poster={consolePoster.src} label="A short recording of the Odudu admin console: signing in, opening Clients and creating a client" />
-                <figcaption>A short recording of the console in use.</figcaption>
+                <LoopingVideo client:visible src={section.video.src} poster={findAsset(section.video.poster).src} label={section.video.label} />
+                <figcaption>{section.video.caption}</figcaption>
               </figure>
             ) : null}
           </Reveal>
@@ -75,8 +77,8 @@ const glance = [
           </div>
         ) : null}
         <div class="cta">
-          <h2>Hiring for identity or platform?</h2>
-          <p>I am happy to walk through Odudu’s design on a call.</p>
+          <h2>Want to talk it through?</h2>
+          <p>I am happy to walk through the design of {study.name} on a call.</p>
           <a href="/contact/">Write to me</a>
         </div>
       </aside>
@@ -100,13 +102,13 @@ const glance = [
   .links a { padding: 8px 0; }
 
   .hero { margin: 0 0 36px; }
-  .shot { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
-  .shot--dark { display: none; }
-  :global(:root[data-theme='dark']) .shot--light { display: none; }
-  :global(:root[data-theme='dark']) .shot--dark { display: block; }
+  .hero :global(.shot) { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
+  .hero :global(.shot--dark) { display: none; }
+  :global(:root[data-theme='dark']) .hero :global(.shot--light) { display: none; }
+  :global(:root[data-theme='dark']) .hero :global(.shot--dark) { display: block; }
   @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .shot--light { display: none; }
-    :global(:root:not([data-theme='light'])) .shot--dark { display: block; }
+    :global(:root:not([data-theme='light'])) .hero :global(.shot--light) { display: none; }
+    :global(:root:not([data-theme='light'])) .hero :global(.shot--dark) { display: block; }
   }
   figcaption { margin-top: 8px; font: 400 14px var(--font-ui); color: var(--muted); }
 
@@ -118,7 +120,8 @@ const glance = [
   .glance div:first-child { padding-left: 0; border-left: 0; }
   .glance dd { font: 400 16px / 1.5 var(--font-body); }
   .body h2 { margin: 12px 0 12px; font: 400 34px / 1.1 var(--font-display); }
-  .video { margin: 12px 0 0; }
+  .video, .media { margin: 12px 0 0; }
+  .media :global(img) { display: block; width: 100%; height: auto; border: 1px solid var(--rule); }
 
   aside { display: flex; flex-direction: column; gap: 24px; }
   .panel { border: 1px solid var(--rule); padding: 18px; }

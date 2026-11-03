@@ -135,3 +135,4 @@ Exact Steiger/boundaries configuration for `_pages`, font subsetting, share-imag
 - The mobile menu is a native `<details>` disclosure instead of a React dialog, because hydrating the dialog shifted the layout.
 - No contact form and no portrait; the PDF button waits for `public/cv.pdf`.
 - Case studies and decisions are structured content (`content/case-studies/*.yaml`, `content/decisions/*.yaml`) with per-entry or per-section `draft` flags.
+- Motion uses an observer-driven runtime with a CSS-only first screen, not scroll-driven animation (see `docs/adr/0001-deliberate-departures.md` §7). Work entries and cards carry real images and a visible call to action; Wired has its own case study.

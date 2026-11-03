@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { expectNoAxeViolations, setTheme } from './helpers/axe';
 
-const ROUTES = ['/', '/work/', '/work/odudu/', '/decisions/', '/decisions/one-runtime/', '/profile/', '/contact/', '/no/such/page/'];
+const ROUTES = ['/', '/work/', '/work/odudu/', '/work/wired/', '/decisions/', '/decisions/one-runtime/', '/profile/', '/contact/', '/no/such/page/'];
 
 test.describe('reflow at 320 CSS px (WCAG 1.4.10)', () => {
   test.use({ viewport: { width: 320, height: 700 } });

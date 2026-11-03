@@ -5,7 +5,7 @@ import { loadDecisionsViewModel } from '../use-cases/decisionsViewModel';
 const vm = await loadDecisionsViewModel();
 ---
 <div class="page log">
-  <Reveal class="intro">
+  <Reveal class="intro" variant="now">
     <div>
       <span class="kicker">Opinion · Architecture decision records</span>
       <h1>The decision log</h1>
@@ -18,8 +18,8 @@ const vm = await loadDecisionsViewModel();
     <>
       <div class="row head" aria-hidden="true"><span>No.</span><span>Decision</span><span>Area</span><span>Status</span></div>
       <ol>
-        {vm.rows.map((row) => (
-          <li class="row" data-reveal>
+        {vm.rows.map((row, index) => (
+          <li class="row" data-reveal={index < 3 ? 'now' : ''} style={`--enter-delay: ${index * 90}ms`}>
             <span class="no">{row.number}</span>
             <div class="what"><a href={row.href}>{row.title}</a><span class="why">{row.why}</span></div>
             <span class="area sub">{row.area}</span>

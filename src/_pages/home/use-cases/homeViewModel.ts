@@ -1,10 +1,11 @@
 import { formatDecisionStatus, getDecisions, type Decision } from '@/entities/decision';
 import { buildPersonJsonLd, buildWebSiteJsonLd, getProfile } from '@/entities/profile';
-import { getProjects, type Project } from '@/entities/project';
+import { describeProjectLink, getProjects, type Project } from '@/entities/project';
 import { SITE_NAME, SITE_URL } from '@/shared/config';
 
-export type HomeFeatured = { slug: string; kicker: string; headline: string; blurb: string; href: string | null; external: boolean };
-export type HomeCard = { kicker: string; title: string; blurb: string; href: string | null; external: boolean };
+type Picture = { name: string; alt: string } | null;
+export type HomeFeatured = { slug: string; kicker: string; headline: string; blurb: string; href: string | null; external: boolean; image: Picture; cta: string | null };
+export type HomeCard = { kicker: string; title: string; blurb: string; href: string | null; external: boolean; image: Picture; cta: string | null };
 export type HomeViewModel = {
   lead: { kicker: string; headline: string; deck: string; paragraphs: string[]; decisionHref: string | null };
   inBrief: { figure: string; text: string }[];
@@ -33,7 +34,7 @@ const FEATURED: Record<string, { headline: string; blurb: string; kicker: string
   },
 };
 const FEATURED_ORDER = ['odudu', 'wired', 'websuckit'];
-const MORE_ORDER = ['fyeo-domain-intelligence', 'dione', 'nasims', 'rust-side-projects'];
+const MORE_ORDER = ['phishing-extension', 'vreg', 'idec', 'outsource-global-website'];
 const FEATURED_DECISIONS = ['one-runtime', 'accessibility-in-dod', 'agent-permissions'];
 
 export function buildHomeViewModel(projects: Project[], decisions: Decision[]): HomeViewModel {
@@ -65,12 +66,12 @@ export function buildHomeViewModel(projects: Project[], decisions: Decision[]): 
       const project = bySlug.get(slug);
       const copy = FEATURED[slug];
       return project && copy
-        ? [{ slug, kicker: copy.kicker, headline: copy.headline, blurb: copy.blurb, href: project.href, external: project.external }]
+        ? [{ slug, kicker: copy.kicker, headline: copy.headline, blurb: copy.blurb, href: project.href, external: project.external, image: project.image, cta: describeProjectLink(project) }]
         : [];
     }),
     more: MORE_ORDER.flatMap((slug) => {
       const project = bySlug.get(slug);
-      return project ? [{ kicker: project.kicker, title: project.title, blurb: project.summary, href: project.href, external: project.external }] : [];
+      return project ? [{ kicker: project.kicker, title: project.title, blurb: project.summary, href: project.href, external: project.external, image: project.image, cta: describeProjectLink(project) }] : [];
     }),
     decisions: FEATURED_DECISIONS.flatMap((slug) => {
       const decision = decisionBySlug.get(slug);

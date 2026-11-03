@@ -5,7 +5,7 @@ import { loadProfileViewModel } from '../use-cases/profileViewModel';
 const vm = await loadProfileViewModel();
 ---
 <div class="page profile">
-  <Reveal as="section" class="top">
+  <Reveal as="section" class="top" variant="now">
     <span class="kicker">Profile</span>
     <h1>{vm.heading}</h1>
     {vm.intro.map((paragraph) => <p class="lede">{paragraph}</p>)}

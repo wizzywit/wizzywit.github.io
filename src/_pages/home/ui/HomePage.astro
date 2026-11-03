@@ -1,4 +1,5 @@
 ---
+import { AssetImage } from '@/shared/ui';
 import { ClassifiedsCard } from '@/widgets/classifieds-card';
 import { loadHomeViewModel } from '../use-cases/homeViewModel';
 
@@ -15,13 +16,13 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
 <div class="page home">
   <section aria-labelledby="lead-h" class="lead">
     <article class="lead-main">
-      <span class="kicker" data-reveal="fade">{vm.lead.kicker}</span>
-      <h2 id="lead-h" class="lead-headline" data-reveal>{vm.lead.headline}</h2>
-      <p class="deck" data-reveal>{vm.lead.deck}</p>
+      <span class="kicker" data-reveal="now" style="--enter-delay: 200ms">{vm.lead.kicker}</span>
+      <h2 id="lead-h" class="lead-headline" data-reveal="now" style="--enter-delay: 260ms">{vm.lead.headline}</h2>
+      <p class="deck" data-reveal="now" style="--enter-delay: 340ms">{vm.lead.deck}</p>
       <div class="cols">
-        <p data-reveal><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
-        <p data-reveal>{vm.lead.paragraphs[1]}</p>
-        <p data-reveal>{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
+        <p data-reveal="now" style="--enter-delay: 420ms"><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
+        <p data-reveal="now" style="--enter-delay: 480ms">{vm.lead.paragraphs[1]}</p>
+        <p data-reveal="now" style="--enter-delay: 540ms">{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
       </div>
       <figure class="layers" data-reveal-group>
         <div class="bars" role="img" aria-label="Diagram: the five layers, view, use case, repository, service and adapter, each one calling only the layer beneath it">
@@ -34,7 +35,7 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
     </article>
 
     <aside aria-label="In brief and contact" class="lead-side">
-      <div data-reveal>
+      <div data-reveal="now" style="--enter-delay: 400ms">
         <h2 class="side-h">In brief</h2>
         <dl class="brief">
           {vm.inBrief.map((item) => (
@@ -42,7 +43,7 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
           ))}
         </dl>
       </div>
-      <div data-reveal><ClassifiedsCard /></div>
+      <div data-reveal="now" style="--enter-delay: 480ms"><ClassifiedsCard /></div>
     </aside>
   </section>
 
@@ -54,10 +55,9 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
     <div class="feat" aria-labelledby="work-h" role="group">
       {vm.featured.map((item, index) => (
         <article class={index === 0 ? 'feat-main' : 'feat-side'} data-reveal>
-          {item.slug === 'odudu' ? (
-            <div class="art art--tall" role="img" aria-label="Illustration: two tenant-branded sign-in pages, one light and one dark">
-              <div class="signin signin--light"><span>Sign in</span><i></i><i></i><b></b></div>
-              <div class="signin signin--dark"><span>Sign in</span><i></i><i></i><b></b></div>
+          {item.image ? (
+            <div class={index === 0 ? 'frame frame--tall' : 'frame'}>
+              <AssetImage class="shot" name={item.image.name} alt={item.image.alt} widths={[480, 960]} sizes={index === 0 ? '(max-width: 900px) 100vw, 640px' : '(max-width: 900px) 100vw, 320px'} />
             </div>
           ) : null}
           <span class="kicker">{item.kicker}</span>
@@ -65,20 +65,22 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
             {item.href ? <a href={item.href} rel={rel(item.external)}>{item.headline}</a> : item.headline}
           </h3>
           <p>{item.blurb}</p>
-          {item.slug === 'wired' ? (
-            <div class="art art--short" role="img" aria-label="Illustration: one shape and two named cursors">
-              <span class="shape"></span><span class="cursor cursor--you">you</span><span class="cursor cursor--wisdom">Wisdom</span>
-            </div>
-          ) : null}
+          {item.cta ? <span class="cta" aria-hidden="true">{item.cta} {item.external ? '↗' : '→'}</span> : null}
         </article>
       ))}
     </div>
     <div class="more">
       {vm.more.map((card) => (
         <div class="more-card" data-reveal>
+          {card.image ? (
+            <div class="frame frame--small">
+              <AssetImage class="shot" name={card.image.name} alt={card.image.alt} widths={[320, 640]} sizes="(max-width: 900px) 50vw, 300px" />
+            </div>
+          ) : null}
           <span class="kicker">{card.kicker}</span>
           <strong>{card.href ? <a href={card.href} rel={rel(card.external)}>{card.title}</a> : card.title}</strong>
-          <span>{card.blurb}</span>
+          <span class="blurb">{card.blurb}</span>
+          {card.cta ? <span class="cta" aria-hidden="true">{card.cta} {card.external ? '↗' : '→'}</span> : null}
         </div>
       ))}
     </div>
@@ -151,41 +153,35 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
   .block-head a { font: 600 15px var(--font-ui); padding: 10px 0; }
 
   .feat { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
-  .feat article { display: flex; flex-direction: column; gap: 12px; }
+  .feat article { display: flex; flex-direction: column; gap: 12px; position: relative; }
   .feat-side { border-left: 1px solid var(--rule); padding-left: 28px; }
   .feat-title { margin: 0; font: 400 30px / 1.08 var(--font-display); }
   .feat-title--lead { font-size: 38px; line-height: 1.05; }
-  .feat-title a { text-decoration: none; }
+  .feat-title a, .more-card strong a, .three h3 a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  /* The whole card is the click target. */
+  .feat-title a::after, .more-card strong a::after, .three h3 a::after { content: ''; position: absolute; inset: 0; }
+  .feat article:hover .feat-title a, .more-card:hover strong a, .three article:hover h3 a { color: var(--accent); text-decoration-thickness: 2px; }
+  .cta { margin-top: 2px; font: 700 14px var(--font-ui); color: var(--accent); }
+  .feat article:hover .cta, .more-card:hover .cta { text-decoration: underline; text-underline-offset: 4px; }
   .feat p { margin: 0; font-size: 16px; line-height: 1.55; }
-  .art { background-color: var(--panel); background-image: radial-gradient(color-mix(in srgb, var(--muted) 60%, transparent) 1px, transparent 1.3px); background-size: 6px 6px; position: relative; }
-  .art--tall { height: 300px; display: flex; align-items: center; justify-content: center; gap: 18px; }
-  .art--short { height: 150px; }
-  .signin { width: 170px; padding: 16px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--rule); font: 700 12px var(--font-ui); }
-  .signin i { height: 20px; border: 1px solid var(--muted); }
-  .signin b { height: 22px; }
-  .signin--light { background: #F3F0E8; color: #151412; }
-  .signin--light b { background: #151412; }
-  .signin--dark { background: #151412; color: #F3F0E8; }
-  .signin--dark b { background: #F0857C; }
-  .shape { position: absolute; left: 30%; top: 30%; width: 90px; height: 56px; background: var(--paper); border: 2px solid var(--ink); }
-  .cursor { position: absolute; padding: 2px 6px; font: 700 11px var(--font-ui); color: #FFFFFF; }
-  .cursor--you { left: 62%; top: 66%; background: #A3171C; }
-  .cursor--wisdom { left: 20%; top: 18%; background: #151412; }
+  .frame { overflow: hidden; border: 1px solid var(--rule); background: var(--panel); height: 190px; }
+  .frame--tall { height: 300px; }
+  .frame--small { height: 130px; }
+  .frame :global(.shot) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .feat article:hover .frame :global(.shot), .more-card:hover .frame :global(.shot) { transform: scale(1.04); }
 
   .more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--rule); }
-  .more-card { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-left: 1px solid var(--rule); }
+  .more-card { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-left: 1px solid var(--rule); position: relative; }
   .more-card:first-child { padding-left: 0; border-left: 0; }
   .more-card .kicker { font-size: 12px; }
   .more-card strong { font: 400 22px / 1.15 var(--font-display); }
-  .more-card strong a { text-decoration: none; }
-  .more-card span:last-child { font-size: 15px; line-height: 1.45; }
+  .more-card .blurb { font-size: 15px; line-height: 1.45; }
 
   .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
-  .three article { display: flex; flex-direction: column; gap: 10px; }
+  .three article { display: flex; flex-direction: column; gap: 10px; position: relative; }
   .three article + article { border-left: 1px solid var(--rule); padding-left: 28px; }
   .meta { font: 600 13px var(--font-ui); color: var(--muted); }
   .three h3 { margin: 0; font: 400 26px / 1.12 var(--font-display); }
-  .three h3 a { text-decoration: none; }
   .three p { margin: 0; font-size: 16px; line-height: 1.55; }
 
   .profile { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; padding: 32px 0 48px; align-items: start; }
@@ -204,7 +200,6 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
     .feat-side, .principles, .three article + article { border-left: 0; padding-left: 0; }
     .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .more-card:nth-child(odd) { padding-left: 0; border-left: 0; }
-    .art--tall { height: 220px; gap: 10px; }
-    .signin { width: 42%; padding: 10px; }
+    .frame--tall { height: 220px; }
   }
 </style>
