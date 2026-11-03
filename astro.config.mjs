@@ -6,4 +6,6 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'always',
   integrations: [react()],
+  // lightningcss folds animation-timeline into the animation shorthand, which Chromium ignores.
+  vite: { build: { cssMinify: 'esbuild' } },
 });

@@ -12,6 +12,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
   { files: ['tools/**', '*.config.*'], languageOptions: { globals: globals.node } },
+  { files: ['**/*.{ts,tsx,astro}'], rules: { 'no-undef': 'off' } },
   {
     files: ['src/**/*.{ts,tsx,astro}'],
     plugins: { arch },

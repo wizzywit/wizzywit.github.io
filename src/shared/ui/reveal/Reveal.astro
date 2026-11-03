@@ -1,0 +1,13 @@
+---
+import './reveal.css';
+
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  /** Position within a group of siblings; later items start revealing a little later. */
+  order?: number;
+  class?: string;
+}
+
+const { as: Tag = 'div', order = 0, class: className = '' } = Astro.props;
+---
+<Tag class:list={['reveal', className]} style={`--reveal-order: ${order}`}><slot /></Tag>
