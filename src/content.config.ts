@@ -43,6 +43,7 @@ const profile = defineCollection({
     role: z.string(),
     location: z.string(),
     summary: z.string(),
+    yearsExperience: z.number(),
     email: z.string(),
     links: z.object({ github: z.string(), linkedin: z.string(), gitlab: z.string() }),
     skills: z.array(z.object({ group: z.string(), items: z.array(z.string()) })),

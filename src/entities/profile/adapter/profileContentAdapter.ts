@@ -19,6 +19,7 @@ export function mapProfileEntry(entry: ProfileEntry): Profile {
     role: required(data, 'role'),
     location: required(data, 'location'),
     summary: required(data, 'summary'),
+    yearsExperience: required(data, 'yearsExperience'),
     email: required(data, 'email'),
     links: required(data, 'links'),
     skills: required(data, 'skills'),

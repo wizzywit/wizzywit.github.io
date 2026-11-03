@@ -1,0 +1,21 @@
+---
+import { loadClassifiedsViewModel } from '../use-cases/classifiedsViewModel';
+
+const vm = await loadClassifiedsViewModel();
+---
+<section class="classifieds" aria-labelledby="classifieds-h">
+  <h2 id="classifieds-h">{vm.heading}</h2>
+  <p>{vm.text}</p>
+  <a class="primary" href={vm.writeHref}>Write to me</a>
+  {vm.cvHref ? <a class="secondary" href={vm.cvHref}>Download CV (PDF)</a> : null}
+</section>
+
+<style>
+  .classifieds { border: 1px solid var(--rule); padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+  h2 { margin: 0; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  p { margin: 0; font-size: 16px; line-height: 1.5; }
+  a { display: flex; align-items: center; justify-content: center; min-height: 48px; text-decoration: none; font: 700 15px var(--font-ui); }
+  .primary { background: var(--inverse); color: var(--on-inverse); }
+  .primary:hover { color: var(--on-inverse); text-decoration: underline; }
+  .secondary { border: 1px solid var(--rule); font-weight: 600; }
+</style>

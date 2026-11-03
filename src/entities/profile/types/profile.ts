@@ -13,6 +13,7 @@ export type Profile = {
   role: string;
   location: string;
   summary: string;
+  yearsExperience: number;
   email: string;
   links: { github: string; linkedin: string; gitlab: string };
   skills: { group: string; items: string[] }[];

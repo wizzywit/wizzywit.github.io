@@ -34,6 +34,10 @@ describe('content/profile.json', () => {
     ]);
   });
 
+  it('carries the years of experience from the résumé summary', () => {
+    expect(profile.yearsExperience).toBe(7);
+  });
+
   it('uses the résumé email', () => {
     expect(profile.email).toBe('wisdompraise968@gmail.com');
   });
