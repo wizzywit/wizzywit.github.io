@@ -1,4 +1,4 @@
-// Renders public/og.png (1200x630): the masthead on newsprint. Run once: node tools/make-og.mjs
+/* global document */// Renders public/og.png (1200x630): the masthead on newsprint. Run once: node tools/make-og.mjs
 import { chromium } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
