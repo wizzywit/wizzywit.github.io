@@ -43,7 +43,7 @@
 **Interfaces:**
 - Produces: scripts `pnpm dev|build|preview|lint|typecheck|test|e2e`; path alias `@/*` → `src/*`; Astro config with `site: 'https://wizzywit.github.io'`, `output: 'static'`, React integration, `trailingSlash: 'always'`.
 
-- [ ] **Step 1:** Confirm the commit identity with the owner and set it repo-locally (`git config user.name/user.email` without `--global`); never use the global config. The earlier docs commit failed for lack of identity: commit `docs/` first on `rebuild`.
+- [ ] **Step 1:** Commit identity is already set repo-locally by the owner's choice: name "Wisdom Emmanuel Praise", email `wisdompraise968@gmail.com` (personal; never the Censhare email, never the global config). Verify with `git config user.email`; the docs are already committed on `rebuild`.
 - [ ] **Step 2:** Remove the old compiled files in one commit ("Remove old build output"); keep `.idea/` out via `.gitignore` (also `node_modules`, `dist`, `.astro`, `test-results`, `playwright-report`).
 - [ ] **Step 3:** Scaffold Astro (empty template) with React and TypeScript `strict`; create empty FSD directories with a `.gitkeep` only where needed; one placeholder `src/pages/index.astro`.
 - [ ] **Step 4:** Run `pnpm build`. Expected: succeeds and `dist/index.html` exists.
