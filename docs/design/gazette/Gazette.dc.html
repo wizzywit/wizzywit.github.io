@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept 10 — The Gazette</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&amp;family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#141414}a:hover{color:#B01E23}
+a:focus-visible,button:focus-visible{outline:3px solid #B01E23;outline-offset:3px}
+@keyframes gz-reg{0%{text-shadow:7px 3px 0 rgba(176,30,35,.85),-4px -2px 0 rgba(20,20,20,.25)}22%,88%{text-shadow:0 0 0 rgba(176,30,35,0),0 0 0 rgba(20,20,20,0)}100%{text-shadow:7px 3px 0 rgba(176,30,35,.85),-4px -2px 0 rgba(20,20,20,.25)}}
+@keyframes gz-press{0%{clip-path:inset(0 0 100% 0)}20%,92%{clip-path:inset(0 0 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes gz-tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes gz-stamp{0%,30%{opacity:0;transform:rotate(-6deg) scale(1.5)}38%,90%{opacity:1;transform:rotate(-6deg) scale(1)}100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1680px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 28px; background: #DEDACF; color: #141414; font-family: 'Libre Caslon Text', Georgia, serif;">
+
+<header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; border-bottom: 3px double #141414; padding-bottom: 20px;">
+<div style="display: flex; align-items: baseline; gap: 24px;">
+<span style="font-family: 'Courier Prime', monospace; font-size: 52px; font-weight: 700; line-height: 1;">10</span>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<h2 style="margin: 0; font-family: 'Libre Caslon Display', serif; font-size: 54px; font-weight: 400; line-height: 1;">The Gazette</h2>
+<p style="margin: 0; font-size: 19px; color: #45423B;">Child of 01, louder. The homepage is the front page of a Munich broadsheet where he is the news: dry headlines, a classified ad for contact, and a ticker of real numbers.</p>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: 'Courier Prime', monospace; font-size: 13px; color: #45423B;">
+<span>UnifrakturMaguntia (masthead only) · Libre Caslon · Courier Prime</span>
+<div style="display: flex; gap: 6px;" aria-hidden="true">
+<span style="width: 28px; height: 28px; background: #EEEAE0; border: 1px solid #141414;"></span>
+<span style="width: 28px; height: 28px; background: #141414;"></span>
+<span style="width: 28px; height: 28px; background: #B01E23;"></span>
+<span style="width: 28px; height: 28px; background: #191816; border: 1px solid #45423B;"></span>
+<span style="width: 28px; height: 28px; background: #E8E2D2;"></span>
+</div>
+</div>
+</header>
+
+<p style="margin: 0; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #45423B;">A · Desktop hero — 1440 viewport, light theme · motion shown looping for review</p>
+
+<section aria-label="Hero mock" style="height: 800px; box-sizing: border-box; background: #EEEAE0; padding: 22px 44px 0; display: flex; flex-direction: column; overflow: hidden;">
+<div style="display: grid; grid-template-columns: 220px minmax(0, 1fr) 220px; align-items: center; gap: 20px;">
+<p style="margin: 0; border: 1.5px solid #141414; padding: 10px 12px; font-size: 13px; line-height: 1.4;"><strong>WEATHER</strong><br>30+ micro-frontends, one runtime. No storms expected.</p>
+<p style="margin: 0; text-align: center; font-family: 'UnifrakturMaguntia', serif; font-size: 78px; line-height: 1; animation: gz-reg 8s ease-out infinite both;">The Munich Frontend Gazette</p>
+<p style="margin: 0; border: 1.5px solid #141414; padding: 10px 12px; font-size: 13px; line-height: 1.4; text-align: right;"><strong>PRICE</strong><br>One conversation.<br>Recruiters read free.</p>
+</div>
+<nav aria-label="Primary" style="margin-top: 14px; border-top: 3px solid #141414; border-bottom: 1px solid #141414; display: flex; justify-content: space-between; align-items: center; font-family: 'Courier Prime', monospace; font-size: 14px;">
+<span>VOL. VII · MUNICH · EST. 7+ YEARS AGO</span>
+<div style="display: flex;">
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Front page</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Features (work)</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Opinion (ADRs)</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">CV</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none; background: #141414; color: #EEEAE0;">Classifieds</a>
+</div>
+</nav>
+
+<div style="flex-grow: 1; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 0; padding-top: 18px;">
+<article style="padding-right: 28px; border-right: 1px solid #141414; display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Courier Prime', monospace; font-size: 14px; font-weight: 700; color: #B01E23; letter-spacing: 0.1em;">EXCLUSIVE · PLATFORM</span>
+<h1 style="margin: 0; font-family: 'Libre Caslon Display', serif; font-size: 66px; font-weight: 400; line-height: 0.98; animation: gz-press 8s 300ms ease-out infinite both;">Local Engineer Makes Huge Frontend Boring; Thirteen Modules Relieved</h1>
+<p style="margin: 0; font-size: 19px; line-height: 1.4; font-style: italic; border-bottom: 1px solid #141414; padding-bottom: 12px;">Wisdom Emmanuel Praise, Senior Frontend Engineer for Frontend Platform &amp; Architecture, on the five-layer method now standard across Censhare, and why he writes everything down.</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; font-size: 16px; line-height: 1.55; text-align: justify; hyphens: auto;">
+<p style="margin: 0;"><span style="float: left; font-family: 'Libre Caslon Display', serif; font-size: 64px; line-height: 0.85; padding: 4px 8px 0 0;">M</span>UNICH. The feature architecture (view, use case, repository, service, adapter) began as a single ADR and is now the default in 13 product modules. The Frontend Builder built on it runs at more than ten enterprise customers.</p>
+<p style="margin: 0;">More than thirty micro-frontends share one runtime through Import Maps. An MCP server gives LLM agents 35 tools, each scoped to a permission. Accessibility, sources confirm, is in the Definition of Done: WCAG 2.2 AA and BFSG. <a href="#" style="font-weight: 700;">Continued on page 2 →</a></p>
+</div>
+</article>
+<aside aria-label="Index and classifieds" style="padding-left: 28px; display: flex; flex-direction: column; gap: 16px;">
+<div style="display: flex; flex-direction: column;">
+<h2 style="margin: 0 0 6px; font-family: 'Courier Prime', monospace; font-size: 14px; letter-spacing: 0.1em;">INSIDE TODAY</h2>
+<a href="#" style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #141414; text-decoration: none; font-size: 16px;"><span>Odudu: identity, conformant</span><span>2</span></a>
+<a href="#" style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #141414; text-decoration: none; font-size: 16px;"><span>Wired: nobody loses the box</span><span>3</span></a>
+<a href="#" style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #141414; text-decoration: none; font-size: 16px;"><span>DIONE: robots, in a browser</span><span>4</span></a>
+<a href="#" style="display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid #141414; border-bottom: 1px solid #141414; text-decoration: none; font-size: 16px;"><span>NASIMS: 2M+ citizens served</span><span>5</span></a>
+</div>
+<div style="position: relative; border: 3px double #141414; padding: 14px; display: flex; flex-direction: column; gap: 8px; font-family: 'Courier Prime', monospace; font-size: 14px; line-height: 1.45;">
+<strong style="font-size: 15px;">SITUATIONS WANTED</strong>
+<span>Senior / Staff Frontend, Platform &amp; Architecture. Writes ADRs. Ships accessible. Leads squads of 5–7. Munich or remote EU.</span>
+<a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 48px; background: #141414; color: #EEEAE0; text-decoration: none; font-weight: 700;">Reply to [EMAIL]</a>
+<span style="position: absolute; right: -10px; top: -14px; padding: 4px 10px; border: 2.5px solid #B01E23; color: #B01E23; font-weight: 700; background: #EEEAE0; animation: gz-stamp 8s 1s ease-out infinite both;">AVAILABLE</span>
+</div>
+</aside>
+</div>
+
+<div style="margin: 0 -44px; border-top: 3px solid #141414; background: #141414; color: #EEEAE0; overflow: hidden; white-space: nowrap; font-family: 'Courier Prime', monospace; font-size: 15px;" aria-label="News ticker">
+<div style="display: inline-block; padding: 12px 0; animation: gz-tick 30s linear infinite;">
+<span style="padding: 0 24px;">+++ MCP SERVER: 35 PERMISSION-SCOPED TOOLS FOR AGENTS</span><span style="padding: 0 24px;">+++ PHISHING-DETECTION EXTENSION: 5,000+ ACCOUNTS</span><span style="padding: 0 24px;">+++ ODUDU PASSES OPENID CONFORMANCE IN CI</span><span style="padding: 0 24px;">+++ 30+ MICRO-FRONTENDS, ONE RUNTIME</span><span style="padding: 0 24px;" aria-hidden="true">+++ MCP SERVER: 35 PERMISSION-SCOPED TOOLS FOR AGENTS</span><span style="padding: 0 24px;" aria-hidden="true">+++ PHISHING-DETECTION EXTENSION: 5,000+ ACCOUNTS</span><span style="padding: 0 24px;" aria-hidden="true">+++ ODUDU PASSES OPENID CONFORMANCE IN CI</span><span style="padding: 0 24px;" aria-hidden="true">+++ 30+ MICRO-FRONTENDS, ONE RUNTIME</span>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; flex-grow: 1;">
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #45423B;">B · Project case-study card</p>
+<article style="flex-grow: 1; background: #EEEAE0; padding: 24px 28px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 26px;">
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<span style="font-family: 'Courier Prime', monospace; font-size: 13px; font-weight: 700; border-bottom: 1px solid #141414; padding-bottom: 8px;">PAGE 3 · TECHNOLOGY</span>
+<h3 style="margin: 0; font-family: 'Libre Caslon Display', serif; font-size: 46px; font-weight: 400; line-height: 1;">Two People Move Same Box at Once; Nobody Loses Work</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.55;"><strong>Wired</strong>, a real-time collaborative whiteboard on an infinite canvas, settles arguments with Yjs CRDTs rather than locks. Built with React 19 and Konva, with live cursors.</p>
+<a href="#" style="font-weight: 700; font-size: 16px; padding: 12px 0; width: fit-content;">Read the full story →</a>
+</div>
+<figure style="margin: 0; display: flex; flex-direction: column; gap: 6px;">
+<div style="flex-grow: 1; position: relative; background-color: #D9D3C3; background-image: radial-gradient(#141414 1.1px, transparent 1.4px); background-size: 7px 7px; border: 1px solid #141414;" role="img" aria-label="Halftone illustration of a box and two cursors">
+<span style="position: absolute; left: 50px; top: 60px; width: 120px; height: 80px; background: #EEEAE0; border: 2.5px solid #141414;"></span>
+<span style="position: absolute; left: 160px; top: 128px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 22px solid #B01E23; transform: rotate(-30deg);"></span>
+<span style="position: absolute; left: 36px; top: 46px; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 22px solid #141414; transform: rotate(-30deg);"></span>
+</div>
+<figcaption style="font-size: 13px; font-style: italic;">Both cursors, one box. Neither user was harmed.</figcaption>
+</figure>
+</article>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'Courier Prime', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #45423B;">C · Signature motion — storyboard</p>
+<div style="flex-grow: 1; background: #191816; color: #E8E2D2; padding: 24px 26px; display: flex; flex-direction: column; gap: 14px;">
+<h3 style="margin: 0; font-family: 'Libre Caslon Display', serif; font-size: 34px; font-weight: 400;">Stop the presses</h3>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><div style="height: 78px; background: #EEEAE0; display: flex; align-items: center; justify-content: center; font-family: 'UnifrakturMaguntia', serif; font-size: 28px; color: #141414; text-shadow: 4px 2px 0 rgba(176,30,35,.85);">Gazette</div><span style="font-size: 13px; color: #C9C3B3;">1 · off-register</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><div style="height: 78px; background: #EEEAE0; display: flex; align-items: center; justify-content: center; font-family: 'UnifrakturMaguntia', serif; font-size: 28px; color: #141414;">Gazette</div><span style="font-size: 13px; color: #C9C3B3;">2 · registers</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><div style="height: 78px; background: #EEEAE0; padding: 10px; box-sizing: border-box; display: grid; grid-template-columns: 1fr 1fr; gap: 6px;"><span style="background: repeating-linear-gradient(#141414 0 2px, transparent 2px 6px);"></span><span style="background: repeating-linear-gradient(#141414 0 2px, transparent 2px 6px); clip-path: inset(0 0 40% 0);"></span></div><span style="font-size: 13px; color: #C9C3B3;">3 · columns set</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><div style="height: 78px; background: #EEEAE0; display: flex; align-items: center; justify-content: center;"><span style="padding: 3px 8px; border: 2px solid #B01E23; color: #B01E23; font-weight: 700; font-size: 12px; transform: rotate(-6deg);">AVAILABLE</span></div><span style="font-size: 13px; color: #C9C3B3;">4 · stamped</span></div>
+</div>
+<p style="margin: 0; font-size: 16px; line-height: 1.5;">The masthead prints slightly off-register, then snaps into alignment. Headlines roll in top to bottom like a press. The classified ad gets an AVAILABLE stamp, and a ticker of real numbers runs along the bottom; it pauses on hover or focus and has a pause button.</p>
+<p style="margin: 0; font-size: 14px; line-height: 1.5; color: #C9C3B3;"><strong style="color: #E8E2D2;">Reduced motion:</strong> registered from the start; the ticker becomes a static “In brief” list. <strong style="color: #E8E2D2;">Dark:</strong> the night edition, #191816. <strong style="color: #E8E2D2;">360px:</strong> single column, masthead on two lines, classifieds right after the lead.</p>
+</div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1680}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

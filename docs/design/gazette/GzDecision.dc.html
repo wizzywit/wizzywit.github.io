@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ADR 02 — One runtime for 30+ micro-frontends — Wisdom Emmanuel Praise</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F0E8}
+a{color:#151412}a:hover{color:#A3171C}
+a:focus-visible,button:focus-visible{outline:3px solid #A3171C;outline-offset:3px}
+.ad-grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:56px}
+.ad-cons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.ad-tiles{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.ad-tbl{overflow-x:auto}
+@media (max-width: 900px){.ad-grid,.ad-cons{grid-template-columns:minmax(0,1fr);gap:24px}.ad-tiles{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@keyframes ad-tile{0%{opacity:0;transform:translateY(-6px)}10%,90%{opacity:1;transform:none}100%{opacity:1}}
+@keyframes ad-drop{0%,25%{transform:scaleY(0)}40%,92%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:.3}}
+@keyframes ad-strike{0%,30%{background-size:0% 2px}45%,100%{background-size:100% 2px}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="background: #F3F0E8; color: #151412; font-family: 'Libre Caslon Text', Georgia, serif;">
+<header style="border-bottom: 3px double #151412;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px;">
+<a href="GzHome.dc.html" style="padding: 14px 0; text-decoration: none; font-family: 'Libre Caslon Display', serif; font-size: 28px;">Wisdom Emmanuel Praise</a>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; margin: 0 -12px;">
+<a href="GzHome.dc.html" style="padding: 13px 12px; text-decoration: none;">Front page</a>
+<a href="GzWork.dc.html" style="padding: 13px 12px; text-decoration: none;">Work</a>
+<a href="GzDecisions.dc.html" aria-current="page" style="padding: 13px 12px; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Decisions</a>
+<a href="GzProfile.dc.html" style="padding: 13px 12px; text-decoration: none;">Profile</a>
+<a href="GzContact.dc.html" style="padding: 13px 12px; text-decoration: none;">Contact</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 56px;">
+<nav aria-label="Breadcrumb" style="font-family: 'Libre Franklin', sans-serif; font-size: 14px; margin-bottom: 18px;"><a href="GzDecisions.dc.html" style="padding: 10px 0;">Decisions</a> <span aria-hidden="true">/</span> <span aria-current="page">ADR 02</span></nav>
+<article>
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">ADR 02 · Platform runtime</span>
+<h1 style="margin: 10px 0 14px; max-width: 20ch; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: clamp(38px, 5.6vw, 76px); line-height: 1.02;">One runtime for thirty micro-frontends, via Import Maps</h1>
+<p style="margin: 0 0 30px; max-width: 40em; font-size: 21px; line-height: 1.45; font-style: italic; color: #3A3732;">Teams should ship independently. Users should not download the same framework thirty times.</p>
+
+<div class="ad-grid">
+<aside aria-label="Record details">
+<dl style="margin: 0; font-family: 'Libre Franklin', sans-serif; border-top: 3px double #151412;">
+<div style="padding: 12px 0; border-bottom: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Status</dt><dd style="margin: 4px 0 0; font-size: 17px; font-weight: 700; color: #A3171C;">Accepted</dd></div>
+<div style="padding: 12px 0; border-bottom: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Decided</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600;">[Month, year]</dd></div>
+<div style="padding: 12px 0; border-bottom: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Deciders</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600;">Frontend platform, module leads</dd></div>
+<div style="padding: 12px 0; border-bottom: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Related</dt><dd style="margin: 4px 0 0; font-size: 16px;"><a href="GzDecisions.dc.html" style="display: block; padding: 6px 0;">ADR 01 · Five layers</a><a href="GzDecisions.dc.html" style="display: block; padding: 6px 0;">ADR 03 · Accessibility in DoD</a></dd></div>
+</dl>
+<nav aria-label="On this page" style="margin-top: 20px; font-family: 'Libre Franklin', sans-serif; font-size: 15px; display: flex; flex-direction: column;">
+<a href="#context" style="padding: 10px 0;">Context</a><a href="#options" style="padding: 10px 0;">Options</a><a href="#decision" style="padding: 10px 0;">Decision</a><a href="#consequences" style="padding: 10px 0;">Consequences</a>
+</nav>
+</aside>
+
+<div style="display: flex; flex-direction: column; gap: 20px; max-width: 760px; font-size: 19px; line-height: 1.7;">
+<h2 id="context" style="margin: 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px;">Context</h2>
+<p style="margin: 0;">More than thirty micro-frontends, owned by different teams, render inside one product. [Your words: what was going wrong before, e.g. load time, version drift, duplicated dependencies.]</p>
+
+<figure style="margin: 0; padding: 20px 0; border-top: 1px solid #151412; border-bottom: 1px solid #151412; display: flex; flex-direction: column; gap: 0;" role="img" aria-label="Diagram: thirty micro-frontend tiles all resolve shared modules from one runtime through an import map">
+<div class="ad-tiles">
+<sc-for list="{{tiles}}" as="t" hint-placeholder-count="30"><span style="{{t.s}}"></span></sc-for>
+</div>
+<span style="align-self: center; width: 2px; height: 44px; background: #151412; transform-origin: top; animation: ad-drop 9s ease-out infinite both;" aria-hidden="true"></span>
+<pre style="margin: 0; padding: 14px 16px; background: #151412; color: #F3F0E8; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">{ "imports": {
+    "react":         "/runtime/react.js",
+    "@platform/ui":  "/runtime/ui.js"
+} }</pre>
+<figcaption style="margin-top: 10px; font-family: 'Libre Franklin', sans-serif; font-size: 14px; color: #57534B;">Fig. 1 — Every micro-frontend asks for shared modules by name; one import map answers for all of them. (Illustrative.)</figcaption>
+</figure>
+
+<h2 id="options" style="margin: 10px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px;">Options considered</h2>
+<div class="ad-tbl">
+<table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 16px; line-height: 1.5;">
+<thead><tr style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-align: left;"><th scope="col" style="padding: 10px 12px 10px 0; border-bottom: 2px solid #151412;">Option</th><th scope="col" style="padding: 10px 12px; border-bottom: 2px solid #151412;">For</th><th scope="col" style="padding: 10px 0 10px 12px; border-bottom: 2px solid #151412;">Against</th></tr></thead>
+<tbody>
+<tr><th scope="row" style="padding: 12px 12px 12px 0; border-bottom: 1px solid #151412; text-align: left; font-weight: 400;"><span style="background: linear-gradient(#A3171C, #A3171C) no-repeat 0 55% / 100% 2px; animation: ad-strike 9s 0.4s infinite both;">Bundle shared code per app</span></th><td style="padding: 12px; border-bottom: 1px solid #151412;">Simple, fully independent</td><td style="padding: 12px 0 12px 12px; border-bottom: 1px solid #151412;">Duplicate downloads; version drift</td></tr>
+<tr><th scope="row" style="padding: 12px 12px 12px 0; border-bottom: 1px solid #151412; text-align: left; font-weight: 400;"><span style="background: linear-gradient(#A3171C, #A3171C) no-repeat 0 55% / 100% 2px; animation: ad-strike 9s 0.8s infinite both;">Build-time composition</span></th><td style="padding: 12px; border-bottom: 1px solid #151412;">One optimised bundle</td><td style="padding: 12px 0 12px 12px; border-bottom: 1px solid #151412;">Teams can no longer release alone</td></tr>
+<tr><th scope="row" style="padding: 12px 12px 12px 0; border-bottom: 1px solid #151412; text-align: left;">Import Maps, one runtime</th><td style="padding: 12px; border-bottom: 1px solid #151412;">Web standard; shared once; independent releases</td><td style="padding: 12px 0 12px 12px; border-bottom: 1px solid #151412;">Needs a contract for shared versions</td></tr>
+</tbody>
+</table>
+</div>
+<p style="margin: 0; font-family: 'Libre Franklin', sans-serif; font-size: 14px; color: #57534B;">[Confirm or replace the options you actually weighed.]</p>
+
+<h2 id="decision" style="margin: 10px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px;">Decision</h2>
+<p style="margin: 0; padding: 16px 20px; border-left: 4px solid #A3171C; background: #EAE5D9;">All micro-frontends load shared dependencies from one platform runtime, resolved through Import Maps. The platform team owns the map and its upgrade policy.</p>
+
+<h2 id="consequences" style="margin: 10px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px;">Consequences</h2>
+<div class="ad-cons" style="gap: 28px; font-size: 17px; line-height: 1.55;">
+<div><h3 style="margin: 0 0 8px; font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Better</h3><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px;"><li>Shared code is downloaded once.</li><li>Teams release on their own schedule.</li><li>[A measured result, if you have one.]</li></ul></div>
+<div><h3 style="margin: 0 0 8px; font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Harder</h3><ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px;"><li>Shared upgrades need coordination.</li><li>The runtime is now critical infrastructure.</li></ul></div>
+</div>
+</div>
+</div>
+</article>
+</main>
+
+<footer style="background: #151412; color: #E9E4D8;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 22px;">Wisdom Emmanuel Praise</span>
+<nav aria-label="Elsewhere" style="display: flex; flex-wrap: wrap;"><a href="GzContact.dc.html" style="color: #E9E4D8; padding: 12px;">Email</a><a href="#" style="color: #E9E4D8; padding: 12px;">GitHub</a><a href="#" style="color: #E9E4D8; padding: 12px;">LinkedIn</a><a href="#" style="color: #E9E4D8; padding: 12px;">CV (PDF)</a></nav>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const tiles = Array.from({ length: 30 }, (_, i) => ({
+      s: { height: '26px', border: '1.5px solid #151412', background: i % 7 === 0 ? '#A3171C' : '#F3F0E8', animation: 'ad-tile 9s ' + (i * 0.04).toFixed(2) + 's ease-out infinite both' }
+    }));
+    return { tiles };
+  }
+}
+</script>
+</body>
+</html>
