@@ -19,7 +19,7 @@ test.describe('theme switch', () => {
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.getByRole('button', { name: 'Night edition', pressed: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Day edition' })).toBeVisible();
   });
 
   test('the stored theme applies before any JavaScript bundle runs', async ({ page }) => {
@@ -45,6 +45,6 @@ test.describe('theme switch', () => {
   test('an invalid stored value is ignored', async ({ page }) => {
     await page.addInitScript(() => localStorage.setItem('wep-theme', 'purple'));
     await page.goto('/');
-    await expect(page.getByRole('button', { name: 'Night edition', pressed: false })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Night edition' })).toBeVisible();
   });
 });

@@ -18,10 +18,10 @@ afterEach(() => {
 });
 
 describe('ThemeToggle', () => {
-  it('starts unpressed as the night edition switch', () => {
+  it('offers the night edition while the day edition is showing', () => {
     render(<ThemeToggle />);
-    const button = screen.getByRole('button', { name: 'Night edition' });
-    expect(button.getAttribute('aria-pressed')).toBe('false');
+    expect(screen.getByRole('button', { name: 'Night edition' })).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Day edition' })).toBeNull();
   });
 
   it('flags itself ready once it is interactive', async () => {
@@ -29,10 +29,23 @@ describe('ThemeToggle', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: 'Night edition' }).getAttribute('data-ready')).toBe('true'));
   });
 
+  it('switches back to the day edition on a second click', async () => {
+    render(<ThemeToggle />);
+    await userEvent.click(screen.getByRole('button', { name: 'Night edition' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Day edition' }));
+    expect(screen.getByRole('button', { name: 'Night edition' })).toBeTruthy();
+    expect(localStorage.getItem('wep-theme')).toBe('light');
+  });
+
+  it('does not rely on aria-pressed: the label itself says what the click will do', () => {
+    render(<ThemeToggle />);
+    expect(screen.getByRole('button', { name: 'Night edition' }).hasAttribute('aria-pressed')).toBe(false);
+  });
+
   it('switches to dark, updates the document and persists the choice', async () => {
     render(<ThemeToggle />);
     await userEvent.click(screen.getByRole('button', { name: 'Night edition' }));
-    expect(screen.getByRole('button', { name: 'Night edition' }).getAttribute('aria-pressed')).toBe('true');
+    expect(screen.getByRole('button', { name: 'Day edition' })).toBeTruthy();
     expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
     expect(localStorage.getItem('wep-theme')).toBe('dark');
   });
@@ -40,7 +53,7 @@ describe('ThemeToggle', () => {
   it('restores a stored dark preference after mount', async () => {
     localStorage.setItem('wep-theme', 'dark');
     render(<ThemeToggle />);
-    expect(await screen.findByRole('button', { name: 'Night edition', pressed: true })).toBeTruthy();
+    expect(await screen.findByRole('button', { name: 'Day edition' })).toBeTruthy();
     await waitFor(() => expect(document.documentElement.getAttribute('data-theme')).toBe('dark'));
   });
 

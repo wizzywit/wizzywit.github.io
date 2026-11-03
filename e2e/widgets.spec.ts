@@ -57,3 +57,12 @@ test.describe('narrow screens', () => {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 });
+
+test('the footer sits at the bottom of short pages', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'default', 'desktop layout');
+  for (const route of ['/contact/', '/decisions/', '/no/such/page/']) {
+    await page.goto(route);
+    const gap = await page.evaluate(() => window.innerHeight - document.querySelector('footer')!.getBoundingClientRect().bottom);
+    expect(gap, route).toBeLessThanOrEqual(1);
+  }
+});
