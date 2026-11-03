@@ -10,8 +10,9 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "test": "vitest run",
-    "lint": "echo 'lint arrives in task 2'",
-    "e2e": "echo 'e2e arrives in task 3'"
+    "lint": "eslint . && node tools/check-structure.ts && node tools/run-steiger.mjs && jscpd",
+    "e2e": "echo 'e2e arrives in task 3'",
+    "lint:fast": "eslint ."
   },
   "dependencies": {
     "@astrojs/react": "^7.1.2",
@@ -21,9 +22,17 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@eslint/js": "^10.0.1",
+    "@feature-sliced/steiger-plugin": "^0.8.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "eslint": "^10.14.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "globals": "^17.14.0",
+    "jscpd": "^5.4.2",
+    "steiger": "^0.9.0",
     "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
     "vitest": "^5.0.5"
   }
 }
