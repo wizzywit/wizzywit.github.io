@@ -12,6 +12,8 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import { themeBootstrapScript } from '@/features/theme-switch';
 import bodyFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url';
+import italicFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-italic.woff2?url';
+import displayFont from '@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2?url';
 import uiFont from '@fontsource/libre-franklin/files/libre-franklin-latin-600-normal.woff2?url';
 
 interface Props {
@@ -52,6 +54,8 @@ const shareImage = new URL('/og.png', Astro.site).href;
     <meta name="twitter:image" content={shareImage} />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={uiFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={italicFont} as="font" type="font/woff2" crossorigin />
     {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
   </head>
   <body>

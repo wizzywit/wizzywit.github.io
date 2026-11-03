@@ -6,7 +6,7 @@ export function WorkFilter({ projects }: { projects: Project[] }) {
   const { viewModel, select } = useWorkIndex(projects);
   return (
     <>
-      <div role="group" aria-label="Filter by section" className="chips" hidden={!viewModel.ready}>
+      <div role="group" aria-label="Filter by section" className="chips" data-ready={viewModel.ready}>
         {viewModel.filters.map((filter) => (
           <button key={filter.label} type="button" aria-pressed={filter.pressed} onClick={() => select(filter.label)}>
             {filter.label}

@@ -12,7 +12,12 @@
     "test": "vitest run",
     "lint": "eslint . && node tools/check-structure.ts && node tools/run-steiger.mjs && jscpd",
     "e2e": "playwright test",
-    "lint:fast": "eslint ."
+    "lint:fast": "eslint .",
+    "build:prod": "INCLUDE_DRAFTS=0 astro build",
+    "check:content": "node tools/check-content.ts",
+    "check:dist": "node tools/check-dist.ts",
+    "release:check": "pnpm check:content && pnpm build:prod && pnpm check:dist",
+    "lighthouse": "lhci autorun"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.2",
@@ -32,6 +37,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
     "@feature-sliced/steiger-plugin": "^0.8.2",
+    "@lhci/cli": "^0.15.1",
     "@playwright/test": "^1.64.1",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/react": "^16.3.3",
@@ -49,6 +55,7 @@
     "steiger": "^0.9.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
-    "vitest": "^5.0.5"
+    "vitest": "^5.0.5",
+    "yaml": "^2.9.1"
   }
 }

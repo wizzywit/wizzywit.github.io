@@ -8,5 +8,7 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [react(), sitemap({ filter: (page) => !page.includes('/404') })],
   // lightningcss folds animation-timeline into the animation shorthand, which Chromium ignores.
+  // The whole site's CSS is a few KB: inlining it removes render-blocking requests.
+  build: { inlineStylesheets: 'always' },
   vite: { build: { cssMinify: 'esbuild' } },
 });

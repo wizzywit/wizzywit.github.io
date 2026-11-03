@@ -2,7 +2,6 @@
 import { ThemeToggle } from '@/features/theme-switch';
 import type { NavKey } from '@/shared/config';
 import { loadMastheadViewModel } from '../use-cases/mastheadViewModel';
-import { MobileMenu } from './MobileMenu';
 
 interface Props {
   current?: NavKey | undefined;
@@ -18,7 +17,7 @@ const vm = await loadMastheadViewModel();
       <div class="strip">
         <span class="edition">{vm.edition}</span>
         <span class="open"><span class="dot" aria-hidden="true"></span>{vm.openTo}</span>
-        <span class="strip-actions"><ThemeToggle client:idle /><MobileMenu client:idle current={current} /></span>
+        <span class="strip-actions"><ThemeToggle client:idle /></span>
       </div>
       <h1 class="name">{vm.name}</h1>
       <p class="role">{vm.roleLine}</p>
@@ -27,6 +26,14 @@ const vm = await loadMastheadViewModel();
           <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
         ))}
       </nav>
+      <details class="menu">
+        <summary>Menu</summary>
+        <nav aria-label="Sections">
+          {vm.nav.map((item) => (
+            <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </details>
     </div>
   ) : (
     <div class="page bar">
@@ -38,7 +45,14 @@ const vm = await loadMastheadViewModel();
           ))}
         </nav>
         <ThemeToggle client:idle />
-        <MobileMenu client:idle current={current} />
+        <details class="menu">
+          <summary>Menu</summary>
+          <nav aria-label="Sections">
+            {vm.nav.map((item) => (
+              <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+            ))}
+          </nav>
+        </details>
       </div>
     </div>
   )}
@@ -75,10 +89,25 @@ const vm = await loadMastheadViewModel();
 
   @keyframes name-in { from { letter-spacing: 0.06em; } to { letter-spacing: -0.01em; } }
 
+  /* The menu is a native disclosure: it works without JavaScript and never changes the layout on hydration. */
+  .menu { display: none; }
+  .menu summary {
+    display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0 14px; cursor: pointer;
+    border: 1px solid var(--rule); font: 700 14px var(--font-ui); list-style: none;
+  }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu[open] summary { background: var(--ink); color: var(--paper); }
+  .menu nav { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--rule); font: 400 24px var(--font-display); }
+  .menu nav a { display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .menu nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
   @media (max-width: 900px) {
     .open { display: none; }
-    .masthead:has(:global(.menu-btn[data-ready='true'])) .sections { display: none; }
-    .masthead:has(:global(.menu-btn[data-ready='true'])) :global(.theme-toggle) { display: none; }
+    .sections { display: none; }
+    .menu { display: block; }
+    .bar-end { flex-wrap: wrap; }
+    .bar-end .menu { width: 100%; }
     .brand { font-size: 22px; }
+    .masthead--front .menu { margin-top: 10px; }
   }
 </style>
