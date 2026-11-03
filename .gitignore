@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.idea
+.superpowers
+test-results
+playwright-report
+.DS_Store
