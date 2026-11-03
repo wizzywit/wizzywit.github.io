@@ -5,3 +5,5 @@ Résumé facts for the whole site, from `content/profile.json`. Nothing here is 
 ## Rules owned
 - A profile without name, role, location, summary, email, links, skills, experience, education, languages, work authorization and a ticker array is rejected at build time.
 - The ticker carries the four figures shown on the front page.
+- How the person, website and profile page are described to search engines (`personStructuredData`): no email address is exposed.
+- How a mailto link is built (`mailtoHref`).

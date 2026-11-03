@@ -1,4 +1,5 @@
 import {
+  buildTechArticleJsonLd,
   formatDecisionNumber,
   formatDecisionStatus,
   getDecision,
@@ -6,6 +7,8 @@ import {
   relatedDecisions,
   type Decision,
 } from '@/entities/decision';
+import { getProfile } from '@/entities/profile';
+import { SITE_URL } from '@/shared/config';
 
 export type DecisionViewModel = {
   slug: string;
@@ -61,7 +64,14 @@ export async function loadDecisionSlugs(): Promise<string[]> {
   return (await getDecisions()).map((decision) => decision.slug);
 }
 
-export async function loadDecisionMeta(slug: string): Promise<{ title: string; description: string }> {
-  const vm = await loadDecisionViewModel(slug);
-  return { title: `${vm.number} — ${vm.title} — Wisdom Emmanuel Praise`, description: vm.why };
+export async function loadDecisionMeta(slug: string): Promise<{ title: string; description: string; jsonLd: object[] }> {
+  const decision = await getDecision(slug);
+  if (!decision) throw new Error(`No decision named "${slug}"`);
+  const vm = buildDecisionViewModel(decision, []);
+  const profile = await getProfile();
+  return {
+    title: `${vm.number} — ${vm.title} — ${profile.name}`,
+    description: vm.why,
+    jsonLd: [buildTechArticleJsonLd(decision, SITE_URL, profile.name)],
+  };
 }

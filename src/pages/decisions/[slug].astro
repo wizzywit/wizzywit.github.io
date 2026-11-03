@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const meta = await loadDecisionMeta(slug as string);
 ---
-<BaseLayout title={meta.title} description={meta.description} canonicalPath={`/decisions/${slug}/`}>
+<BaseLayout title={meta.title} description={meta.description} jsonLd={meta.jsonLd} ogType="article" canonicalPath={`/decisions/${slug}/`}>
   <Masthead slot="header" current="decisions" />
   <DecisionPage slug={slug as string} />
   <SiteFooter slot="footer" />

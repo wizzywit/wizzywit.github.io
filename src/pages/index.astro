@@ -6,7 +6,7 @@ import { SiteFooter } from '@/widgets/site-footer';
 
 const meta = await loadHomeMeta();
 ---
-<BaseLayout title={meta.title} description={meta.description} canonicalPath="/">
+<BaseLayout title={meta.title} description={meta.description} jsonLd={meta.jsonLd} ogType="website" canonicalPath="/">
   <Masthead slot="header" current="front" variant="front" />
   <HomePage />
   <SiteFooter slot="footer" />

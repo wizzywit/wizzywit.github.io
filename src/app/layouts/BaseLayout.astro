@@ -20,10 +20,12 @@ interface Props {
   canonicalPath: string;
   jsonLd?: object[];
   noindex?: boolean;
+  ogType?: 'website' | 'article';
 }
 
-const { title, description, canonicalPath, jsonLd = [], noindex = false } = Astro.props;
+const { title, description, canonicalPath, jsonLd = [], noindex = false, ogType = 'website' } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site).href;
+const shareImage = new URL('/og.png', Astro.site).href;
 ---
 <!doctype html>
 <html lang="en">
@@ -35,6 +37,19 @@ const canonical = new URL(canonicalPath, Astro.site).href;
     {noindex ? <meta name="robots" content="noindex" /> : null}
     <script is:inline set:html={themeBootstrapScript} />
     <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Decision log" href="/rss.xml" />
+    <meta property="og:site_name" content="Wisdom Emmanuel Praise" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:alt" content="Wisdom Emmanuel Praise, Senior Frontend Engineer, set as a newspaper masthead" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage} />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={uiFont} as="font" type="font/woff2" crossorigin />
     {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}

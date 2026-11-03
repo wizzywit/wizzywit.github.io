@@ -1,6 +1,7 @@
 import { getDecisions, type Decision } from '@/entities/decision';
-import { getProfile } from '@/entities/profile';
+import { buildPersonJsonLd, buildWebSiteJsonLd, getProfile } from '@/entities/profile';
 import { getProjects, type Project } from '@/entities/project';
+import { SITE_NAME, SITE_URL } from '@/shared/config';
 
 export type HomeFeatured = { slug: string; kicker: string; headline: string; blurb: string; href: string | null; external: boolean };
 export type HomeCard = { kicker: string; title: string; blurb: string; href: string | null; external: boolean };
@@ -91,10 +92,11 @@ export async function loadHomeViewModel(): Promise<HomeViewModel> {
   return buildHomeViewModel(await getProjects(), await getDecisions());
 }
 
-export async function loadHomeMeta(): Promise<{ title: string; description: string }> {
+export async function loadHomeMeta(): Promise<{ title: string; description: string; jsonLd: object[] }> {
   const profile = await getProfile();
   return {
     title: `${profile.name} — ${profile.role}`,
     description: 'Senior Frontend Engineer near Munich: frontend platform and architecture, micro-frontends, design systems and WCAG 2.2 AA. Selected work, architecture decisions and CV.',
+    jsonLd: [buildPersonJsonLd(profile, SITE_URL), buildWebSiteJsonLd(SITE_NAME, SITE_URL)],
   };
 }

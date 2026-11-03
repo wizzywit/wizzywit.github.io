@@ -1,4 +1,5 @@
-import { getProfile, hasCvPdf, type Profile, type ProfileExperience } from '@/entities/profile';
+import { buildPersonJsonLd, buildProfilePageJsonLd, getProfile, hasCvPdf, type Profile, type ProfileExperience } from '@/entities/profile';
+import { SITE_URL } from '@/shared/config';
 
 export type ProfileViewModel = {
   heading: string;
@@ -35,10 +36,11 @@ export async function loadProfileViewModel(): Promise<ProfileViewModel> {
   return buildProfileViewModel(await getProfile(), await hasCvPdf());
 }
 
-export async function profileMeta(): Promise<{ title: string; description: string }> {
+export async function profileMeta(): Promise<{ title: string; description: string; jsonLd: object[] }> {
   const profile = await getProfile();
   return {
     title: `Profile and CV — ${profile.name}`,
     description: `${profile.name}: ${profile.role}. Experience at Censhare, Agile Robots, FYEO and Outsource Global; skills, education and languages.`,
+    jsonLd: [buildProfilePageJsonLd(SITE_URL), buildPersonJsonLd(profile, SITE_URL)],
   };
 }
