@@ -1,0 +1,22 @@
+---
+import { Reveal } from '@/shared/ui';
+import { loadWorkProjects } from '../use-cases/loadWork';
+import { WorkFilter } from './WorkFilter';
+
+const projects = await loadWorkProjects();
+---
+<div class="page work">
+  <Reveal>
+    <span class="kicker">Index of work</span>
+    <h1>Work</h1>
+    <p class="intro">Platform work at Censhare, products I led, and things I build on my own time. Entries with a case study or a public repository link to it.</p>
+  </Reveal>
+  <WorkFilter client:load projects={projects} />
+</div>
+
+<style>
+  .work { padding-block: 36px 56px; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 8px 0 12px; font: 400 clamp(44px, 6vw, 84px) / 1 var(--font-display); }
+  .intro { margin: 0 0 24px; max-width: 46em; font-size: 20px; line-height: 1.5; font-style: italic; color: var(--soft); }
+</style>
