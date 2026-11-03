@@ -75,7 +75,6 @@ const vm = await loadMastheadViewModel();
   .name {
     margin: 0; padding: 28px 0 18px; text-align: center;
     font: 400 clamp(44px, 7.4vw, 108px) / 1 var(--font-display); letter-spacing: -0.01em;
-    animation: name-in 900ms 150ms ease-out both;
   }
   .role {
     margin: 0; padding: 10px 0; border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule);
@@ -87,7 +86,6 @@ const vm = await loadMastheadViewModel();
   .sections--centered a { padding: 13px 16px; }
   .sections a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
 
-  @keyframes name-in { from { letter-spacing: 0.06em; } to { letter-spacing: -0.01em; } }
 
   /* The menu is a native disclosure: it works without JavaScript and never changes the layout on hydration. */
   .menu { display: none; }
