@@ -1,0 +1,4 @@
+/* Size-matched fallbacks keep layout shift low while the web fonts load. */
+@font-face { font-family: 'Libre Franklin Fallback'; src: local('Arial'); size-adjust: 103%; ascent-override: 93%; descent-override: 23%; line-gap-override: 0%; }
+@font-face { font-family: 'Libre Caslon Text Fallback'; src: local('Georgia'); size-adjust: 96%; ascent-override: 97%; descent-override: 25%; line-gap-override: 0%; }
+@font-face { font-family: 'Libre Caslon Display Fallback'; src: local('Georgia'); size-adjust: 94%; ascent-override: 98%; descent-override: 26%; line-gap-override: 0%; }

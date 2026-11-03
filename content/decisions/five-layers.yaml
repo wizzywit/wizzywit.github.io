@@ -1,0 +1,31 @@
+number: 1
+title: One feature, five layers
+why: "A single shape for features: view, use case, repository, service, adapter."
+area: Feature architecture
+status: accepted
+related: [one-runtime, accessibility-in-dod]
+context:
+  - Censhare's product is built from many modules by several people. Every module has to fetch data, hold state, apply rules and draw a screen, and without a shared shape each one answered those questions its own way.
+  - Reviewing a change meant first working out how that particular module happened to be organised.
+options:
+  - name: Let each module choose its own structure
+    pros: No coordination; every team moves at its own pace.
+    cons: Modules behave differently, and what someone learns in one does not carry over to the next.
+    chosen: false
+  - name: Components that fetch data and make decisions themselves
+    pros: Fewest files and the quickest start.
+    cons: Network calls and business rules are tangled into rendering, so they can only be tested through the UI.
+    chosen: false
+  - name: Five layers (view, use case, repository, service, adapter)
+    pros: Each layer has one job and can be tested on its own. Calls only go downwards.
+    cons: More files per feature, and some indirection for very small screens.
+    chosen: true
+decision: Features are built in five layers, view, use case, repository, service and adapter, each with one job and calls that only go downwards.
+consequences:
+  better:
+    - It is now the standard in 13 product modules.
+    - Because each layer can be tested on its own, the cause of a production bug is usually found within a day instead of several days.
+    - Every piece of a feature has an obvious home, so reviews start from a shared map.
+  harder:
+    - Small features carry a little more ceremony than they strictly need.
+    - New team members have to learn the layers before they are fully productive.

@@ -1,0 +1,49 @@
+name: Wired
+title: "Wired: an infinite canvas where edits never collide"
+kicker: Real-time · Side project · Case study
+deck: A collaborative whiteboard where several people edit one canvas at once, with live cursors and presence, built as a React frontend and a Node.js backend.
+hero:
+  light: wired/landing.png
+  alt: "Wired's landing page: The Infinite Canvas for Collaborative Minds."
+meta:
+  role: Creator
+  type: Side project (open source)
+  stack: React 19, TypeScript, Konva, Yjs, Socket.IO, Redis
+  links:
+    - label: Source
+      href: https://github.com/wizzywit/wired
+glance:
+  problem: People editing the same canvas should never have to take turns.
+  approach: Yjs CRDTs merge concurrent edits, Socket.IO carries them, and Redis keeps sessions and room documents.
+  result: Several people edit one canvas with conflict-free merging, live cursors and presence, on one login session shared across HTTP and WebSockets.
+decisions: [crdt-over-locks, five-layers]
+sections:
+  - id: what
+    heading: What it is
+    paragraphs:
+      - "Wired is a collaborative visual workspace built as a monorepo: a React frontend for the product and the canvas, and a Node.js backend for authentication, sessions and room sync."
+      - You sign up, land on a studio dashboard of boards and templates, and open one to join its canvas room.
+    media:
+      - image: wired/dashboard.png
+        alt: "The Wired studio dashboard with a search box, templates and recent boards"
+        caption: The studio dashboard, with boards, templates and search.
+      - image: wired/canvas.png
+        alt: "A Wired canvas with six coloured sticky notes and a toolbar for select, pen, shapes, text and sticky"
+        caption: A board opened from the Creative Brainstorming template.
+  - id: architecture
+    heading: How it fits together
+    paragraphs:
+      - The browser talks to the backend over HTTP for authentication, using cookies, and over Socket.IO for everything that happens on the canvas. The backend keeps sessions and each room's document in Redis.
+  - id: merging
+    heading: Merging edits without locks
+    paragraphs:
+      - Each room is a Yjs document. Updates travel over Socket.IO and are merged conflict-free on every client, and the document is persisted through Redis. Two people can move the same shape at once and nobody loses work.
+      - Live cursors and presence show who is where.
+  - id: layers
+    heading: The frontend uses the same five layers
+    paragraphs:
+      - The client is organised in vertical slices such as login, dashboard and the collaboration canvas. Inside each slice, views render and forward events, use cases own the journey, repositories own data and state through TanStack Query, adapters speak to the network and the sockets, and services hold the pure rules, which are tested with Vitest.
+  - id: stack
+    heading: Stack
+    paragraphs:
+      - "Frontend: React 19, TypeScript, Vite, Tailwind CSS, Zustand, TanStack Query, Konva, the Socket.IO client and Yjs. Backend: Express 5, Socket.IO, Redis, express-session, connect-redis, Zod, bcryptjs and Yjs."

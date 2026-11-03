@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { CaseStudyPage, loadCaseStudyMeta, loadCaseStudySlugs } from '@/_pages/case-study';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+export async function getStaticPaths() {
+  return (await loadCaseStudySlugs()).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const meta = await loadCaseStudyMeta(slug as string);
+---
+<BaseLayout title={meta.title} description={meta.description} canonicalPath={`/work/${slug}/`}>
+  <Masthead slot="header" current="work" />
+  <CaseStudyPage slug={slug as string} />
+  <SiteFooter slot="footer" />
+</BaseLayout>

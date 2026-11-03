@@ -1,0 +1,111 @@
+---
+import { ThemeToggle } from '@/features/theme-switch';
+import type { NavKey } from '@/shared/config';
+import { loadMastheadViewModel } from '../use-cases/mastheadViewModel';
+
+interface Props {
+  current?: NavKey | undefined;
+  variant?: 'front' | 'compact';
+}
+
+const { current, variant = 'compact' } = Astro.props;
+const vm = await loadMastheadViewModel();
+---
+<header class={`masthead masthead--${variant}`}>
+  {variant === 'front' ? (
+    <div class="page">
+      <div class="strip" data-reveal="now">
+        <span class="edition">{vm.edition}</span>
+        <span class="open"><span class="dot" aria-hidden="true"></span>{vm.openTo}</span>
+        <span class="strip-actions"><ThemeToggle client:idle /></span>
+      </div>
+      <h1 class="name">{vm.name}</h1>
+      <p class="role" data-reveal="now" style="--enter-delay: 80ms">{vm.roleLine}</p>
+      <nav class="sections sections--centered" aria-label="Sections" data-reveal="now" style="--enter-delay: 140ms">
+        {vm.nav.map((item) => (
+          <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+      <details class="menu">
+        <summary>Menu</summary>
+        <nav aria-label="Sections">
+          {vm.nav.map((item) => (
+            <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </details>
+    </div>
+  ) : (
+    <div class="page bar">
+      <a class="brand" href="/">{vm.name}</a>
+      <div class="bar-end">
+        <nav class="sections" aria-label="Sections">
+          {vm.nav.map((item) => (
+            <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+        <ThemeToggle client:idle />
+        <details class="menu">
+          <summary>Menu</summary>
+          <nav aria-label="Sections">
+            {vm.nav.map((item) => (
+              <a href={item.href} aria-current={item.key === current ? 'page' : undefined}>{item.label}</a>
+            ))}
+          </nav>
+        </details>
+      </div>
+    </div>
+  )}
+</header>
+
+<style>
+  .masthead--compact { border-bottom: 3px double var(--rule); }
+  .bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px; }
+  .bar-end { display: flex; flex-wrap: wrap; align-items: center; gap: 0 12px; }
+  .brand { padding: 14px 0; text-decoration: none; font: 400 28px var(--font-display); }
+
+  .strip {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 24px;
+    padding: 10px 0; border-bottom: 1px solid var(--rule); font: 400 14px var(--font-ui);
+  }
+  .open { display: inline-flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .strip-actions { display: inline-flex; align-items: center; gap: 8px; }
+
+  .name {
+    margin: 0; padding: 28px 0 18px; text-align: center;
+    font: 400 clamp(44px, 7.4vw, 108px) / 1 var(--font-display); letter-spacing: -0.01em;
+  }
+  .role {
+    margin: 0; padding: 10px 0; border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule);
+    text-align: center; font: 600 15px var(--font-ui); letter-spacing: 0.04em;
+  }
+  .sections { display: flex; flex-wrap: wrap; font: 600 15px var(--font-ui); margin: 0 -12px; }
+  .sections--centered { justify-content: center; margin: 0; border-bottom: 1px solid var(--rule); gap: 0 4px; }
+  .sections a { padding: 13px 12px; min-height: 44px; text-decoration: none; }
+  .sections--centered a { padding: 13px 16px; }
+  .sections a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+
+  /* The menu is a native disclosure: it works without JavaScript and never changes the layout on hydration. */
+  .menu { display: none; }
+  .menu summary {
+    display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0 14px; cursor: pointer;
+    border: 1px solid var(--rule); font: 700 14px var(--font-ui); list-style: none;
+  }
+  .menu summary::-webkit-details-marker { display: none; }
+  .menu[open] summary { background: var(--ink); color: var(--paper); }
+  .menu nav { display: flex; flex-direction: column; margin-top: 8px; border-top: 1px solid var(--rule); font: 400 24px var(--font-display); }
+  .menu nav a { display: flex; align-items: center; min-height: 56px; border-bottom: 1px solid var(--rule); text-decoration: none; }
+  .menu nav a[aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+
+  @media (max-width: 900px) {
+    .open { display: none; }
+    .sections { display: none; }
+    .menu { display: block; }
+    .bar-end { flex-wrap: wrap; }
+    .bar-end .menu { width: 100%; }
+    .brand { font-size: 22px; }
+    .masthead--front .menu { margin-top: 10px; }
+  }
+</style>

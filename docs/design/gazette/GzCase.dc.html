@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Odudu — case study — Wisdom Emmanuel Praise</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F0E8}
+a{color:#151412}a:hover{color:#A3171C}
+a:focus-visible,button:focus-visible{outline:3px solid #A3171C;outline-offset:3px}
+.cs-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:56px}
+.cs-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.cs-glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.cs-dia{display:grid;grid-template-columns:minmax(0,1fr) 60px minmax(0,1.2fr) 60px minmax(0,1fr);align-items:center}
+.cs-next{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width: 900px){.cs-grid,.cs-glance,.cs-next{grid-template-columns:minmax(0,1fr)}.cs-meta{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-dia{grid-template-columns:minmax(0,1fr)}.cs-dia > .cs-arrow{transform:rotate(90deg);justify-self:center}}
+@keyframes cs-arrow{0%{transform:scaleX(0)}20%,90%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:.2}}
+@keyframes cs-box{0%{opacity:0;transform:translateY(6px)}12%,92%{opacity:1;transform:none}100%{opacity:1}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="background: #F3F0E8; color: #151412; font-family: 'Libre Caslon Text', Georgia, serif;">
+<header style="border-bottom: 3px double #151412;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px;">
+<a href="GzHome.dc.html" style="padding: 14px 0; text-decoration: none; font-family: 'Libre Caslon Display', serif; font-size: 28px;">Wisdom Emmanuel Praise</a>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; margin: 0 -12px;">
+<a href="GzHome.dc.html" style="padding: 13px 12px; text-decoration: none;">Front page</a>
+<a href="GzWork.dc.html" aria-current="page" style="padding: 13px 12px; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Work</a>
+<a href="GzDecisions.dc.html" style="padding: 13px 12px; text-decoration: none;">Decisions</a>
+<a href="GzProfile.dc.html" style="padding: 13px 12px; text-decoration: none;">Profile</a>
+<a href="GzContact.dc.html" style="padding: 13px 12px; text-decoration: none;">Contact</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 48px) 56px;">
+<nav aria-label="Breadcrumb" style="font-family: 'Libre Franklin', sans-serif; font-size: 14px; margin-bottom: 18px;"><a href="GzWork.dc.html" style="padding: 10px 0;">Work</a> <span aria-hidden="true">/</span> <span aria-current="page">Odudu</span></nav>
+<article>
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">Identity · Open source · Case study</span>
+<h1 style="margin: 10px 0 14px; max-width: 18ch; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: clamp(40px, 6vw, 80px); line-height: 1;">Odudu: an identity provider that proves its own conformance</h1>
+<p style="margin: 0 0 22px; max-width: 40em; font-size: 22px; line-height: 1.45; font-style: italic; color: #3A3732;">A multi-tenant OAuth and OpenID Connect provider, with an admin console, brandable sign-in pages and an MCP server so agents can operate it without being given the keys to everything.</p>
+
+<dl class="cs-meta" style="margin: 0 0 28px; border-top: 1px solid #151412; border-bottom: 1px solid #151412; font-family: 'Libre Franklin', sans-serif;">
+<div style="padding: 12px 16px 12px 0;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Role</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600;">Creator, maintainer</dd></div>
+<div style="padding: 12px 16px; border-left: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Type</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600;">Open source</dd></div>
+<div style="padding: 12px 16px; border-left: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Stack</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600;">[Your stack]</dd></div>
+<div style="padding: 12px 16px; border-left: 1px solid #151412;"><dt style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;">Links</dt><dd style="margin: 4px 0 0; font-size: 16px; font-weight: 600; display: flex; gap: 14px;"><a href="#">Source</a><a href="#">Demo</a></dd></div>
+</dl>
+
+<figure style="margin: 0 0 36px;">
+<div style="height: clamp(240px, 32vw, 420px); background-color: #DDD7CA; background-image: radial-gradient(#8A8478 1px, transparent 1.3px); background-size: 6px 6px; display: flex; align-items: center; justify-content: center; gap: 4%; padding: 0 4%;" role="img" aria-label="Two tenant-branded Odudu sign-in pages, one light and one dark">
+<div style="flex: 1; max-width: 300px; padding: 24px; background: #F3F0E8; border: 1px solid #151412; display: flex; flex-direction: column; gap: 10px; font-family: 'Libre Franklin', sans-serif;"><strong style="font-size: 16px;">Sign in to Acme</strong><span style="height: 34px; border: 1px solid #57534B;"></span><span style="height: 34px; border: 1px solid #57534B;"></span><span style="height: 38px; background: #151412;"></span></div>
+<div style="flex: 1; max-width: 300px; padding: 24px; background: #151412; color: #F3F0E8; display: flex; flex-direction: column; gap: 10px; font-family: 'Libre Franklin', sans-serif;"><strong style="font-size: 16px;">Sign in to Nordlicht</strong><span style="height: 34px; border: 1px solid #807A6F;"></span><span style="height: 34px; border: 1px solid #807A6F;"></span><span style="height: 38px; background: #A3171C;"></span></div>
+</div>
+<figcaption style="margin-top: 8px; font-family: 'Libre Franklin', sans-serif; font-size: 14px; color: #57534B;">Two fictional tenants, one deployment. Each brand gets light and dark themes. [Replace with real screenshots.]</figcaption>
+</figure>
+
+<div class="cs-grid">
+<div style="display: flex; flex-direction: column; gap: 22px; font-size: 19px; line-height: 1.7; max-width: 720px;">
+<dl class="cs-glance" style="margin: 0; border-top: 3px double #151412; border-bottom: 1px solid #151412;">
+<div style="padding: 14px 16px 14px 0;"><dt style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Problem</dt><dd style="margin: 4px 0 0; font-size: 16px; line-height: 1.5;">Every product needs sign-in; few teams want to own it.</dd></div>
+<div style="padding: 14px 16px; border-left: 1px solid #151412;"><dt style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Approach</dt><dd style="margin: 4px 0 0; font-size: 16px; line-height: 1.5;">Standards first, tenants isolated, decisions written as ADRs.</dd></div>
+<div style="padding: 14px 16px; border-left: 1px solid #151412;"><dt style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Result</dt><dd style="margin: 4px 0 0; font-size: 16px; line-height: 1.5;">Passes OpenID conformance on every change.</dd></div>
+</dl>
+
+<h2 style="margin: 12px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px; line-height: 1.1;">The problem</h2>
+<p style="margin: 0;"><span style="float: left; font-family: 'Libre Caslon Display', serif; font-size: 76px; line-height: 0.8; padding: 8px 10px 0 0;">I</span>dentity is the one service every product depends on and nobody wants to think about. [Two or three sentences in your words: what pushed you to build Odudu rather than adopt an existing provider, and who it is for.]</p>
+
+<h2 style="margin: 12px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px; line-height: 1.1;">How it fits together</h2>
+<figure style="margin: 0; padding: 20px 0; border-top: 1px solid #151412; border-bottom: 1px solid #151412;">
+<div class="cs-dia" style="gap: 10px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;" role="img" aria-label="Diagram: tenant applications and agents connect to Odudu; Odudu exposes authorize, token and userinfo endpoints, an admin console and an MCP server">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="padding: 12px; border: 1.5px solid #151412; text-align: center; font-weight: 600; animation: cs-box 10s 0s both infinite;">Tenant apps</span>
+<span style="padding: 12px; border: 1.5px dashed #151412; text-align: center; font-weight: 600; animation: cs-box 10s 0.3s both infinite;">LLM agents</span>
+</div>
+<span class="cs-arrow" style="height: 2px; background: #151412; transform-origin: left; animation: cs-arrow 10s 0.8s ease-out infinite both; position: relative;" aria-hidden="true"></span>
+<div style="padding: 16px; background: #151412; color: #F3F0E8; display: flex; flex-direction: column; gap: 8px; animation: cs-box 10s 1.2s both infinite;">
+<strong style="font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 24px;">Odudu</strong>
+<span style="font-size: 14px;">/authorize · /token · /userinfo</span>
+<span style="font-size: 14px;">Tenants isolated, pages branded</span>
+</div>
+<span class="cs-arrow" style="height: 2px; background: #A3171C; transform-origin: left; animation: cs-arrow 10s 1.8s ease-out infinite both;" aria-hidden="true"></span>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span style="padding: 12px; border: 1.5px solid #151412; text-align: center; font-weight: 600; animation: cs-box 10s 2.2s both infinite;">Admin console</span>
+<span style="padding: 12px; border: 1.5px solid #A3171C; color: #A3171C; text-align: center; font-weight: 700; animation: cs-box 10s 2.5s both infinite;">MCP server</span>
+</div>
+</div>
+<figcaption style="margin-top: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 14px; color: #57534B;">Fig. 1 — Agents reach Odudu through the MCP server with the same scopes a person would have.</figcaption>
+</figure>
+
+<h2 style="margin: 12px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px; line-height: 1.1;">Conformance as a test, not a badge</h2>
+<p style="margin: 0;">The OpenID Foundation conformance suite runs in CI. A change that breaks the protocol fails the build, the same as a broken unit test. [One paragraph: how you wired it in and what it caught.]</p>
+
+<blockquote style="margin: 8px 0; padding: 18px 0; border-top: 3px double #151412; border-bottom: 1px solid #151412; font-family: 'Libre Caslon Display', serif; font-size: 32px; line-height: 1.2;">“An identity provider earns trust by being boring, every single release.”</blockquote>
+
+<h2 style="margin: 12px 0 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: 34px; line-height: 1.1;">What I would do differently</h2>
+<p style="margin: 0;">[Honest paragraph: a trade-off you would revisit. Senior readers trust this section more than any other.]</p>
+</div>
+
+<aside aria-label="Decisions and facts" style="display: flex; flex-direction: column; gap: 24px;">
+<div style="border: 1px solid #151412; padding: 18px;">
+<h2 style="margin: 0 0 8px; font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Decisions in this project</h2>
+<ol style="margin: 0; padding: 0; list-style: none; font-size: 16px;">
+<li style="border-top: 1px solid #151412;"><a href="GzDecision.dc.html" style="display: block; padding: 12px 0; text-decoration: none;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; color: #57534B; display: block;">ADR · Accepted</span>Tenant isolation model</a></li>
+<li style="border-top: 1px solid #151412;"><a href="GzDecision.dc.html" style="display: block; padding: 12px 0; text-decoration: none;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; color: #57534B; display: block;">ADR · Accepted</span>Conformance suite as a CI gate</a></li>
+<li style="border-top: 1px solid #151412;"><a href="GzDecision.dc.html" style="display: block; padding: 12px 0; text-decoration: none;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; color: #57534B; display: block;">ADR · Accepted</span>Scoped agent access through MCP</a></li>
+<li style="border-top: 1px solid #151412; border-bottom: 1px solid #151412;"><a href="GzDecision.dc.html" style="display: block; padding: 12px 0; text-decoration: none;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; color: #57534B; display: block;">ADR · Accepted</span>Per-tenant themes, light and dark</a></li>
+</ol>
+</div>
+<div style="background: #151412; color: #F3F0E8; padding: 18px; display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Hiring for identity or platform?</h2>
+<p style="margin: 0; font-size: 16px; line-height: 1.5;">I am happy to walk through Odudu’s design on a call.</p>
+<a href="GzContact.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 48px; background: #F3F0E8; color: #151412; text-decoration: none; font-family: 'Libre Franklin', sans-serif; font-weight: 700;">Write to me</a>
+</div>
+</aside>
+</div>
+
+<nav aria-label="More work" class="cs-next" style="margin-top: 48px; border-top: 3px double #151412;">
+<a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 20px 20px 20px 0; text-decoration: none;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; color: #57534B;">← Previous</span><span style="font-family: 'Libre Caslon Display', serif; font-size: 26px;">The five-layer feature architecture</span></a>
+<a href="#" style="display: flex; flex-direction: column; gap: 6px; padding: 20px 0 20px 20px; border-left: 1px solid #151412; text-decoration: none; text-align: right;"><span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; color: #57534B;">Next →</span><span style="font-family: 'Libre Caslon Display', serif; font-size: 26px;">Wired: an infinite canvas where edits never collide</span></a>
+</nav>
+</article>
+</main>
+
+<footer style="background: #151412; color: #E9E4D8;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 22px;">Wisdom Emmanuel Praise</span>
+<nav aria-label="Elsewhere" style="display: flex; flex-wrap: wrap;"><a href="GzContact.dc.html" style="color: #E9E4D8; padding: 12px;">Email</a><a href="#" style="color: #E9E4D8; padding: 12px;">GitHub</a><a href="#" style="color: #E9E4D8; padding: 12px;">LinkedIn</a><a href="#" style="color: #E9E4D8; padding: 12px;">CV (PDF)</a></nav>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

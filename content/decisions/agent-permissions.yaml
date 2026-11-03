@@ -1,0 +1,30 @@
+number: 4
+title: Agents get the same permissions as people
+why: Each of the 35 MCP tools is scoped to what the calling user may already do.
+area: Agents, security
+status: accepted
+related: [conformance-ci-gate]
+context:
+  - "LLM agents need to act inside the product: manage assets, edit metadata and publish."
+  - An agent that can do more than the person it works for would be a way around every permission the product has.
+options:
+  - name: A service account with broad rights
+    pros: Simple to build.
+    cons: An agent could do things its user cannot, and it is hard to audit who did what.
+    chosen: false
+  - name: A fixed, read-only toolset
+    pros: Safe by construction.
+    cons: Too limited to be useful for editing or publishing.
+    chosen: false
+  - name: Tools scoped to the calling user's permissions
+    pros: An agent can never do more than the person it acts for.
+    cons: Every tool has to check permissions on every call.
+    chosen: true
+decision: The MCP server exposes 35 tools, and each one is scoped to the permissions of the user it acts for.
+consequences:
+  better:
+    - It is live at 4 customers.
+    - Existing permissions keep their meaning, so there is nothing new to reason about per agent.
+  harder:
+    - Every new tool needs its permissions mapped before it can ship.
+    - Behaviour differs per user, so tests have to cover several roles.

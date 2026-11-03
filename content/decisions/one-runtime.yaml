@@ -1,0 +1,31 @@
+number: 2
+title: One runtime for 30+ micro-frontends, via Import Maps
+why: Share framework and platform code at runtime instead of bundling it thirty times.
+area: Platform runtime
+status: accepted
+related: [five-layers, accessibility-in-dod]
+context:
+  - More than thirty micro-frontends render inside one product, built and released by different teams.
+  - Each one needs React and a handful of shared platform libraries. Bundling them into every frontend would mean shipping the same code thirty times.
+options:
+  - name: Bundle shared code into every app
+    pros: Simple, and fully independent.
+    cons: The same framework is downloaded again and again, and versions drift apart.
+    chosen: false
+  - name: Compose everything at build time
+    pros: One optimised bundle.
+    cons: Teams can no longer release on their own.
+    chosen: false
+  - name: Import Maps, one shared runtime
+    pros: A web standard. Shared code is downloaded once and teams still release independently.
+    cons: Needs a clear contract for which versions are shared.
+    chosen: true
+decision: All micro-frontends load shared dependencies, such as React, from one platform runtime, resolved through Import Maps.
+consequences:
+  better:
+    - Shared code is downloaded once.
+    - Bundle size stayed flat as new frontends were added.
+    - Teams keep releasing on their own schedule.
+  harder:
+    - Upgrading a shared library has to be coordinated.
+    - The runtime is now critical infrastructure.

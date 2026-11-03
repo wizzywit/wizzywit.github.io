@@ -1,0 +1,113 @@
+---
+import { Reveal } from '@/shared/ui';
+import { loadDecisionViewModel } from '../use-cases/decisionViewModel';
+import ImportMapDiagram from './ImportMapDiagram.astro';
+
+interface Props {
+  slug: string;
+}
+
+const vm = await loadDecisionViewModel(Astro.props.slug);
+---
+<div class="page adr">
+  <nav aria-label="Breadcrumb" class="crumbs"><a href="/decisions/">Decisions</a> <span aria-hidden="true">/</span> <span aria-current="page">{vm.number}</span></nav>
+  <article>
+    <span class="kicker">{vm.number} · {vm.area}</span>
+    <h1>{vm.title}</h1>
+    <p class="deck">{vm.why}</p>
+
+    <div class="grid">
+      <aside aria-label="Record details">
+        <dl class="facts">
+          <div><dt>Status</dt><dd class="status">{vm.status}</dd></div>
+          {vm.decidedOn ? <div><dt>Decided</dt><dd>{vm.decidedOn}</dd></div> : null}
+          {vm.related.length > 0 ? (
+            <div><dt>Related</dt><dd>{vm.related.map((r) => <a class="rel" href={r.href}>{r.label}</a>)}</dd></div>
+          ) : null}
+        </dl>
+        <nav aria-label="On this page" class="toc">
+          {vm.toc.map((item) => <a href={`#${item.id}`}>{item.label}</a>)}
+        </nav>
+      </aside>
+
+      <div class="body">
+        {vm.context.length > 0 ? (
+          <Reveal as="section" aria-labelledby="context">
+            <h2 id="context">Context</h2>
+            {vm.context.map((p) => <p>{p}</p>)}
+            {vm.slug === 'one-runtime' ? <ImportMapDiagram /> : null}
+          </Reveal>
+        ) : null}
+
+        {vm.options.length > 0 ? (
+          <Reveal as="section" aria-labelledby="options">
+            <h2 id="options">Options considered</h2>
+            <div class="table-wrap" data-reveal-group role="region" aria-label="Options considered, scrollable" tabindex="0">
+              <table>
+                <thead>
+                  <tr><th scope="col">Option</th><th scope="col">For</th><th scope="col">Against</th></tr>
+                </thead>
+                <tbody>
+                  {vm.options.map((option, index) => (
+                    <tr class:list={{ rejected: option.outcome === 'Rejected' }} style={`--i: ${index}`}>
+                      <th scope="row"><span class="name" data-step="strike" style={`--i: ${index + 3}`}>{option.name}</span> <span class="visually-hidden">({option.outcome.toLowerCase()})</span></th>
+                      <td>{option.pros}</td>
+                      <td>{option.cons}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Reveal>
+        ) : null}
+
+        <Reveal as="section" aria-labelledby="decision">
+          <h2 id="decision">Decision</h2>
+          <p class="decision">{vm.decision}</p>
+        </Reveal>
+
+        <Reveal as="section" aria-labelledby="consequences">
+          <h2 id="consequences">Consequences</h2>
+          <div class="cons">
+            <div><h3>Better</h3><ul>{vm.consequences.better.map((line) => <li>{line}</li>)}</ul></div>
+            <div><h3>Harder</h3><ul>{vm.consequences.harder.map((line) => <li>{line}</li>)}</ul></div>
+          </div>
+        </Reveal>
+      </div>
+    </div>
+  </article>
+</div>
+
+<style>
+  .adr { padding-block: 32px 56px; }
+  .crumbs { font: 400 14px var(--font-ui); margin-bottom: 18px; }
+  .crumbs a { display: inline-block; padding: 10px 0; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 10px 0 14px; max-width: 20ch; font: 400 clamp(38px, 5.6vw, 76px) / 1.02 var(--font-display); }
+  .deck { margin: 0 0 30px; max-width: 40em; font-size: 21px; line-height: 1.45; font-style: italic; color: var(--soft); }
+  .grid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; }
+  .facts { margin: 0; border-top: 3px double var(--rule); font-family: var(--font-ui); }
+  .facts div { padding: 12px 0; border-bottom: 1px solid var(--rule); }
+  dt { font: 700 12px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 4px 0 0; font: 600 16px var(--font-ui); }
+  .status { font-weight: 700; color: var(--accent); }
+  .rel { display: block; padding: 6px 0; font-weight: 400; }
+  .toc { margin-top: 20px; display: flex; flex-direction: column; font: 400 15px var(--font-ui); }
+  .toc a { padding: 10px 0; }
+  .body { display: flex; flex-direction: column; gap: 20px; max-width: 760px; font-size: 19px; line-height: 1.7; }
+  .body h2 { margin: 0 0 10px; font: 400 34px / 1.1 var(--font-display); }
+  .body p { margin: 0 0 12px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 16px; line-height: 1.5; }
+  thead th { padding: 10px 12px; border-bottom: 2px solid var(--ink); text-align: left; font: 700 12px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  tbody th, td { padding: 12px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  tbody th { font-weight: 700; }
+  tbody th:first-child, thead th:first-child { padding-left: 0; }
+  .rejected .name { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 55% / 100% 2px; font-weight: 400; }
+  .decision { padding: 16px 20px; border-left: 4px solid var(--accent); background: var(--panel); }
+  .cons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; font-size: 17px; line-height: 1.55; }
+  .cons h3 { margin: 0 0 8px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .cons ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; }
+
+  @media (max-width: 900px) { .grid, .cons { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+</style>

@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { DecisionsPage, decisionsMeta } from '@/_pages/decisions';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+const meta = decisionsMeta();
+---
+<BaseLayout title={meta.title} description={meta.description} canonicalPath="/decisions/">
+  <Masthead slot="header" current="decisions" />
+  <DecisionsPage />
+  <SiteFooter slot="footer" />
+</BaseLayout>

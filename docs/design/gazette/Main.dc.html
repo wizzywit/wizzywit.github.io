@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Concept 01 — Decision Record</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1A1814}a:hover{color:#B4361C}
+a:focus-visible,button:focus-visible{outline:3px solid #B4361C;outline-offset:3px}
+@keyframes adr-strike{from{background-size:0% 2px}to{background-size:100% 2px}}
+@keyframes adr-stamp{0%{opacity:0;transform:rotate(-8deg) scale(1.6)}60%{opacity:1;transform:rotate(-8deg) scale(.94)}100%{opacity:1;transform:rotate(-8deg) scale(1)}}
+@keyframes adr-type{from{max-width:0}to{max-width:12ch}}
+@keyframes adr-caret{50%{border-color:transparent}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1680px; box-sizing: border-box; padding: 48px; display: flex; flex-direction: column; gap: 28px; background: #E7E1D4; color: #1A1814; font-family: 'Newsreader', Georgia, serif;">
+
+<header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; border-bottom: 2px solid #1A1814; padding-bottom: 20px;">
+<div style="display: flex; align-items: baseline; gap: 24px;">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 56px; font-weight: 500; line-height: 1;">01</span>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<h2 style="margin: 0; font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.01em;">Decision Record</h2>
+<p style="margin: 0; font-size: 20px; font-style: italic; color: #4F493F;">The whole portfolio is written as ADRs: every project is a decision, with the alternatives that lost.</p>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #4F493F;">
+<span>Newsreader (display + body) · IBM Plex Mono (metadata)</span>
+<div style="display: flex; gap: 6px;" aria-hidden="true">
+<span style="width: 28px; height: 28px; background: #F3EFE6; border: 1px solid #1A1814;"></span>
+<span style="width: 28px; height: 28px; background: #1A1814;"></span>
+<span style="width: 28px; height: 28px; background: #B4361C;"></span>
+<span style="width: 28px; height: 28px; background: #16140F; border: 1px solid #4F493F;"></span>
+<span style="width: 28px; height: 28px; background: #F08A6C;"></span>
+</div>
+</div>
+</header>
+
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #4F493F;">A · Desktop hero — 1440 viewport, light theme</p>
+
+<section aria-label="Hero mock" style="height: 800px; box-sizing: border-box; background: #F3EFE6; border: 1px solid #1A1814; display: flex; flex-direction: column;">
+<nav aria-label="Primary" style="display: flex; justify-content: space-between; align-items: center; padding: 22px 56px; border-bottom: 1px solid #1A1814; font-family: 'IBM Plex Mono', monospace; font-size: 15px;">
+<a href="#" style="text-decoration: none; font-weight: 600; padding: 12px 0;">W. E. Praise / decisions</a>
+<div style="display: flex; gap: 8px; align-items: center;">
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Work</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Decision log</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">Writing</a>
+<a href="#" style="padding: 12px 14px; text-decoration: none;">CV (PDF)</a>
+<a href="#" style="padding: 12px 20px; text-decoration: none; background: #1A1814; color: #F3EFE6;">Contact</a>
+</div>
+</nav>
+
+<div style="flex-grow: 1; display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 56px; padding: 56px 56px 40px;">
+<aside aria-label="Record metadata" style="display: flex; flex-direction: column; gap: 18px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #4F493F; border-right: 1px solid #C9C1B0; padding-right: 32px;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Record</span><strong style="color: #1A1814; font-weight: 600;">ADR-000</strong></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Title</span><strong style="color: #1A1814; font-weight: 600;">Hire for the platform, not the page</strong></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Deciders</span><strong style="color: #1A1814; font-weight: 600;">You (hiring team)</strong></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><span>Location</span><strong style="color: #1A1814; font-weight: 600;">Munich · EU · remote-friendly</strong></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><span>Status</span>
+<span style="display: inline-flex; align-items: center; gap: 10px;">
+<span style="text-decoration: line-through; color: #4F493F;">Proposed</span>
+<span style="display: inline-block; border: 2.5px solid #B4361C; color: #B4361C; font-weight: 600; letter-spacing: 0.12em; padding: 4px 10px; transform: rotate(-8deg); animation: adr-stamp 700ms 900ms cubic-bezier(.2,.8,.2,1) both;">ACCEPTED</span>
+</span>
+</div>
+</aside>
+
+<div style="display: flex; flex-direction: column; gap: 28px;">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #B4361C; font-weight: 500;">Wisdom Emmanuel Praise — Senior Frontend Engineer, Frontend Platform &amp; Architecture</p>
+<h1 style="margin: 0; font-size: 84px; line-height: 0.98; font-weight: 500; letter-spacing: -0.02em; max-width: 16ch;">I make large frontends <em style="font-weight: 400;">boring</em>, on purpose, and write down why.</h1>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; border-top: 1px solid #1A1814; padding-top: 22px;">
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">Context</h3>
+<p style="margin: 0; font-size: 19px; line-height: 1.45;">Many teams, one product, and a frontend that has to survive all of them. Seven years of it.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">Decision</h3>
+<p style="margin: 0; font-size: 19px; line-height: 1.45;">Five-layer feature architecture. 30+ micro-frontends on one runtime. WCAG 2.2 AA in the Definition of Done.</p>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h3 style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;">Rejected</h3>
+<p style="margin: 0; font-size: 19px; line-height: 1.45; display: flex; flex-direction: column; gap: 4px;">
+<span style="background: linear-gradient(#B4361C, #B4361C) no-repeat 0 58% / 100% 2px; animation: adr-strike 500ms 1500ms ease-out both; width: fit-content;">Rewrite it every 18 months</span>
+<span style="background: linear-gradient(#B4361C, #B4361C) no-repeat 0 58% / 100% 2px; animation: adr-strike 500ms 1900ms ease-out both; width: fit-content;">Accessibility “in phase two”</span>
+</p>
+</div>
+</div>
+
+<div style="display: flex; gap: 16px; align-items: center; margin-top: auto;">
+<a href="#" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; background: #1A1814; color: #F3EFE6; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500;">Read the decision log →</a>
+<a href="#" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 26px; border: 1.5px solid #1A1814; text-decoration: none; font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500;">Email [ADDRESS]</a>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #4F493F; margin-left: 12px;">Open to Senior / Staff · Frontend Platform</span>
+</div>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 32px; flex-grow: 1;">
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #4F493F;">B · Project case-study card</p>
+<article style="flex-grow: 1; background: #F3EFE6; border: 1px solid #1A1814; display: flex; flex-direction: column;">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 28px; border-bottom: 1px solid #1A1814; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #4F493F;">
+<span>ADR-017 · Censhare · Frontend Platform</span>
+<span style="color: #B4361C; font-weight: 600; letter-spacing: 0.1em;">ACCEPTED · IN 13 MODULES</span>
+</div>
+<div style="padding: 24px 28px; display: flex; flex-direction: column; gap: 18px;">
+<h3 style="margin: 0; font-size: 36px; line-height: 1.05; font-weight: 500;">One feature, five layers: view, use case, repository, service, adapter.</h3>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; font-size: 17px; line-height: 1.45;">
+<div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4F493F;">Context</span><p style="margin: 0;">Every module invented its own way to fetch, cache and render. Reviews were archaeology.</p></div>
+<div style="display: flex; flex-direction: column; gap: 6px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #4F493F;">Consequences</span><p style="margin: 0;">Now standard in 13 product modules; the same shape runs the Frontend Builder at 10+ enterprise customers.</p></div>
+</div>
+<div style="display: flex; gap: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px;" aria-label="The five layers">
+<span style="flex: 1; padding: 10px 0; text-align: center; border: 1px solid #1A1814;">view</span>
+<span style="flex: 1; padding: 10px 0; text-align: center; border: 1px solid #1A1814; border-left: 0;">use case</span>
+<span style="flex: 1; padding: 10px 0; text-align: center; border: 1px solid #1A1814; border-left: 0;">repository</span>
+<span style="flex: 1; padding: 10px 0; text-align: center; border: 1px solid #1A1814; border-left: 0;">service</span>
+<span style="flex: 1; padding: 10px 0; text-align: center; border: 1px solid #1A1814; border-left: 0; background: #1A1814; color: #F3EFE6;">adapter</span>
+</div>
+<a href="#" style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; padding: 12px 0; width: fit-content;">Read the full record and the two options that lost →</a>
+</div>
+</article>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 14px;">
+<p style="margin: 0; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: #4F493F;">C · Signature motion</p>
+<div style="flex-grow: 1; background: #16140F; color: #EDE7DA; padding: 26px 28px; display: flex; flex-direction: column; gap: 14px;">
+<h3 style="margin: 0; font-size: 30px; font-weight: 500;">The stamp and the strike</h3>
+<p style="margin: 0; font-size: 17px; line-height: 1.5;">As a record scrolls into view its status types itself from <span style="font-family: 'IBM Plex Mono', monospace;">PROPOSED</span> to an <span style="color: #F08A6C; font-family: 'IBM Plex Mono', monospace;">ACCEPTED</span> stamp, then each rejected alternative is struck through, left to right. Motion shows that a choice was made, and what lost.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9C1B0;"><strong style="color: #EDE7DA;">Reduced motion:</strong> records render in their final state. Stamp and strike are real text, so screen readers hear “rejected” rather than a style.</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.5; color: #C9C1B0;"><strong style="color: #EDE7DA;">Dark theme:</strong> ink paper #16140F, stamp #F08A6C. <strong style="color: #EDE7DA;">360px:</strong> metadata column folds above the headline as a single mono line.</p>
+</div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1680}}'>
+class Component extends DCLogic {
+renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

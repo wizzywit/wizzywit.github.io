@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { WorkPage, workMeta } from '@/_pages/work';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+const meta = workMeta();
+---
+<BaseLayout title={meta.title} description={meta.description} canonicalPath="/work/">
+  <Masthead slot="header" current="work" />
+  <WorkPage />
+  <SiteFooter slot="footer" />
+</BaseLayout>

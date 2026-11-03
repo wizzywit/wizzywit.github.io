@@ -1,0 +1,112 @@
+{
+  "name": "Wisdom Emmanuel Praise",
+  "role": "Senior Frontend Engineer, Frontend Platform & Architecture",
+  "location": "Munich area, Germany",
+  "summary": "Senior Frontend Engineer with 7+ years building B2B web applications, micro-frontends, and UI platforms. Drives frontend architecture across distributed Agile/Scrum teams through ADRs, builds design systems, partners with designers to turn Figma designs into responsive, accessible UI, runs technical hiring and code review, and has shipped production Agentic AI/LLM features using LangChain and MCP. Deep hands-on experience in React, Vue 3, and TypeScript, focused on performance, accessibility (WCAG 2.2 AA, BFSG), and developer tooling.",
+  "yearsExperience": 7,
+  "email": "wisdompraise968@gmail.com",
+  "links": {
+    "github": "https://github.com/wizzywit",
+    "linkedin": "https://www.linkedin.com/in/wisdom-praise",
+    "gitlab": "https://gitlab.com/wizzywit"
+  },
+  "skills": [
+    { "group": "Languages", "items": ["TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3", "Sass", "Python"] },
+    { "group": "Frameworks & UI", "items": ["React", "Vue 3", "Next.js", "Nuxt.js", "Angular", "Node.js", "Tailwind CSS", "MUI", "Styled Components", "Three.js (TresJS)", "D3.js", "i18n", "Responsive Design"] },
+    { "group": "Architecture & State", "items": ["Micro-Frontends", "Import Maps", "Monorepos (Nx, Lerna, Turbo)", "Design Systems", "Zustand", "Pinia", "Redux Toolkit", "TanStack Query", "GraphQL", "gRPC", "WebSockets"] },
+    { "group": "Performance & Accessibility", "items": ["Core Web Vitals", "Bundle Optimization (Vite, Webpack)", "Code Splitting", "Lazy Loading", "Memoization", "Lighthouse Audits", "Performance Profiling", "WCAG 2.2 AA", "EN 301 549", "BFSG / BITV 2.0"] },
+    { "group": "Quality & Process", "items": ["Jest", "Vitest", "React Testing Library", "Cypress", "Playwright", "Test-Driven Development (TDD)", "Code review leadership", "Agile / Scrum"] },
+    { "group": "DevOps & Tooling", "items": ["GitHub Actions", "GitLab CI/CD", "Docker", "AWS (S3, CloudFront, Lambda)", "Vercel", "Netlify", "Sentry", "Storybook", "Figma", "Git", "Jira", "Confluence"] },
+    { "group": "Agentic AI & LLMs", "items": ["LangChain", "LangGraph", "OpenAI API", "Model Context Protocol (MCP)", "Tool / Function Calling", "Multi-Step LLM Agents"] }
+  ],
+  "experience": [
+    {
+      "title": "Senior Frontend Engineer",
+      "org": "Censhare GmbH",
+      "location": "Munich, Germany",
+      "period": "Aug 2025 – Present",
+      "context": "Enterprise digital asset management and omnichannel publishing platform, used by ecommerce, retail and media brands.",
+      "stack": ["React", "TypeScript", "Angular", "Import Maps", "Micro-Frontends", "Design Tokens", "Monorepo (Lerna, Nx)", "TanStack Router", "React Query", "Zustand", "WebSocket", "REST APIs", "Docker", "GitLab CI/CD", "Sentry", "LangChain", "MCP"],
+      "highlights": [
+        "Designed the Frontend Builder, a modular platform for assembling customer-specific UIs from shared components. It now runs at 10+ enterprise customers, and new custom UIs take a few weeks instead of months.",
+        "Wrote the ADR for a five-layer feature architecture (view → use case → repository → service → adapter). It is now the standard in 13 product modules, and because each layer can be tested on its own, the cause of a production bug is usually found within a day instead of several days.",
+        "Set up Import Maps so 30+ micro-frontends share a single React/vendor runtime. Bundle size stayed flat as new frontends were added.",
+        "Built the MCP server that exposes asset management, metadata editing and publishing to LLM agents: 35 tools, permission-scoped per user, live at 4 customers.",
+        "Made WCAG 2.2 AA and BFSG compliance part of code review and the Definition of Done for an 11-person team, with Playwright accessibility checks in CI."
+      ]
+    },
+    {
+      "title": "Senior Frontend Engineer",
+      "org": "Agile Robots SE",
+      "location": "Munich, Germany",
+      "period": "Dec 2023 – Jul 2025",
+      "context": "Industrial robotics and automation; web-based robot programming tooling (DIONE).",
+      "stack": ["Vue 3", "TypeScript", "Pinia", "Apollo Client", "GraphQL", "gRPC", "Three.js (TresJS)", "D3.js", "Vitest", "Cypress", "Playwright", "Storybook", "Design Tokens", "Monorepo (Nx)", "Docker", "GitLab CI/CD"],
+      "highlights": [
+        "Led a 7-person frontend engineering unit in Scrum sprints to deliver DIONE, a web-based IDE for industrial robot programming, working directly with backend, hardware and product squads.",
+        "Engineered a real-time 3D configuration dashboard using Three.js (TresJS), reducing manual robotic setup from days of handwritten script to a few hours.",
+        "Enforced frontend profiling and asset optimizations (code splitting, lazy loading, state memoization) to keep complex 3D rendering responsive.",
+        "Built Vitest and Playwright test pipelines that gated every merge request, reducing escaped production defects by 20% over 200+ releases.",
+        "Directed release management via GitLab CI/CD, using feature flags for staged rollouts and zero-downtime hotfixes.",
+        "Ran technical hiring for the frontend team: designed the coding challenges and evaluation process, and helped hire 2 engineers into the 7-person unit."
+      ]
+    },
+    {
+      "title": "Frontend Engineer (Tech Lead, Domain Intelligence squad)",
+      "org": "FYEO Inc",
+      "location": "Remote, United States",
+      "period": "Jan 2022 – Nov 2023",
+      "context": "Cybersecurity and digital risk protection SaaS.",
+      "stack": ["React", "TypeScript", "URQL", "GraphQL", "Zustand", "Styled Components", "Material UI", "Sass", "WebSocket", "Sentry", "Cypress", "Jest"],
+      "highlights": [
+        "Headed a 5-engineer Scrum squad building the FYEO Domain Intelligence platform, implementing 50+ Figma screens with the design team and delivering real-time threat dashboards via WebSockets that cut manual analyst investigation times by 25%.",
+        "Shipped a secure phishing-detection Chrome extension, scaling to over 5,000 registered accounts and 1,000+ daily active installations.",
+        "Raised frontend test coverage from 10% to 80% by integrating React Testing Library and Jest suites into production deployment branches.",
+        "Established formal team code review guidelines and structured technical mentorship paths to speed up junior developer delivery."
+      ]
+    },
+    {
+      "title": "Frontend Engineer",
+      "org": "Outsource Global Technologies",
+      "location": "Remote, Abuja, Nigeria",
+      "period": "Aug 2020 – Dec 2021",
+      "context": "Nationwide government digital service platforms.",
+      "stack": ["React", "Redux Toolkit", "Next.js (SSR / SSG)", "Node.js", "Laravel", "PostgreSQL", "React Query", "D3.js", "Recharts", "Sass"],
+      "highlights": [
+        "Delivered two high-scale social investment platforms (NASIMS and IDEC) from Figma designs to production, serving 2M+ citizens and migrating critical manual operations off legacy systems.",
+        "Overhauled the national vehicle registration engine (VREG), handling 1.5M+ entries a year, cutting average response time by roughly 40% and integrating PCI-compliant payment gateways.",
+        "Introduced Next.js Server-Side Rendering (SSR) and Static Site Generation (SSG) to meet Core Web Vitals targets, reducing average page load times across public portals by 40%."
+      ]
+    },
+    {
+      "title": "Software Engineer",
+      "org": "Access Solutions Ltd",
+      "location": "Remote, Abuja, Nigeria",
+      "period": "Mar 2017 – Jul 2020",
+      "context": "",
+      "stack": [],
+      "highlights": [
+        "Created school management software, interactive kiosk apps, and digital payment frameworks (VUVAA); balanced part-time delivery with a university degree (Mar 2017 – Dec 2019) before moving to a full-time engineering schedule."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.Eng. Computer Engineering",
+      "school": "Federal University of Technology, Minna, Nigeria",
+      "period": "Sep 2014 – Nov 2019",
+      "note": "First Class Honours (4.65/5.0). Degree officially recognized in Germany via the Central Office for Foreign Education (ZAB / anabin)."
+    }
+  ],
+  "languages": [
+    { "language": "English", "level": "Native / full professional proficiency" },
+    { "language": "German", "level": "A1 (currently in a B1 course)" }
+  ],
+  "workAuthorization": "Permanent residence (Niederlassungserlaubnis): unrestricted right to work in Germany, no visa sponsorship or employer approval required. Open to Munich-based, hybrid, and remote roles in Germany.",
+  "ticker": [
+    { "id": "mcp-tools", "text": "MCP server: 35 permission-scoped tools for agents" },
+    { "id": "extension-accounts", "text": "Phishing-detection extension: 5,000+ accounts" },
+    { "id": "odudu-conformance", "text": "Odudu passes OpenID conformance in CI" },
+    { "id": "micro-frontends", "text": "30+ micro-frontends, one runtime" }
+  ]
+}

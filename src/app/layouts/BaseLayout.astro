@@ -1,0 +1,73 @@
+---
+import '@fontsource/libre-franklin/latin-400.css';
+import '@fontsource/libre-franklin/latin-600.css';
+import '@fontsource/libre-franklin/latin-700.css';
+import '@fontsource/libre-caslon-text/latin-400.css';
+import '@fontsource/libre-caslon-text/latin-400-italic.css';
+import '@fontsource/libre-caslon-text/latin-700.css';
+import '@fontsource/libre-caslon-display/latin-400.css';
+import '@fontsource/unifrakturmaguntia/latin-400.css';
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { themeBootstrapScript } from '@/features/theme-switch';
+import { motionBootstrapScript } from '@/shared/ui';
+import '@/shared/ui/motion/motion.css';
+import bodyFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-normal.woff2?url';
+import italicFont from '@fontsource/libre-caslon-text/files/libre-caslon-text-latin-400-italic.woff2?url';
+import displayFont from '@fontsource/libre-caslon-display/files/libre-caslon-display-latin-400-normal.woff2?url';
+import uiFont from '@fontsource/libre-franklin/files/libre-franklin-latin-600-normal.woff2?url';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+  jsonLd?: object[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+}
+
+const { title, description, canonicalPath, jsonLd = [], noindex = false, ogType = 'website' } = Astro.props;
+const canonical = new URL(canonicalPath, Astro.site).href;
+const shareImage = new URL('/og.png', Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : null}
+    <script is:inline set:html={themeBootstrapScript} />
+    <script is:inline set:html={motionBootstrapScript} />
+    {!noindex ? <link rel="canonical" href={canonical} /> : null}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Decision log" href="/rss.xml" />
+    <meta property="og:site_name" content="Wisdom Emmanuel Praise" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {!noindex ? <meta property="og:url" content={canonical} /> : null}
+    <meta property="og:image" content={shareImage} />
+    <meta property="og:image:alt" content="Wisdom Emmanuel Praise, Senior Frontend Engineer, set as a newspaper masthead" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImage} />
+    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={uiFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={displayFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={italicFont} as="font" type="font/woff2" crossorigin />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </head>
+  <body>
+    <script>
+      import '@/shared/ui/motion/motion.entry.ts';
+    </script>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot name="header" />
+    <main id="main" tabindex="-1"><slot /></main>
+    <slot name="footer" />
+  </body>
+</html>

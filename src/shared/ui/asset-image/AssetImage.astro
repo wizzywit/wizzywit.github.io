@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import { findAsset } from './assets';
+
+interface Props {
+  name: string;
+  alt: string;
+  widths?: number[];
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  class?: string;
+}
+
+const { name, alt, widths = [480, 960], sizes = '100vw', loading = 'lazy', class: className } = Astro.props;
+---
+<Image class={className} src={findAsset(name)} alt={alt} widths={widths} sizes={sizes} loading={loading} />

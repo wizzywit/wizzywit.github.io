@@ -1,0 +1,29 @@
+---
+import { loadFooterViewModel } from '../use-cases/footerViewModel';
+
+const vm = await loadFooterViewModel();
+---
+<footer class="site-footer">
+  <div class="page inner">
+    <div class="about">
+      <strong>{vm.name}</strong>
+      <span>Typeset in Libre Caslon and Libre Franklin. Every page is plain HTML first: quick to load, and readable even without JavaScript.</span>
+    </div>
+    <nav aria-label="Elsewhere">
+      {vm.links.map((link) => (
+        <a href={link.href} {...(link.external ? { rel: 'noopener', target: '_blank' } : {})}>{link.label}{link.external ? <span class="visually-hidden"> (opens in a new tab)</span> : null}</a>
+      ))}
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--inverse); color: var(--on-inverse); margin-top: 48px; }
+  .inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding-block: 32px; font: 400 15px var(--font-ui); }
+  .about { display: flex; flex-direction: column; gap: 6px; max-width: 520px; }
+  .about strong { font: 400 26px var(--font-display); }
+  .about span { color: #BDB7AA; }
+  nav { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+  a { color: var(--on-inverse); padding: 12px; min-height: 44px; }
+  a:hover { color: var(--on-inverse); text-decoration-thickness: 2px; }
+</style>

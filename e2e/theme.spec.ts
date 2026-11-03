@@ -1,0 +1,50 @@
+import { expect, test, type Page } from '@playwright/test';
+
+async function toggle(page: Page) {
+  const button = page.locator('.theme-toggle[data-ready="true"]').first();
+  await expect(button).toBeVisible();
+  return button;
+}
+
+test.describe('theme switch', () => {
+  // Playwright requires an object pattern as the first argument.
+  // eslint-disable-next-line no-empty-pattern
+  test.beforeEach(({}, testInfo) => {
+    test.skip(testInfo.project.name !== 'default', 'needs JavaScript and motion defaults');
+  });
+
+  test('a dark choice persists across reloads', async ({ page }) => {
+    await page.goto('/');
+    await (await toggle(page)).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.getByRole('button', { name: 'Day edition' })).toBeVisible();
+  });
+
+  test('the stored theme applies before any JavaScript bundle runs', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('wep-theme', 'dark'));
+    await page.route('**/*.js', (route) => route.abort());
+    await page.goto('/');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+
+  test('blocked storage falls back quietly and the toggle still works', async ({ page }) => {
+    const errors: string[] = [];
+    page.on('pageerror', (error) => errors.push(error.message));
+    await page.addInitScript(() => {
+      Storage.prototype.getItem = () => { throw new DOMException('blocked', 'SecurityError'); };
+      Storage.prototype.setItem = () => { throw new DOMException('blocked', 'SecurityError'); };
+    });
+    await page.goto('/');
+    await (await toggle(page)).click();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    expect(errors).toEqual([]);
+  });
+
+  test('an invalid stored value is ignored', async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem('wep-theme', 'purple'));
+    await page.goto('/');
+    await expect(page.getByRole('button', { name: 'Night edition' })).toBeVisible();
+  });
+});

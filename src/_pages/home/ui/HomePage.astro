@@ -1,0 +1,215 @@
+---
+import { AssetImage } from '@/shared/ui';
+import { ClassifiedsCard } from '@/widgets/classifieds-card';
+import { loadHomeViewModel } from '../use-cases/homeViewModel';
+
+const vm = await loadHomeViewModel();
+const layers = [
+  { name: 'View', tone: 'ink' },
+  { name: 'Use case', tone: 'soft' },
+  { name: 'Repository', tone: 'muted' },
+  { name: 'Service', tone: 'faint' },
+  { name: 'Adapter', tone: 'accent' },
+];
+const rel = (external: boolean) => (external ? 'noopener' : undefined);
+---
+<div class="page home">
+  <section aria-labelledby="lead-h" class="lead">
+    <article class="lead-main">
+      <span class="kicker" data-reveal="now" style="--enter-delay: 200ms">{vm.lead.kicker}</span>
+      <h2 id="lead-h" class="lead-headline" data-reveal="now" style="--enter-delay: 260ms">{vm.lead.headline}</h2>
+      <p class="deck" data-reveal="now" style="--enter-delay: 340ms">{vm.lead.deck}</p>
+      <div class="cols">
+        <p data-reveal="now" style="--enter-delay: 420ms"><span class="dropcap" aria-hidden="true">{vm.lead.paragraphs[0]?.[0]}</span><span class="visually-hidden">{vm.lead.paragraphs[0]?.[0]}</span>{vm.lead.paragraphs[0]?.slice(1)}</p>
+        <p data-reveal="now" style="--enter-delay: 480ms">{vm.lead.paragraphs[1]}</p>
+        <p data-reveal="now" style="--enter-delay: 540ms">{vm.lead.paragraphs[2]} {vm.lead.decisionHref ? <a class="strong" href={vm.lead.decisionHref}>Read the decision →</a> : null}</p>
+      </div>
+      <figure class="layers" data-reveal-group>
+        <div class="bars" role="img" aria-label="Diagram: the five layers, view, use case, repository, service and adapter, each one calling only the layer beneath it">
+          {layers.map((layer, index) => (
+            <div class="bar-row" style={`--i: ${index}`}><span data-step style={`--i: ${index}`}>{layer.name}</span><span class={`bar bar--${layer.tone}`} data-step="grow" data-pulse style={`--i: ${index}`}></span></div>
+          ))}
+        </div>
+        <figcaption>Fig. 1 — Each layer only talks to the one beneath it. The adapter is the only layer that knows the outside world exists.</figcaption>
+      </figure>
+    </article>
+
+    <aside aria-label="In brief and contact" class="lead-side">
+      <div data-reveal="now" style="--enter-delay: 400ms">
+        <h2 class="side-h">In brief</h2>
+        <dl class="brief">
+          {vm.inBrief.map((item) => (
+            <div><dt><span aria-hidden="true" data-count>{item.figure}</span><span class="visually-hidden">{item.figure}</span></dt><dd>{item.text}</dd></div>
+          ))}
+        </dl>
+      </div>
+      <div data-reveal="now" style="--enter-delay: 480ms"><ClassifiedsCard /></div>
+    </aside>
+  </section>
+
+  <section class="block" aria-labelledby="work-h">
+    <div class="block-head" data-rule data-reveal="fade">
+      <h2 id="work-h">Selected work</h2>
+      <a href="/work/">All work →</a>
+    </div>
+    <div class="feat" aria-labelledby="work-h" role="group">
+      {vm.featured.map((item, index) => (
+        <article class={index === 0 ? 'feat-main' : 'feat-side'} data-reveal>
+          {item.image ? (
+            <div class={index === 0 ? 'frame frame--tall' : 'frame'}>
+              <AssetImage class="shot" name={item.image.name} alt={item.image.alt} widths={[480, 960]} sizes={index === 0 ? '(max-width: 900px) 100vw, 640px' : '(max-width: 900px) 100vw, 320px'} />
+            </div>
+          ) : null}
+          <span class="kicker">{item.kicker}</span>
+          <h3 class={index === 0 ? 'feat-title feat-title--lead' : 'feat-title'}>
+            {item.href ? <a href={item.href} rel={rel(item.external)}>{item.headline}</a> : item.headline}
+          </h3>
+          <p>{item.blurb}</p>
+          {item.cta ? <span class="cta" aria-hidden="true">{item.cta} {item.external ? '↗' : '→'}</span> : null}
+        </article>
+      ))}
+    </div>
+    <div class="more">
+      {vm.more.map((card) => (
+        <div class="more-card" data-reveal>
+          {card.image ? (
+            <div class="frame frame--small">
+              <AssetImage class="shot" name={card.image.name} alt={card.image.alt} widths={[320, 640]} sizes="(max-width: 900px) 50vw, 300px" />
+            </div>
+          ) : null}
+          <span class="kicker">{card.kicker}</span>
+          <strong>{card.href ? <a href={card.href} rel={rel(card.external)}>{card.title}</a> : card.title}</strong>
+          <span class="blurb">{card.blurb}</span>
+          {card.cta ? <span class="cta" aria-hidden="true">{card.cta} {card.external ? '↗' : '→'}</span> : null}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  {vm.decisions.length > 0 ? (
+    <section class="block" aria-labelledby="dec-h">
+      <div class="block-head" data-rule data-reveal="fade">
+        <h2 id="dec-h">From the decision log</h2>
+        <a href="/decisions/">All decisions →</a>
+      </div>
+      <div class="three">
+        {vm.decisions.map((decision) => (
+          <article data-reveal>
+            <span class="meta">ADR · {decision.status}</span>
+            <h3><a href={decision.href}>{decision.title}</a></h3>
+            <p>{decision.why}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  <section class={vm.profile.portrait ? 'profile profile--portrait' : 'profile'} aria-labelledby="prof-h">
+    {vm.profile.portrait ? (
+      <figure class="portrait" data-reveal>
+        <AssetImage name={vm.profile.portrait.name} alt={vm.profile.portrait.alt} widths={[240, 480]} sizes="220px" />
+      </figure>
+    ) : null}
+    <div data-reveal>
+      <h2 id="prof-h">Profile</h2>
+      <p>{vm.profile.paragraph}</p>
+      <a class="strong" href="/profile/">Full profile and CV →</a>
+    </div>
+    <div class="principles" data-reveal>
+      <h3>How I work</h3>
+      <ul>{vm.profile.principles.map((line) => <li>{line}</li>)}</ul>
+    </div>
+  </section>
+</div>
+
+<style>
+  .home { padding-bottom: 8px; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  .strong { font-weight: 700; }
+
+  .lead { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); padding: 32px 0 40px; border-bottom: 3px double var(--rule); }
+  .lead-main { padding: 0 32px 24px 0; border-right: 1px solid var(--rule); display: flex; flex-direction: column; gap: 16px; }
+  .lead-headline { margin: 0; font: 400 clamp(36px, 4.6vw, 64px) / 1.02 var(--font-display); }
+  .deck { margin: 0; font-size: 21px; line-height: 1.45; font-style: italic; color: var(--soft); }
+  .cols { column-count: 2; column-gap: 28px; font-size: 17px; line-height: 1.65; }
+  .cols p { margin: 0 0 12px; break-inside: avoid-column; }
+  .dropcap { float: left; font: 400 68px / 0.82 var(--font-display); padding: 6px 8px 0 0; }
+  .lead-side { padding-left: 32px; display: flex; flex-direction: column; gap: 24px; }
+  .side-h { margin: 0 0 8px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brief { margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid var(--rule); }
+  .brief div { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
+  .brief dt { font: 400 30px / 1 var(--font-display); }
+  .brief dd { margin: 0; font-size: 15px; line-height: 1.4; }
+
+  .layers { margin: 8px 0 0; border-top: 1px solid var(--rule); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+  .bars { display: flex; flex-direction: column; gap: 6px; font: 600 14px var(--font-ui); }
+  .bar-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); align-items: center; gap: 12px; }
+  .bar { height: 18px; transform-origin: left; }
+  .bar--ink { background: var(--ink); }
+  .bar--soft { background: var(--soft); }
+  .bar--muted { background: var(--muted); }
+  .bar--faint { background: color-mix(in srgb, var(--muted) 65%, var(--paper)); }
+  .bar--accent { background: var(--accent); }
+  .layers figcaption { font: 400 13px var(--font-ui); color: var(--muted); }
+
+  .block { padding: 28px 0 40px; border-bottom: 3px double var(--rule); }
+  .block-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; margin-bottom: 20px; }
+  .block-head h2 { margin: 0; font: 800 15px var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; }
+  .block-head a { font: 600 15px var(--font-ui); padding: 10px 0; }
+
+  .feat { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
+  .feat article { display: flex; flex-direction: column; gap: 12px; position: relative; }
+  .feat-side { border-left: 1px solid var(--rule); padding-left: 28px; }
+  .feat-title { margin: 0; font: 400 30px / 1.08 var(--font-display); }
+  .feat-title--lead { font-size: 38px; line-height: 1.05; }
+  .feat-title a, .more-card strong a, .three h3 a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+  /* The whole card is the click target. */
+  .feat-title a::after, .more-card strong a::after, .three h3 a::after { content: ''; position: absolute; inset: 0; }
+  .feat article:hover .feat-title a, .more-card:hover strong a, .three article:hover h3 a { color: var(--accent); text-decoration-thickness: 2px; }
+  .cta { margin-top: 2px; font: 700 14px var(--font-ui); color: var(--accent); }
+  .feat article:hover .cta, .more-card:hover .cta { text-decoration: underline; text-underline-offset: 4px; }
+  .feat p { margin: 0; font-size: 16px; line-height: 1.55; }
+  .frame { overflow: hidden; border: 1px solid var(--rule); background: var(--panel); height: 190px; }
+  .frame--tall { height: 300px; }
+  .frame--small { height: 130px; }
+  .frame :global(.shot) { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .feat article:hover .frame :global(.shot), .more-card:hover .frame :global(.shot) { transform: scale(1.04); }
+
+  .more { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--rule); }
+  .more-card { display: flex; flex-direction: column; gap: 6px; padding: 16px 20px; border-left: 1px solid var(--rule); position: relative; }
+  .more-card:first-child { padding-left: 0; border-left: 0; }
+  .more-card .kicker { font-size: 12px; }
+  .more-card strong { font: 400 22px / 1.15 var(--font-display); }
+  .more-card .blurb { font-size: 15px; line-height: 1.45; }
+
+  .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .three article { display: flex; flex-direction: column; gap: 10px; position: relative; }
+  .three article + article { border-left: 1px solid var(--rule); padding-left: 28px; }
+  .meta { font: 600 13px var(--font-ui); color: var(--muted); }
+  .three h3 { margin: 0; font: 400 26px / 1.12 var(--font-display); }
+  .three p { margin: 0; font-size: 16px; line-height: 1.55; }
+
+  .profile { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; padding: 32px 0 48px; align-items: start; }
+  .profile--portrait { grid-template-columns: 220px minmax(0, 1.4fr) minmax(0, 1fr); }
+  .portrait { margin: 0; }
+  .portrait :global(img) { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border: 1px solid var(--rule); filter: grayscale(1) contrast(1.05); transition: filter 0.6s ease; }
+  .portrait:hover :global(img) { filter: none; }
+  .profile h2 { margin: 0 0 12px; font: 400 40px / 1.05 var(--font-display); }
+  .profile p { margin: 0 0 12px; font-size: 18px; line-height: 1.6; }
+  .profile a { display: inline-block; padding: 10px 0; font: 700 15px var(--font-ui); }
+  .principles { border-left: 1px solid var(--rule); padding-left: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .principles h3 { margin: 0; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .principles ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.5; }
+
+  @media (max-width: 900px) {
+    .lead, .feat, .three, .profile, .profile--portrait { grid-template-columns: minmax(0, 1fr); }
+    .portrait { max-width: 220px; }
+    .lead-main { padding-right: 0; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .lead-side { padding-left: 0; padding-top: 24px; }
+    .cols { column-count: 1; }
+    .feat-side, .principles, .three article + article { border-left: 0; padding-left: 0; }
+    .more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .more-card:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .frame--tall { height: 220px; }
+  }
+</style>

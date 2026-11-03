@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { DecisionPage, loadDecisionMeta, loadDecisionSlugs } from '@/_pages/decision';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+export async function getStaticPaths() {
+  return (await loadDecisionSlugs()).map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const meta = await loadDecisionMeta(slug as string);
+---
+<BaseLayout title={meta.title} description={meta.description} jsonLd={meta.jsonLd} ogType="article" canonicalPath={`/decisions/${slug}/`}>
+  <Masthead slot="header" current="decisions" />
+  <DecisionPage slug={slug as string} />
+  <SiteFooter slot="footer" />
+</BaseLayout>

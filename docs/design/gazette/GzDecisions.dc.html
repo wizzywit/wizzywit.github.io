@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Decisions — Wisdom Emmanuel Praise</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F0E8}
+a{color:#151412}a:hover{color:#A3171C}
+a:focus-visible,button:focus-visible{outline:3px solid #A3171C;outline-offset:3px}
+.dl-row{display:grid;grid-template-columns:90px minmax(0,1fr) 180px 120px;gap:20px;align-items:baseline}
+.dl-intro{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:48px}
+@media (max-width: 860px){.dl-row{grid-template-columns:70px minmax(0,1fr);gap:4px 12px}.dl-row > .dl-sub{grid-column:2}.dl-head{display:none !important}.dl-intro{grid-template-columns:minmax(0,1fr);gap:20px}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="background: #F3F0E8; color: #151412; font-family: 'Libre Caslon Text', Georgia, serif;">
+<header style="border-bottom: 3px double #151412;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px;">
+<a href="GzHome.dc.html" style="padding: 14px 0; text-decoration: none; font-family: 'Libre Caslon Display', serif; font-size: 28px;">Wisdom Emmanuel Praise</a>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; margin: 0 -12px;">
+<a href="GzHome.dc.html" style="padding: 13px 12px; text-decoration: none;">Front page</a>
+<a href="GzWork.dc.html" style="padding: 13px 12px; text-decoration: none;">Work</a>
+<a href="GzDecisions.dc.html" aria-current="page" style="padding: 13px 12px; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Decisions</a>
+<a href="GzProfile.dc.html" style="padding: 13px 12px; text-decoration: none;">Profile</a>
+<a href="GzContact.dc.html" style="padding: 13px 12px; text-decoration: none;">Contact</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 36px clamp(16px, 4vw, 48px) 56px;">
+<div class="dl-intro" style="padding-bottom: 28px; border-bottom: 3px double #151412;">
+<div>
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">Opinion · Architecture decision records</span>
+<h1 style="margin: 8px 0 12px; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: clamp(44px, 6vw, 84px); line-height: 1;">The decision log</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.5; font-style: italic; color: #3A3732;">Every significant choice, written down before it was built: the context, the options, what we chose, and what it cost.</p>
+</div>
+<div style="align-self: end; display: flex; flex-direction: column; gap: 12px; border-left: 1px solid #151412; padding-left: 24px; font-size: 17px; line-height: 1.55;">
+<p style="margin: 0;">Work decisions are shared in a form that respects confidentiality; open-source ones link to the original record.</p>
+<a href="#" style="font-family: 'Libre Franklin', sans-serif; font-weight: 700; font-size: 15px; padding: 10px 0; width: fit-content;">Download my ADR template →</a>
+</div>
+</div>
+
+<div class="dl-row dl-head" style="padding: 12px 0; border-bottom: 1px solid #151412; font-family: 'Libre Franklin', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #57534B;" aria-hidden="true"><span>No.</span><span>Decision</span><span>Area</span><span>Status</span></div>
+<ol style="list-style: none; margin: 0; padding: 0;">
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+<li class="dl-row" style="padding: 18px 0; border-bottom: 1px solid #151412;">
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 700;">{{r.no}}</span>
+<div style="display: flex; flex-direction: column; gap: 4px;">
+<a href="GzDecision.dc.html" style="font-family: 'Libre Caslon Display', serif; font-size: 26px; line-height: 1.15; text-decoration: none;">{{r.title}}</a>
+<span style="font-size: 16px; line-height: 1.5; color: #3A3732;">{{r.why}}</span>
+</div>
+<span class="dl-sub" style="font-family: 'Libre Franklin', sans-serif; font-size: 14px; font-weight: 600;">{{r.area}}</span>
+<span class="dl-sub" style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #A3171C;">{{r.status}}</span>
+</li>
+</sc-for>
+</ol>
+</main>
+
+<footer style="background: #151412; color: #E9E4D8;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 22px;">Wisdom Emmanuel Praise</span>
+<nav aria-label="Elsewhere" style="display: flex; flex-wrap: wrap;"><a href="GzContact.dc.html" style="color: #E9E4D8; padding: 12px;">Email</a><a href="#" style="color: #E9E4D8; padding: 12px;">GitHub</a><a href="#" style="color: #E9E4D8; padding: 12px;">LinkedIn</a><a href="#" style="color: #E9E4D8; padding: 12px;">CV (PDF)</a></nav>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { rows: [
+      { no: 'ADR 01', title: 'One feature, five layers', why: 'A single shape for features: view, use case, repository, service, adapter.', area: 'Feature architecture', status: 'Accepted' },
+      { no: 'ADR 02', title: 'One runtime for 30+ micro-frontends, via Import Maps', why: 'Share framework and platform code at runtime instead of bundling it thirty times.', area: 'Platform runtime', status: 'Accepted' },
+      { no: 'ADR 03', title: 'Accessibility belongs in the Definition of Done', why: 'WCAG 2.2 AA and BFSG as acceptance criteria, checked per story.', area: 'Quality', status: 'Accepted' },
+      { no: 'ADR 04', title: 'Agents get the same permissions as people', why: 'Each of the 35 MCP tools is scoped to what the calling user may already do.', area: 'Agents, security', status: 'Accepted' },
+      { no: 'ADR 05', title: 'Conformance suite as a CI gate', why: 'Odudu fails the build if it stops speaking OpenID Connect correctly.', area: 'Identity', status: 'Accepted' },
+      { no: 'ADR 06', title: 'CRDTs over locks for a shared canvas', why: 'Wired merges concurrent edits with Yjs, so nobody waits for anybody.', area: 'Real-time', status: 'Accepted' },
+      { no: 'ADR 07', title: '[Your next decision]', why: '[One line on the trade-off.]', area: '[Area]', status: 'Proposed' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

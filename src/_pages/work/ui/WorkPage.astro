@@ -1,0 +1,29 @@
+---
+import { getImage } from 'astro:assets';
+import { Reveal, findAsset } from '@/shared/ui';
+import { loadWorkProjects } from '../use-cases/loadWork';
+import { WorkFilter } from './WorkFilter';
+
+const projects = await loadWorkProjects();
+const thumbs: Record<string, { src: string; width: number; height: number }> = {};
+for (const project of projects) {
+  if (!project.image) continue;
+  const thumb = await getImage({ src: findAsset(project.image.name), width: 360, format: 'webp' });
+  thumbs[project.slug] = { src: thumb.src, width: thumb.attributes.width as number, height: thumb.attributes.height as number };
+}
+---
+<div class="page work">
+  <Reveal variant="now">
+    <span class="kicker">Index of work</span>
+    <h1>Work</h1>
+    <p class="intro">Platform work at Censhare, products I led, and things I build on my own time. Entries with a case study or a public repository link to it.</p>
+  </Reveal>
+  <WorkFilter client:load projects={projects} thumbs={thumbs} />
+</div>
+
+<style>
+  .work { padding-block: 36px 56px; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 8px 0 12px; font: 400 clamp(44px, 6vw, 84px) / 1 var(--font-display); }
+  .intro { margin: 0 0 24px; max-width: 46em; font-size: 20px; line-height: 1.5; font-style: italic; color: var(--soft); }
+</style>

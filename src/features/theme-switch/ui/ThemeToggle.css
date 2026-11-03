@@ -1,0 +1,13 @@
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  font: 600 15px/1 var(--font-ui);
+  cursor: pointer;
+}

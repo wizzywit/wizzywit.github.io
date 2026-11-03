@@ -1,0 +1,18 @@
+{
+  "id": "profile",
+  "data": {
+    "name": "Wisdom Emmanuel Praise",
+    "role": "Senior Frontend Engineer, Frontend Platform & Architecture",
+    "location": "Munich area, Germany",
+    "summary": "Senior frontend engineer.",
+    "yearsExperience": 7,
+    "email": "wisdompraise968@gmail.com",
+    "links": { "github": "https://github.com/wizzywit", "linkedin": "https://www.linkedin.com/in/wisdom-praise", "gitlab": "https://gitlab.com/wizzywit" },
+    "skills": [{ "group": "Languages", "items": ["TypeScript"] }],
+    "experience": [],
+    "education": [],
+    "languages": [{ "language": "English", "level": "Native" }],
+    "workAuthorization": "Permanent residence in Germany.",
+    "ticker": [{ "id": "mcp-tools", "text": "MCP server: 35 permission-scoped tools for agents" }]
+  }
+}

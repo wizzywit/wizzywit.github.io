@@ -1,0 +1,7 @@
+.looping-video { position: relative; background: var(--panel); }
+.looping-video video { display: block; width: 100%; height: auto; }
+.looping-video button {
+  position: absolute; right: 12px; bottom: 12px; min-height: 44px; min-width: 44px; padding: 0 14px;
+  border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 700 14px var(--font-ui); cursor: pointer;
+}
+.looping-video button[hidden] { display: none; }

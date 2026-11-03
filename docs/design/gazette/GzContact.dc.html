@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Contact — Wisdom Emmanuel Praise</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F0E8}
+a{color:#151412}a:hover{color:#A3171C}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #A3171C;outline-offset:2px}
+.ct-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:56px}
+.ct-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width: 900px){.ct-grid,.ct-two{grid-template-columns:minmax(0,1fr);gap:24px}}
+@keyframes ct-stamp{0%{opacity:0;transform:rotate(-5deg) scale(1.4)}100%{opacity:1;transform:rotate(-5deg) scale(1)}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="background: #F3F0E8; color: #151412; font-family: 'Libre Caslon Text', Georgia, serif;">
+<header style="border-bottom: 3px double #151412;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px;">
+<a href="GzHome.dc.html" style="padding: 14px 0; text-decoration: none; font-family: 'Libre Caslon Display', serif; font-size: 28px;">Wisdom Emmanuel Praise</a>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; margin: 0 -12px;">
+<a href="GzHome.dc.html" style="padding: 13px 12px; text-decoration: none;">Front page</a>
+<a href="GzWork.dc.html" style="padding: 13px 12px; text-decoration: none;">Work</a>
+<a href="GzDecisions.dc.html" style="padding: 13px 12px; text-decoration: none;">Decisions</a>
+<a href="GzProfile.dc.html" style="padding: 13px 12px; text-decoration: none;">Profile</a>
+<a href="GzContact.dc.html" aria-current="page" style="padding: 13px 12px; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Contact</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 40px clamp(16px, 4vw, 48px) 56px;">
+<div class="ct-grid">
+<div style="display: flex; flex-direction: column; gap: 18px;">
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">Contact</span>
+<h1 style="margin: 0; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: clamp(44px, 6vw, 80px); line-height: 1;">Write to me</h1>
+<p style="margin: 0; font-size: 20px; line-height: 1.55;">Hiring for a Senior or Staff Frontend role, or a Senior or Staff Frontend Platform role? Or just want to talk architecture? I work with teams anywhere, remote or on-site, and reply within [two working days].</p>
+<dl style="margin: 0; border-top: 3px double #151412; font-family: 'Libre Franklin', sans-serif;">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #151412;"><dt style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Email</dt><dd style="margin: 0;"><a href="#" style="display: inline-block; padding: 14px 0; font-size: 17px; font-weight: 600;">[ADDRESS]</a></dd></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #151412;"><dt style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">LinkedIn</dt><dd style="margin: 0;"><a href="#" style="display: inline-block; padding: 14px 0; font-size: 17px; font-weight: 600;">[profile]</a></dd></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #151412;"><dt style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">GitHub</dt><dd style="margin: 0;"><a href="#" style="display: inline-block; padding: 14px 0; font-size: 17px; font-weight: 600;">[username]</a></dd></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; border-bottom: 1px solid #151412;"><dt style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">CV</dt><dd style="margin: 0;"><a href="#" style="display: inline-block; padding: 14px 0; font-size: 17px; font-weight: 600;">Download PDF</a></dd></div>
+</dl>
+</div>
+
+<section aria-labelledby="form-h" style="border: 1px solid #151412; padding: clamp(18px, 3vw, 32px); position: relative;">
+<h2 id="form-h" style="margin: 0 0 18px; font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">Or leave a note</h2>
+<sc-if value="{{notSent}}" hint-placeholder-val="{{true}}">
+<form style="display: flex; flex-direction: column; gap: 16px; font-family: 'Libre Franklin', sans-serif;">
+<div class="ct-two">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600;">Name<input type="text" autocomplete="name" required style="min-height: 48px; padding: 0 12px; border: 1px solid #151412; background: #FFFFFF; font: inherit; font-weight: 400; font-size: 16px;"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600;">Email<input type="email" autocomplete="email" required style="min-height: 48px; padding: 0 12px; border: 1px solid #151412; background: #FFFFFF; font: inherit; font-weight: 400; font-size: 16px;"></label>
+</div>
+<div class="ct-two">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600;">Company <span style="font-weight: 400; color: #57534B;">(optional)</span><input type="text" autocomplete="organization" style="min-height: 48px; padding: 0 12px; border: 1px solid #151412; background: #FFFFFF; font: inherit; font-weight: 400; font-size: 16px;"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600;">About<select style="min-height: 48px; padding: 0 10px; border: 1px solid #151412; background: #FFFFFF; font: inherit; font-weight: 400; font-size: 16px;"><option>A Senior or Staff Frontend role</option><option>A Senior or Staff Frontend Platform role</option><option>A contract or consulting project</option><option>Speaking or writing</option><option>Something else</option></select></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600;">Message<textarea rows="6" required style="padding: 12px; border: 1px solid #151412; background: #FFFFFF; font: inherit; font-weight: 400; font-size: 16px; line-height: 1.5; resize: vertical;"></textarea></label>
+<p style="margin: 0; font-size: 14px; color: #57534B;">Used only to reply to you. Nothing is stored after that.</p>
+<button type="button" onClick="{{send}}" style="align-self: flex-start; min-height: 52px; padding: 0 28px; background: #151412; color: #F3F0E8; border: 0; font: inherit; font-weight: 700; font-size: 16px; cursor: pointer;">Send note</button>
+</form>
+</sc-if>
+<sc-if value="{{sent}}" hint-placeholder-val="{{false}}">
+<div role="status" style="display: flex; flex-direction: column; gap: 14px; padding: 24px 0;">
+<span style="align-self: flex-start; padding: 6px 14px; border: 2.5px solid #A3171C; color: #A3171C; font-family: 'Libre Franklin', sans-serif; font-weight: 800; letter-spacing: 0.1em; animation: ct-stamp 400ms ease-out both;">RECEIVED</span>
+<p style="margin: 0; font-family: 'Libre Caslon Display', serif; font-size: 34px; line-height: 1.15;">Thank you. Your note is on my desk.</p>
+<p style="margin: 0; font-size: 17px;">I will reply to the address you gave within [two working days].</p>
+<button type="button" onClick="{{reset}}" style="align-self: flex-start; min-height: 48px; padding: 0 20px; background: transparent; border: 1px solid #151412; font-family: 'Libre Franklin', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer;">Write another</button>
+</div>
+</sc-if>
+</section>
+</div>
+</main>
+
+<footer style="background: #151412; color: #E9E4D8;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 22px;">Wisdom Emmanuel Praise</span>
+<nav aria-label="Elsewhere" style="display: flex; flex-wrap: wrap;"><a href="#" style="color: #E9E4D8; padding: 12px;">GitHub</a><a href="#" style="color: #E9E4D8; padding: 12px;">LinkedIn</a><a href="#" style="color: #E9E4D8; padding: 12px;">CV (PDF)</a></nav>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1200}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sent: false }; }
+  renderVals() {
+    return {
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      send: () => this.setState({ sent: true }),
+      reset: () => this.setState({ sent: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

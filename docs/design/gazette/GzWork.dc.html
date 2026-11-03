@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Work — Wisdom Emmanuel Praise</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Libre+Franklin:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F3F0E8}
+a{color:#151412}a:hover{color:#A3171C}
+a:focus-visible,button:focus-visible{outline:3px solid #A3171C;outline-offset:3px}
+.wk-row{display:grid;grid-template-columns:56px minmax(0,1.3fr) minmax(0,1.4fr) minmax(0,.8fr);gap:24px;align-items:baseline}
+@media (max-width: 860px){.wk-row{grid-template-columns:40px minmax(0,1fr);gap:6px 14px}.wk-row > .wk-wide{grid-column:2}}
+@keyframes wk-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none !important}}
+</style>
+</helmet>
+<div style="background: #F3F0E8; color: #151412; font-family: 'Libre Caslon Text', Georgia, serif;">
+<header style="border-bottom: 3px double #151412;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0 24px;">
+<a href="GzHome.dc.html" style="padding: 14px 0; text-decoration: none; font-family: 'Libre Caslon Display', serif; font-size: 28px;">Wisdom Emmanuel Praise</a>
+<nav aria-label="Sections" style="display: flex; flex-wrap: wrap; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; margin: 0 -12px;">
+<a href="GzHome.dc.html" style="padding: 13px 12px; text-decoration: none;">Front page</a>
+<a href="GzWork.dc.html" aria-current="page" style="padding: 13px 12px; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">Work</a>
+<a href="GzDecisions.dc.html" style="padding: 13px 12px; text-decoration: none;">Decisions</a>
+<a href="GzProfile.dc.html" style="padding: 13px 12px; text-decoration: none;">Profile</a>
+<a href="GzContact.dc.html" style="padding: 13px 12px; text-decoration: none;">Contact</a>
+</nav>
+</div>
+</header>
+
+<main style="max-width: 1280px; margin: 0 auto; padding: 36px clamp(16px, 4vw, 48px) 56px;">
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">Index of work</span>
+<h1 style="margin: 8px 0 12px; font-family: 'Libre Caslon Display', serif; font-weight: 400; font-size: clamp(44px, 6vw, 84px); line-height: 1;">Work</h1>
+<p style="margin: 0 0 24px; max-width: 46em; font-size: 20px; line-height: 1.5; font-style: italic; color: #3A3732;">Platform work at Censhare, products I led, and things I build on my own time. Each entry links to a case study written the way I would explain it to a new teammate.</p>
+
+<div role="group" aria-label="Filter by section" style="display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 0; border-top: 1px solid #151412; border-bottom: 1px solid #151412;">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="7">
+<sc-if value="{{f.on}}" hint-placeholder-val="{{false}}"><button type="button" aria-pressed="true" onClick="{{f.pick}}" style="min-height: 44px; padding: 0 16px; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; border: 1px solid #151412; background: #151412; color: #F3F0E8;">{{f.label}}</button></sc-if>
+<sc-if value="{{f.off}}" hint-placeholder-val="{{true}}"><button type="button" aria-pressed="false" onClick="{{f.pick}}" style="min-height: 44px; padding: 0 16px; font-family: 'Libre Franklin', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; border: 1px solid #151412; background: transparent; color: #151412;">{{f.label}}</button></sc-if>
+</sc-for>
+</div>
+<p aria-live="polite" style="margin: 12px 0 0; font-family: 'Libre Franklin', sans-serif; font-size: 14px; color: #57534B;">{{countLabel}}</p>
+
+<ol style="list-style: none; margin: 8px 0 0; padding: 0;">
+<sc-for list="{{shown}}" as="it" hint-placeholder-count="8">
+<li class="wk-row" style="padding: 22px 0; border-bottom: 1px solid #151412; animation: wk-in 300ms ease-out both;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 26px; color: #57534B;">{{it.n}}</span>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<span style="font-family: 'Libre Franklin', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #A3171C;">{{it.section}}</span>
+<a href="{{it.href}}" style="font-family: 'Libre Caslon Display', serif; font-size: 28px; line-height: 1.12; text-decoration: none;">{{it.title}}</a>
+</div>
+<p class="wk-wide" style="margin: 0; font-size: 17px; line-height: 1.55;">{{it.summary}}</p>
+<span class="wk-wide" style="font-family: 'Libre Franklin', sans-serif; font-size: 14px; font-weight: 600; color: #3A3732;">{{it.role}}</span>
+</li>
+</sc-for>
+</ol>
+</main>
+
+<footer style="background: #151412; color: #E9E4D8;">
+<div style="max-width: 1280px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 48px); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'Libre Franklin', sans-serif; font-size: 15px;">
+<span style="font-family: 'Libre Caslon Display', serif; font-size: 22px;">Wisdom Emmanuel Praise</span>
+<nav aria-label="Elsewhere" style="display: flex; flex-wrap: wrap;"><a href="GzContact.dc.html" style="color: #E9E4D8; padding: 12px;">Email</a><a href="#" style="color: #E9E4D8; padding: 12px;">GitHub</a><a href="#" style="color: #E9E4D8; padding: 12px;">LinkedIn</a><a href="#" style="color: #E9E4D8; padding: 12px;">CV (PDF)</a></nav>
+</div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { f: 'All' }; }
+  renderVals() {
+    const items = [
+      { s: 'Platform', section: 'Platform · Censhare', title: 'The five-layer feature architecture', summary: 'View, use case, repository, service, adapter. Written as an ADR; now standard in 13 product modules.', role: 'Author, architecture lead', href: 'GzDecision.dc.html' },
+      { s: 'Platform', section: 'Platform · Censhare', title: 'Frontend Builder', summary: 'The page-building product running at more than ten enterprise customers, built on the five layers.', role: 'Frontend architecture', href: '#' },
+      { s: 'Platform', section: 'Platform · Censhare', title: 'One runtime for 30+ micro-frontends', summary: 'A shared runtime composed with Import Maps, so teams ship independently without shipping duplicate frameworks.', role: 'Design and rollout', href: 'GzDecision.dc.html' },
+      { s: 'Platform', section: 'Platform · Agents', title: 'MCP server for LLM agents', summary: '35 tools, each scoped to the permissions of the user it acts for.', role: 'Design and build', href: '#' },
+      { s: 'Identity', section: 'Identity · Open source', title: 'Odudu', summary: 'Multi-tenant OAuth/OIDC identity provider with an admin console, brandable pages and an MCP server. OpenID conformance runs in CI.', role: 'Creator, maintainer', href: 'GzCase.dc.html' },
+      { s: 'Real-time', section: 'Real-time · Side project', title: 'Wired', summary: 'Collaborative infinite-canvas whiteboard. React 19, Konva, Yjs CRDTs and live cursors.', role: 'Creator', href: '#' },
+      { s: 'Real-time', section: 'Real-time · Infrastructure', title: 'WebSuckIt', summary: 'Scalable WebSocket infrastructure for developers.', role: 'Creator', href: '#' },
+      { s: 'Security', section: 'Security', title: 'FYEO Domain Intelligence', summary: 'Threat-intelligence SaaS with real-time dashboards.', role: 'Squad lead, 5 engineers', href: '#' },
+      { s: 'Security', section: 'Security', title: 'Phishing-detection browser extension', summary: 'A Chrome extension protecting more than 5,000 accounts.', role: 'Shipped it', href: '#' },
+      { s: 'Industrial', section: 'Industrial', title: 'DIONE robot-programming IDE', summary: 'A web IDE for industrial robots, with 3D cell configuration in Three.js.', role: 'Lead, 7-person unit', href: '#' },
+      { s: 'Public sector', section: 'Public sector', title: 'NASIMS and national platforms', summary: 'A national social investment platform, among public systems serving more than 2M citizens.', role: 'Frontend engineer', href: '#' },
+      { s: 'Rust', section: 'Rust · Side projects', title: 'Waihona and Mythra', summary: '[One line each on what they are and why Rust.]', role: 'Creator', href: '#' }
+    ];
+    const names = ['All', 'Platform', 'Identity', 'Real-time', 'Security', 'Industrial', 'Public sector', 'Rust'];
+    const cur = this.state.f;
+    const filters = names.map((n) => ({
+      label: n,
+      on: n === cur,
+      off: n !== cur,
+      pick: () => this.setState({ f: n })
+    }));
+    const shown = items.filter((i) => cur === 'All' || i.s === cur).map((i, k) => ({ ...i, n: String(k + 1).padStart(2, '0') }));
+    return { filters, shown, countLabel: shown.length + (shown.length === 1 ? ' entry' : ' entries') + (cur === 'All' ? '' : ' in ' + cur) };
+  }
+}
+</script>
+</body>
+</html>
