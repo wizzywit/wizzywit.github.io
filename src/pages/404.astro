@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { NotFoundPage } from '@/_pages/not-found';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+---
+<BaseLayout title="Page not found — Wisdom Emmanuel Praise" description="This page does not exist." canonicalPath="/404/" noindex>
+  <Masthead slot="header" />
+  <NotFoundPage />
+  <SiteFooter slot="footer" />
+</BaseLayout>

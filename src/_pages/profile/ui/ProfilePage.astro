@@ -1,0 +1,89 @@
+---
+import { Reveal } from '@/shared/ui';
+import { loadProfileViewModel } from '../use-cases/profileViewModel';
+
+const vm = await loadProfileViewModel();
+---
+<div class="page profile">
+  <Reveal as="section" class="top">
+    <span class="kicker">Profile</span>
+    <h1>{vm.heading}</h1>
+    {vm.intro.map((paragraph) => <p class="lede">{paragraph}</p>)}
+    <dl class="facts">
+      {vm.facts.map((fact) => <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+    </dl>
+    <p class="auth">{vm.workAuthorization}</p>
+    <div class="actions">
+      {vm.cvHref ? <a class="secondary" href={vm.cvHref}>Download CV (PDF)</a> : null}
+      <a class="primary" href="/contact/">Write to me</a>
+    </div>
+  </Reveal>
+
+  <Reveal as="section" class="block" aria-labelledby="exp-h">
+    <h2 id="exp-h">Experience</h2>
+    {vm.jobs.map((job) => (
+      <article class="job">
+        <div class="when"><strong class="org">{job.org}</strong><span>{job.period}</span><span>{job.location}</span></div>
+        <div class="what">
+          <h3>{job.title}</h3>
+          {job.context ? <p class="context">{job.context}</p> : null}
+          <ul>{job.highlights.map((line) => <li>{line}</li>)}</ul>
+          {job.stack.length > 0 ? <p class="stack"><span class="visually-hidden">Stack: </span>{job.stack.join(' · ')}</p> : null}
+        </div>
+      </article>
+    ))}
+  </Reveal>
+
+  <Reveal as="section" class="block" aria-labelledby="sk-h">
+    <h2 id="sk-h">Toolbox</h2>
+    <div class="skills">
+      {vm.skills.map((group) => <div><h3>{group.group}</h3><p>{group.items.join(' · ')}</p></div>)}
+    </div>
+  </Reveal>
+
+  <Reveal as="section" class="block" aria-labelledby="edu-h">
+    <h2 id="edu-h">Education</h2>
+    {vm.education.map((entry) => (
+      <article class="job">
+        <div class="when"><strong>{entry.school}</strong><span>{entry.period}</span></div>
+        <div class="what"><h3>{entry.degree}</h3><p class="context">{entry.note}</p></div>
+      </article>
+    ))}
+  </Reveal>
+</div>
+
+<style>
+  .profile { padding-block: 36px 56px; }
+  .top { padding-bottom: 32px; border-bottom: 3px double var(--rule); max-width: 900px; }
+  .kicker { font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 8px 0 16px; font: 400 clamp(36px, 5vw, 64px) / 1.05 var(--font-display); }
+  .lede { margin: 0 0 12px; font-size: 20px; line-height: 1.55; }
+  .facts { margin: 20px 0 8px; border-top: 1px solid var(--rule); }
+  .facts div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  dt { font: 700 12px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 0; font: 600 16px var(--font-ui); }
+  .auth { margin: 12px 0 0; font-size: 16px; color: var(--soft); max-width: 46em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .actions a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; text-decoration: none; font: 700 15px var(--font-ui); }
+  .primary { background: var(--inverse); color: var(--on-inverse); }
+  .primary:hover { color: var(--on-inverse); text-decoration: underline; }
+  .secondary { border: 1px solid var(--rule); }
+
+  .block { padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  .block > h2 { margin: 0 0 16px; font: 800 15px var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; }
+  .job { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; padding: 20px 0; border-top: 1px solid var(--rule); }
+  .job:first-of-type { border-top: 0; padding-top: 0; }
+  .when { display: flex; flex-direction: column; gap: 2px; font: 400 15px var(--font-ui); color: var(--soft); }
+  .when strong { font: 400 24px / 1.15 var(--font-display); color: var(--ink); }
+  .what h3 { margin: 0 0 8px; font: 400 26px / 1.15 var(--font-display); }
+  .context { margin: 0 0 10px; font-style: italic; color: var(--soft); }
+  .what ul { margin: 0 0 12px; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 17px; line-height: 1.55; }
+  .stack { margin: 0; font: 400 14px / 1.5 var(--font-ui); color: var(--muted); }
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
+  .skills h3 { margin: 0 0 4px; font: 700 13px var(--font-ui); letter-spacing: 0.1em; text-transform: uppercase; }
+  .skills p { margin: 0; font-size: 16px; line-height: 1.55; }
+  @media (max-width: 900px) {
+    .job, .skills { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+    .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  }
+</style>

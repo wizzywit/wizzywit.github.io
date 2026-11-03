@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { ContactPage, contactMeta } from '@/_pages/contact';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+const meta = contactMeta();
+---
+<BaseLayout title={meta.title} description={meta.description} canonicalPath="/contact/">
+  <Masthead slot="header" current="contact" />
+  <ContactPage />
+  <SiteFooter slot="footer" />
+</BaseLayout>

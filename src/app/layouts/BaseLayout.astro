@@ -19,9 +19,10 @@ interface Props {
   description: string;
   canonicalPath: string;
   jsonLd?: object[];
+  noindex?: boolean;
 }
 
-const { title, description, canonicalPath, jsonLd = [] } = Astro.props;
+const { title, description, canonicalPath, jsonLd = [], noindex = false } = Astro.props;
 const canonical = new URL(canonicalPath, Astro.site).href;
 ---
 <!doctype html>
@@ -31,6 +32,7 @@ const canonical = new URL(canonicalPath, Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : null}
     <script is:inline set:html={themeBootstrapScript} />
     <link rel="canonical" href={canonical} />
     <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />

@@ -3,7 +3,7 @@ import { navItems, type NavKey } from '@/shared/config';
 
 const FOCUSABLE = 'a[href], button:not([disabled])';
 
-export function useMobileMenu(current: NavKey): {
+export function useMobileMenu(current?: NavKey | undefined): {
   viewModel: { open: boolean; ready: boolean; links: { key: NavKey; label: string; href: string; current: boolean }[] };
   buttonRef: RefObject<HTMLButtonElement | null>;
   dialogRef: RefObject<HTMLDivElement | null>;

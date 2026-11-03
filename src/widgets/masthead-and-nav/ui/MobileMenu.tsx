@@ -3,7 +3,7 @@ import type { NavKey } from '@/shared/config';
 import { useMobileMenu } from '../use-cases/useMobileMenu';
 import './MobileMenu.css';
 
-export function MobileMenu({ current }: { current: NavKey }) {
+export function MobileMenu({ current }: { current?: NavKey | undefined }) {
   const { viewModel, buttonRef, dialogRef, openMenu, closeMenu, onKeyDown } = useMobileMenu(current);
   return (
     <>

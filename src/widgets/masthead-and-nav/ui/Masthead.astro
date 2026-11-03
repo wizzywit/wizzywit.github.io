@@ -5,7 +5,7 @@ import { loadMastheadViewModel } from '../use-cases/mastheadViewModel';
 import { MobileMenu } from './MobileMenu';
 
 interface Props {
-  current: NavKey;
+  current?: NavKey | undefined;
   variant?: 'front' | 'compact';
 }
 

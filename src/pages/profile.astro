@@ -1,0 +1,13 @@
+---
+import BaseLayout from '@/app/layouts/BaseLayout.astro';
+import { ProfilePage, profileMeta } from '@/_pages/profile';
+import { Masthead } from '@/widgets/masthead-and-nav';
+import { SiteFooter } from '@/widgets/site-footer';
+
+const meta = await profileMeta();
+---
+<BaseLayout title={meta.title} description={meta.description} canonicalPath="/profile/">
+  <Masthead slot="header" current="profile" />
+  <ProfilePage />
+  <SiteFooter slot="footer" />
+</BaseLayout>
