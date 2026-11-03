@@ -50,6 +50,14 @@ test('the video does not autoplay with reduced motion', async ({ page }, testInf
   expect(await page.locator('video').evaluate((v: HTMLVideoElement) => v.paused)).toBe(true);
 });
 
+test('the hero screenshot keeps its text alternative in both themes', async ({ page }) => {
+  for (const theme of ['light', 'dark'] as const) {
+    await setTheme(page, theme);
+    await page.reload();
+    await expect(page.getByRole('img', { name: /admin console: the overview page/i }), theme).toBeVisible();
+  }
+});
+
 test('has no axe violations in light and dark', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name === 'no-js', 'axe needs JavaScript');
   for (const theme of ['light', 'dark'] as const) {

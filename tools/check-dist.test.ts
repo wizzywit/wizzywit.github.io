@@ -17,6 +17,46 @@ function dist(files: Record<string, string | Buffer>): string {
 
 const page = (body: string, head = '') => `<!doctype html><html><head>${head}</head><body>${body}</body></html>`;
 
+describe('findDistProblems: attributes, assets and dynamic imports', () => {
+  it('flags unfinished copy inside attributes, not only visible text', () => {
+    for (const html of [
+      page('<img src="/x.png" alt="[Owner: describe this]">'),
+      page('<button aria-label="[Owner: label]">go</button>'),
+      page('', '<meta name="description" content="[Owner: write a summary]">'),
+    ]) {
+      const root = dist({ 'index.html': html, 'x.png': 'x' });
+      expect(findDistProblems(root).join('\n')).toMatch(/Owner/);
+    }
+  });
+
+  it('flags a missing image, video, poster or share image', () => {
+    const root = dist({
+      'index.html': page('<video src="/media/a.mp4" poster="/media/a.png"></video><img src="/_astro/b.webp">', '<meta property="og:image" content="https://wizzywit.github.io/og.png">'),
+    });
+    const problems = findDistProblems(root).join('\n');
+    for (const missing of ['/media/a.mp4', '/media/a.png', '/_astro/b.webp', '/og.png']) expect(problems).toContain(missing);
+  });
+
+  it('accepts assets that exist and outside URLs', () => {
+    const root = dist({
+      'index.html': page('<img src="/a.png"><img src="https://example.com/x.png">', '<meta property="og:image" content="https://wizzywit.github.io/og.png">'),
+      'a.png': 'x', 'og.png': 'x',
+    });
+    expect(findDistProblems(root)).toEqual([]);
+  });
+
+  it('counts a dynamically imported chunk against the budget', () => {
+    const big = randomBytes(6000).toString('base64');
+    const root = dist({
+      'index.html': page('<astro-island component-url="/_astro/island.js" renderer-url="/_astro/client.js"></astro-island>'),
+      '_astro/island.js': 'const load=()=>import("./lazy.js");export default load;',
+      '_astro/lazy.js': `export const x="${big}";`,
+      '_astro/client.js': 'export default 2;',
+    });
+    expect(findDistProblems(root, { jsBudgetBytes: 1000 }).join('\n')).toMatch(/JavaScript/);
+  });
+});
+
 describe('findDistProblems', () => {
   it('accepts a clean site', () => {
     const root = dist({ 'index.html': page('<a href="/work/">Work</a>'), 'work/index.html': page('<p>Work</p>') });

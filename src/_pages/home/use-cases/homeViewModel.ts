@@ -1,4 +1,4 @@
-import { getDecisions, type Decision } from '@/entities/decision';
+import { formatDecisionStatus, getDecisions, type Decision } from '@/entities/decision';
 import { buildPersonJsonLd, buildWebSiteJsonLd, getProfile } from '@/entities/profile';
 import { getProjects, type Project } from '@/entities/project';
 import { SITE_NAME, SITE_URL } from '@/shared/config';
@@ -10,7 +10,7 @@ export type HomeViewModel = {
   inBrief: { figure: string; text: string }[];
   featured: HomeFeatured[];
   more: HomeCard[];
-  decisions: { title: string; why: string; href: string }[];
+  decisions: { title: string; why: string; status: string; href: string }[];
   profile: { paragraph: string; principles: string[] };
 };
 
@@ -74,7 +74,7 @@ export function buildHomeViewModel(projects: Project[], decisions: Decision[]): 
     }),
     decisions: FEATURED_DECISIONS.flatMap((slug) => {
       const decision = decisionBySlug.get(slug);
-      return decision ? [{ title: decision.title, why: decision.why, href: `/decisions/${decision.slug}/` }] : [];
+      return decision ? [{ title: decision.title, why: decision.why, status: formatDecisionStatus(decision.status), href: `/decisions/${decision.slug}/` }] : [];
     }),
     profile: {
       paragraph:

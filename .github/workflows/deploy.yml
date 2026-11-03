@@ -26,7 +26,14 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - name: Production release check (content, build, built output)
+      - run: pnpm exec playwright install --with-deps chromium
+      # The same gates as CI run here, so a change that fails them is never published.
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - name: End-to-end tests (they build with drafts, so they run before the production build)
+        run: pnpm e2e
+      - name: Production release check (content, production build, built output)
         run: pnpm release:check
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -38,14 +38,14 @@ const shareImage = new URL('/og.png', Astro.site).href;
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : null}
     <script is:inline set:html={themeBootstrapScript} />
-    <link rel="canonical" href={canonical} />
+    {!noindex ? <link rel="canonical" href={canonical} /> : null}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="alternate" type="application/rss+xml" title="Decision log" href="/rss.xml" />
     <meta property="og:site_name" content="Wisdom Emmanuel Praise" />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex ? <meta property="og:url" content={canonical} /> : null}
     <meta property="og:image" content={shareImage} />
     <meta property="og:image:alt" content="Wisdom Emmanuel Praise, Senior Frontend Engineer, set as a newspaper masthead" />
     <meta name="twitter:card" content="summary_large_image" />

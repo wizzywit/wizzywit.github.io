@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { SITE_URL } from '../src/shared/config/site.ts';
 import { findPlaceholders } from '../src/shared/lib/placeholders.ts';
 
 const DEFAULT_JS_BUDGET = 85 * 1024;
@@ -30,12 +31,35 @@ function scriptFiles(distDir: string, html: string): Set<string> {
     const file = url.startsWith('/') ? path.join(distDir, url) : path.resolve(path.dirname(from ?? distDir), url);
     if (found.has(file) || !existsSync(file)) return;
     found.add(file);
-    for (const match of readFileSync(file, 'utf8').matchAll(/(?:from|import)\s*["'](\.{1,2}\/[^"']+\.js)["']/g)) add(match[1]!, file);
+    for (const match of readFileSync(file, 'utf8').matchAll(/(?:from|import)\s*\(?\s*["'](\.{1,2}\/[^"']+\.js)["']/g)) add(match[1]!, file);
   };
   for (const match of html.matchAll(/(?:component-url|renderer-url|before-hydration-url)="([^"]+\.js)"/g)) add(match[1]!);
   for (const match of html.matchAll(/<script[^>]+src="([^"]+\.js)"/g)) add(match[1]!);
   for (const match of html.matchAll(/<link[^>]+rel="modulepreload"[^>]+href="([^"]+\.js)"/g)) add(match[1]!);
   return found;
+}
+
+const COPY_ATTRIBUTES = ['alt', 'title', 'aria-label', 'aria-description', 'placeholder', 'content', 'label'];
+
+/** Copy a reader or a search engine sees that is not element text: alt, aria-label, meta content. */
+function attributeCopy(html: string): string[] {
+  const withoutCode = html.replace(/<(script|style)[\s\S]*?<\/\1>/g, ' ');
+  const pattern = new RegExp(`\\s(?:${COPY_ATTRIBUTES.join('|')})="([^"]*)"`, 'g');
+  return [...withoutCode.matchAll(pattern)].map((match) => match[1]!);
+}
+
+/** Local files the page asks for besides links: images, video, posters and the share image. */
+function assetPaths(html: string): string[] {
+  const paths: string[] = [];
+  for (const match of html.matchAll(/\s(?:src|poster)="(\/[^"]*)"/g)) paths.push(match[1]!);
+  for (const match of html.matchAll(/\ssrcset="([^"]*)"/g)) {
+    for (const candidate of match[1]!.split(',')) {
+      const url = candidate.trim().split(/\s+/)[0]!;
+      if (url.startsWith('/') && !url.startsWith('//')) paths.push(url);
+    }
+  }
+  for (const match of html.matchAll(new RegExp(`content="${SITE_URL.replace(/[.]/g, '\\.')}(\\/[^"]*)"`, 'g'))) paths.push(match[1]!);
+  return paths;
 }
 
 /** Checks a built site: no /odudu/, no unfinished copy, no dead links, and JavaScript within budget per page. */
@@ -47,12 +71,15 @@ export function findDistProblems(distDir: string, options: { jsBudgetBytes?: num
   for (const file of walk(distDir).filter((f) => f.endsWith('.html'))) {
     const name = path.relative(distDir, file).split(path.sep).join('/');
     const html = readFileSync(file, 'utf8');
-    for (const marker of findPlaceholders(visibleText(html))) problems.push(`${name}: unfinished copy ${marker}`);
+    for (const marker of findPlaceholders([visibleText(html), ...attributeCopy(html)].join('\n'))) problems.push(`${name}: unfinished copy ${marker}`);
     if (/href=(["'])#\1/.test(html)) problems.push(`${name}: dead link href="#"`);
     for (const match of html.matchAll(/href="(\/[^"]*)"/g)) {
       const href = match[1]!;
       if (href.startsWith('//')) continue;
       if (!linkExists(distDir, href)) problems.push(`${name}: broken internal link ${href}`);
+    }
+    for (const asset of assetPaths(html)) {
+      if (!linkExists(distDir, asset)) problems.push(`${name}: missing file ${asset}`);
     }
     const bytes = [...scriptFiles(distDir, html)].reduce((sum, script) => sum + gzipSync(readFileSync(script)).length, 0);
     if (bytes > budget) problems.push(`${name}: JavaScript is ${(bytes / 1024).toFixed(1)} KB gzipped, over the ${(budget / 1024).toFixed(0)} KB budget`);

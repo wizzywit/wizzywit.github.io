@@ -94,7 +94,7 @@ const rel = (external: boolean) => (external ? 'noopener' : undefined);
       <div class="three">
         {vm.decisions.map((decision) => (
           <article>
-            <span class="meta">ADR · Accepted</span>
+            <span class="meta">ADR · {decision.status}</span>
             <h3><a href={decision.href}>{decision.title}</a></h3>
             <p>{decision.why}</p>
           </article>

@@ -51,6 +51,11 @@ describe('buildHomeViewModel', () => {
     expect(buildHomeViewModel(projects, decisions.slice(0, 2)).decisions).toHaveLength(1);
   });
 
+  it('shows each featured decision with its own status, not a fixed word', () => {
+    const mixed = [decision('one-runtime', 2), { ...decision('accessibility-in-dod', 3), status: 'proposed' as const }, { ...decision('agent-permissions', 4), status: 'superseded' as const }];
+    expect(buildHomeViewModel(projects, mixed).decisions.map((d) => d.status)).toEqual(['Accepted', 'Proposed', 'Superseded']);
+  });
+
   it('has no decisions section content when none are published', () => {
     expect(buildHomeViewModel(projects, []).decisions).toEqual([]);
   });

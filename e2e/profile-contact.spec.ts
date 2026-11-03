@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { expect, test } from '@playwright/test';
 import { expectNoAxeViolations, setTheme } from './helpers/axe';
 
@@ -22,8 +23,13 @@ test.describe('profile', () => {
     await expect(page.locator('main')).toContainText('Niederlassungserlaubnis');
   });
 
-  test('offers no CV PDF until the owner supplies one', async ({ page }) => {
-    await expect(page.getByRole('link', { name: /Download CV/ })).toHaveCount(0);
+  test('offers the CV PDF only once the owner has supplied public/cv.pdf', async ({ page }) => {
+    const link = page.getByRole('link', { name: /Download CV/ });
+    if (existsSync('public/cv.pdf')) {
+      await expect(link).toHaveAttribute('href', '/cv.pdf');
+    } else {
+      await expect(link).toHaveCount(0);
+    }
   });
 
   test('never shows placeholders or dead links', async ({ page }) => {
